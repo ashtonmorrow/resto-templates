@@ -9,6 +9,7 @@ interface Props {
   variant?: 'full' | 'plain' | 'compact';
   align?: 'center' | 'left';
   minh?: string;
+  priority?: boolean;
 }
 const {
   image,
@@ -19,6 +20,7 @@ const {
   variant = 'full',
   align = 'center',
   minh,
+  priority = true,
 } = Astro.props;
 const style = minh ? `--minh:${minh}` : '';
 ---
@@ -32,7 +34,7 @@ const style = minh ? `--minh:${minh}` : '';
     </header>
   ) : (
     <header class={`hero hero--${variant} hero--${align}`} style={style}>
-      {image && <Img src={image} alt={imageAlt} class="hero__bg" />}
+      {image && <Img src={image} alt={imageAlt} class="hero__bg" priority={priority} />}
       <div class="hero__scrim" />
       <div class="hero__inner">
         {kicker && <p class="hero__kicker">{kicker}</p>}

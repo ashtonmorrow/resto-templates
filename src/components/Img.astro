@@ -7,8 +7,9 @@ interface Props {
   class?: string;
   grad?: string;
   ratio?: string;
+  priority?: boolean;
 }
-const { src, alt, class: className = '', grad, ratio } = Astro.props;
+const { src, alt, class: className = '', grad, ratio, priority = false } = Astro.props;
 const gradient = grad ?? 'var(--grad-a), var(--grad-b)';
 const styleVars = `--g:${gradient};${ratio ? `aspect-ratio:${ratio};` : ''}`;
 ---
@@ -16,7 +17,8 @@ const styleVars = `--g:${gradient};${ratio ? `aspect-ratio:${ratio};` : ''}`;
   <img
     src={src}
     alt={alt}
-    loading="lazy"
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
     decoding="async"
     onload="this.parentElement.classList.add('is-loaded')"
     onerror="this.remove();this.parentElement.classList.add('is-fallback')"
