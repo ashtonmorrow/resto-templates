@@ -57,8 +57,9 @@ const style = minh ? `--minh:${minh}` : '';
   .hero__bg { position: absolute; inset: 0; z-index: 0; }
   .hero__scrim {
     position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(to top, var(--scrim), transparent 55%),
-      linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0.1));
+    /* Guarantees white hero text stays legible over any photo or the
+       pre-image gradient fallback, for both bottom- and center-aligned heroes. */
+    background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.4));
   }
   .hero__inner {
     position: relative; z-index: 2;
