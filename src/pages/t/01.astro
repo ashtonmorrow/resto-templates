@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/blocks/Hero.astro';
+import About from '../../components/blocks/About.astro';
+import Menu from '../../components/blocks/Menu.astro';
+import Gallery from '../../components/blocks/Gallery.astro';
+import Book from '../../components/blocks/Book.astro';
+import SiteFooter from '../../components/blocks/SiteFooter.astro';
+import { restaurant } from '../../data/restaurant';
+---
+<Base title={`${restaurant.name} — Parrilla en Palermo`} theme="ember" description={restaurant.about}>
+  <a id="top"></a>
+  <Hero
+    image="/images/ambiance/parrilla-grill.jpg"
+    imageAlt="Parrilla a las brasas"
+    kicker={restaurant.kicker}
+    title={restaurant.name}
+    tagline={restaurant.tagline}
+    align="center"
+  >
+    <Book />
+    <a class="btn btn--ghost" href="#menu" style="color:#fff;border-color:rgba(255,255,255,.4)">Ver la carta</a>
+  </Hero>
+
+  <div class="section wrap"><About image="/images/food/asado-platter.jpg" imageAlt="Asado a la parrilla" /></div>
+
+  <div class="menuband" id="menu">
+    <div class="section wrap"><Menu variant="columns" heading="La Carta" /></div>
+  </div>
+
+  <div class="section wrap" id="gallery"><Gallery variant="grid" heading="El fuego, la mesa" /></div>
+
+  <SiteFooter />
+</Base>
+<style>
+  .menuband { background: var(--surface); border-block: 1px solid var(--border); }
+</style>

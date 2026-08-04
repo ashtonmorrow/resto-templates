@@ -1,0 +1,63 @@
+---
+// Image with a themed gradient + label fallback. If the file is missing (before
+// the Midjourney downloads land), the gradient shows and the layout stays intact.
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  grad?: string;
+  ratio?: string;
+}
+const { src, alt, class: className = '', grad, ratio } = Astro.props;
+const gradient = grad ?? 'var(--grad-a), var(--grad-b)';
+const styleVars = `--g:${gradient};${ratio ? `aspect-ratio:${ratio};` : ''}`;
+---
+<div class={`imgw ${className}`} style={styleVars}>
+  <img
+    src={src}
+    alt={alt}
+    loading="lazy"
+    decoding="async"
+    onload="this.parentElement.classList.add('is-loaded')"
+    onerror="this.remove();this.parentElement.classList.add('is-fallback')"
+  />
+  <span class="imgw__label" aria-hidden="true">{alt}</span>
+</div>
+
+<style>
+  .imgw {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--g));
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .imgw img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .imgw.is-loaded img { opacity: 1; }
+  .imgw__label {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    color: #fff;
+    mix-blend-mode: overlay;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+</style>

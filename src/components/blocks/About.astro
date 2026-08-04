@@ -1,0 +1,36 @@
+---
+import Img from '../Img.astro';
+import { restaurant } from '../../data/restaurant';
+interface Props {
+  image?: string;
+  imageAlt?: string;
+  heading?: string;
+  reverse?: boolean;
+}
+const {
+  image,
+  imageAlt = 'El salón',
+  heading = 'Nosotros',
+  reverse = false,
+} = Astro.props;
+---
+<section class={`about ${reverse ? 'about--reverse' : ''} ${image ? '' : 'about--noimg'}`}>
+  {image && <figure class="about__media"><Img src={image} alt={imageAlt} /></figure>}
+  <div class="about__body">
+    <p class="eyebrow">{heading}</p>
+    <p class="about__lead">{restaurant.about}</p>
+    <p class="about__story muted">{restaurant.story}</p>
+  </div>
+</section>
+<style>
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
+  .about--reverse .about__media { order: 2; }
+  .about--noimg { grid-template-columns: 1fr; max-width: 62ch; }
+  .about__media { margin: 0; aspect-ratio: 4/3; border-radius: var(--radius); overflow: hidden; }
+  .about__lead { font-family: var(--font-display); font-size: clamp(1.3rem, 3vw, 2rem); line-height: 1.25; margin-top: 0.8rem; }
+  .about__story { margin-top: 1.2rem; font-size: 1.05rem; }
+  @media (max-width: 780px) {
+    .about { grid-template-columns: 1fr; }
+    .about--reverse .about__media { order: 0; }
+  }
+</style>

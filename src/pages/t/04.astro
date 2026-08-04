@@ -1,0 +1,70 @@
+---
+import Base from '../../layouts/Base.astro';
+import Menu from '../../components/blocks/Menu.astro';
+import Gallery from '../../components/blocks/Gallery.astro';
+import Book from '../../components/blocks/Book.astro';
+import Hours from '../../components/blocks/Hours.astro';
+import Social from '../../components/blocks/Social.astro';
+import Img from '../../components/Img.astro';
+import { restaurant } from '../../data/restaurant';
+---
+<Base title={`${restaurant.name} — Café y brunch`} theme="airy" description={restaurant.about}>
+  <div class="layout">
+    <aside class="side">
+      <div class="side__inner">
+        <p class="eyebrow">{restaurant.kicker}</p>
+        <h1 class="side__brand">{restaurant.name}</h1>
+        <p class="side__tag muted">{restaurant.tagline}</p>
+        <nav class="side__nav">
+          <a href="#about">Nosotros</a>
+          <a href="#menu">La carta</a>
+          <a href="#gallery">Galería</a>
+          <a href="#visit">Visitanos</a>
+        </nav>
+        <div class="side__book"><Book variant="block" /></div>
+        <div class="side__hours"><Hours compact heading="Horarios" /></div>
+        <div class="side__social"><Social /></div>
+      </div>
+    </aside>
+
+    <main class="content" id="top">
+      <figure class="content__hero"><Img src="/images/ambiance/modern-bright.jpg" alt="El salón" /></figure>
+      <section class="content__about section" id="about">
+        <p class="eyebrow">Nosotros</p>
+        <p class="lead">{restaurant.about}</p>
+        <p class="muted">{restaurant.story}</p>
+      </section>
+      <section class="content__menu section" id="menu"><Menu variant="list" heading="La carta" /></section>
+      <section class="section" id="gallery"><Gallery variant="grid" heading="Momentos" /></section>
+      <footer class="content__foot section" id="visit">
+        <h3>Visitanos</h3>
+        <p class="lead2">{restaurant.address}</p>
+        <p class="muted">{restaurant.neighborhood}, {restaurant.city} · {restaurant.phone}</p>
+        <p class="muted demo">Sitio de demostración</p>
+      </footer>
+    </main>
+  </div>
+</Base>
+<style>
+  .layout { display: grid; grid-template-columns: 340px 1fr; }
+  .side { border-right: 1px solid var(--border); background: var(--surface); }
+  .side__inner { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: clamp(28px, 3vw, 44px); display: flex; flex-direction: column; gap: 1.4rem; }
+  .side__brand { font-family: var(--font-display); font-size: 2.4rem; line-height: 1; margin-top: 0.4rem; }
+  .side__tag { font-size: 0.98rem; }
+  .side__nav { display: flex; flex-direction: column; gap: 0.6rem; font-weight: 600; font-size: 1.05rem; }
+  .side__nav a:hover { color: var(--accent); }
+  .side__social { margin-top: auto; }
+  .content__hero { margin: 0; aspect-ratio: 16/9; }
+  .content { min-width: 0; }
+  .content section, .content footer { padding-inline: clamp(24px, 5vw, 72px); }
+  .lead { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2.1rem); line-height: 1.25; margin-bottom: 1rem; }
+  .lead2 { font-size: 1.2rem; font-weight: 600; }
+  .content__foot { background: var(--surface-2); }
+  .content__foot h3 { font-size: 1.6rem; margin-bottom: 0.6rem; }
+  .demo { margin-top: 1.5rem; font-size: 0.85rem; }
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .side__inner { position: static; height: auto; }
+    .side { border-right: 0; border-bottom: 1px solid var(--border); }
+  }
+</style>

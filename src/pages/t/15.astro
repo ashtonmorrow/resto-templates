@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import Menu from '../../components/blocks/Menu.astro';
+import Book from '../../components/blocks/Book.astro';
+import Hours from '../../components/blocks/Hours.astro';
+import Social from '../../components/blocks/Social.astro';
+import Img from '../../components/Img.astro';
+import { restaurant } from '../../data/restaurant';
+---
+<Base title={`${restaurant.name} — Rotisería y comidas`} theme="warm" description={restaurant.about}>
+  <div class="rot">
+    <main class="rot__main">
+      <header class="rot__hero">
+        <p class="eyebrow">{restaurant.kicker}</p>
+        <h1>{restaurant.name}</h1>
+        <p class="rot__tag">{restaurant.tagline}</p>
+        <div class="rot__cta"><Book label="Encargar por WhatsApp" /></div>
+      </header>
+      <figure class="rot__img"><Img src="/images/food/asado-platter.jpg" alt="Asado a la parrilla" /></figure>
+      <section class="rot__about">
+        <p class="eyebrow">Nosotros</p>
+        <p class="lead">{restaurant.about}</p>
+        <p class="muted">{restaurant.story}</p>
+      </section>
+      <section class="rot__gallery">
+        <figure><Img src="/images/food/empanadas.jpg" alt="Empanadas" /></figure>
+        <figure><Img src="/images/food/milanesa.jpg" alt="Milanesa napolitana" /></figure>
+        <figure><Img src="/images/food/provoleta.jpg" alt="Provoleta" /></figure>
+      </section>
+      <footer class="rot__foot">
+        <div><b>{restaurant.address}</b><p class="muted">{restaurant.neighborhood}, {restaurant.city} · {restaurant.phone}</p></div>
+        <Social />
+        <p class="muted demo">Sitio de demostración</p>
+      </footer>
+    </main>
+
+    <aside class="rot__panel">
+      <div class="rot__panel-inner">
+        <h2 class="rot__panel-title">La carta</h2>
+        <Menu variant="list" heading={null} />
+        <div class="rot__panel-hours"><Hours compact /></div>
+      </div>
+    </aside>
+  </div>
+</Base>
+<style>
+  .rot { display: grid; grid-template-columns: 1fr 380px; }
+  .rot__main { min-width: 0; }
+  .rot__hero { padding: clamp(40px, 6vw, 88px) clamp(24px, 5vw, 64px) clamp(24px, 3vw, 40px); }
+  .rot__hero h1 { font-size: clamp(2.8rem, 6vw, 4.6rem); margin-top: 0.4rem; }
+  .rot__tag { font-size: 1.2rem; margin: 1rem 0 1.6rem; color: var(--muted); max-width: 36ch; }
+  .rot__img { margin: 0; aspect-ratio: 21/9; }
+  .rot__about { padding: clamp(32px, 5vw, 64px); }
+  .lead { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2.1rem); line-height: 1.25; margin-bottom: 1rem; }
+  .rot__gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 clamp(24px, 5vw, 64px); }
+  .rot__gallery figure { margin: 0; aspect-ratio: 1; border-radius: var(--radius-sm); overflow: hidden; }
+  .rot__foot { padding: clamp(32px, 5vw, 64px); display: grid; gap: 1rem; }
+  .demo { font-size: 0.85rem; }
+  .rot__panel { border-left: 1px solid var(--border); background: var(--surface); }
+  .rot__panel-inner { position: sticky; top: 0; max-height: 100vh; overflow-y: auto; padding: clamp(28px, 3vw, 44px); }
+  .rot__panel-title { font-size: 1.8rem; margin-bottom: 1.4rem; color: var(--accent); }
+  .rot__panel-hours { margin-top: 2rem; padding-top: 1.4rem; border-top: 1px solid var(--border); }
+  @media (max-width: 900px) {
+    .rot { grid-template-columns: 1fr; }
+    .rot__panel { border-left: 0; border-top: 1px solid var(--border); }
+    .rot__panel-inner { position: static; max-height: none; }
+  }
+</style>

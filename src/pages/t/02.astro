@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/blocks/Nav.astro';
+import Hero from '../../components/blocks/Hero.astro';
+import About from '../../components/blocks/About.astro';
+import Menu from '../../components/blocks/Menu.astro';
+import Gallery from '../../components/blocks/Gallery.astro';
+import Book from '../../components/blocks/Book.astro';
+import SiteFooter from '../../components/blocks/SiteFooter.astro';
+import { restaurant } from '../../data/restaurant';
+---
+<Base title={`${restaurant.name} — Bodegón de Palermo desde ${restaurant.since}`} theme="heritage" description={restaurant.about}>
+  <a id="top"></a>
+  <Nav variant="solid" />
+  <Hero
+    image="/images/ambiance/bodegon-warm.jpg"
+    imageAlt="El salón de siempre"
+    variant="compact"
+    kicker={`Desde ${restaurant.since}`}
+    title={restaurant.name}
+    tagline={restaurant.tagline}
+  >
+    <Book />
+  </Hero>
+  <div class="section wrap" id="about"><About image="/images/detail/table-flatlay.jpg" imageAlt="La mesa puesta" heading="La casa" /></div>
+  <div class="band" id="menu"><div class="section wrap"><Menu variant="columns" heading="Nuestra carta" /></div></div>
+  <div class="section wrap" id="gallery"><Gallery variant="strip" heading="De la cocina" /></div>
+  <SiteFooter />
+</Base>
+<style>
+  .band { background: var(--surface); border-block: 1px solid var(--border); }
+</style>

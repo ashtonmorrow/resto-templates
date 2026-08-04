@@ -1,0 +1,62 @@
+---
+import { restaurant } from '../../data/restaurant';
+interface Props {
+  variant?: 'list' | 'columns' | 'cards' | 'compact';
+  heading?: string | null;
+  limit?: number;
+}
+const { variant = 'list', heading = 'La Carta', limit } = Astro.props;
+const cats = limit ? restaurant.menu.slice(0, limit) : restaurant.menu;
+---
+<section class={`menu menu--${variant}`} id="menu">
+  {heading && <h2 class="menu__title">{heading}</h2>}
+  <div class="menu__grid">
+    {
+      cats.map((c) => (
+        <div class="cat">
+          <div class="cat__head">
+            <h3 class="cat__name">{c.name}</h3>
+            {c.note && <span class="cat__note muted">{c.note}</span>}
+          </div>
+          <div class="cat__items">
+            {c.items.map((it) => (
+              <div class="mi">
+                <div class="mi__row">
+                  <span class="mi__name">{it.name}</span>
+                  <span class="mi__dots" />
+                  <span class="mi__price">{it.price}</span>
+                </div>
+                {it.desc && <p class="mi__desc muted">{it.desc}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .menu__title { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 2rem; }
+  .menu__grid { display: grid; gap: clamp(2rem, 4vw, 3rem); }
+  .menu--columns .menu__grid { grid-template-columns: repeat(2, 1fr); }
+  .menu--cards .menu__grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .cat__head { display: flex; align-items: baseline; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+  .cat__name { font-size: 1.4rem; color: var(--accent); }
+  .cat__note { font-size: 0.85rem; }
+  .menu--cards .cat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+  }
+  .cat__items { display: grid; gap: 0.9rem; }
+  .mi__row { display: flex; align-items: baseline; gap: 0.5rem; }
+  .mi__name { font-weight: 600; }
+  .mi__dots { flex: 1; border-bottom: 1px dotted var(--border); transform: translateY(-3px); }
+  .mi__price { font-variant-numeric: tabular-nums; color: var(--text); white-space: nowrap; }
+  .mi__desc { font-size: 0.9rem; margin-top: 0.15rem; }
+  .menu--compact .mi__desc { display: none; }
+  .menu--compact .cat__items { gap: 0.5rem; }
+  @media (max-width: 720px) {
+    .menu--columns .menu__grid { grid-template-columns: 1fr; }
+  }
+</style>

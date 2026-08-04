@@ -1,0 +1,27 @@
+---
+import { restaurant } from '../../data/restaurant';
+interface Props { heading?: string | null; compact?: boolean; }
+const { heading = 'Horarios', compact = false } = Astro.props;
+---
+<div class={`hours ${compact ? 'hours--compact' : ''}`}>
+  {heading && <h3 class="hours__title">{heading}</h3>}
+  <dl class="hours__list">
+    {
+      restaurant.hours.map((h) => (
+        <div class="hours__row">
+          <dt>{h.days}</dt>
+          <dd class="muted">{h.time}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</div>
+<style>
+  .hours__title { font-size: 1.2rem; margin-bottom: 0.9rem; }
+  .hours__row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+  .hours__row:last-child { border-bottom: 0; }
+  .hours__row dt { font-weight: 600; }
+  .hours__row dd { text-align: right; }
+  .hours--compact .hours__row { padding: 0.25rem 0; border: 0; font-size: 0.9rem; }
+  @media (max-width: 520px) { .hours__row { flex-direction: column; gap: 0.1rem; } .hours__row dd { text-align: left; } }
+</style>

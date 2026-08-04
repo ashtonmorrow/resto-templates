@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import Book from '../../components/blocks/Book.astro';
+import Social from '../../components/blocks/Social.astro';
+import { restaurant } from '../../data/restaurant';
+const maps = `https://www.google.com/maps/search/?api=1&query=${restaurant.geo.lat},${restaurant.geo.lng}`;
+---
+<Base title={`${restaurant.name} — ${restaurant.neighborhood}`} theme="mono" description={restaurant.tagline}>
+  <main class="mini">
+    <div class="mini__inner">
+      <p class="eyebrow">{restaurant.kicker}</p>
+      <h1 class="mini__name">{restaurant.name}</h1>
+      <p class="mini__tag">{restaurant.tagline}</p>
+
+      <div class="mini__facts">
+        {restaurant.hours.map((h) => (
+          <div class="fact"><span>{h.days}</span><b>{h.time}</b></div>
+        ))}
+        <div class="fact"><span>Dirección</span><b>{restaurant.address}, {restaurant.neighborhood}</b></div>
+        <div class="fact"><span>Teléfono</span><b>{restaurant.phone}</b></div>
+      </div>
+
+      <div class="mini__cta">
+        <Book />
+        <a class="btn btn--ghost" href={maps} target="_blank" rel="noopener">Cómo llegar</a>
+      </div>
+      <div class="mini__social"><Social /></div>
+      <p class="muted demo">Sitio de demostración</p>
+    </div>
+  </main>
+</Base>
+<style>
+  .mini { min-height: 100vh; display: grid; place-items: center; padding: clamp(24px, 6vw, 64px); }
+  .mini__inner { width: 100%; max-width: 640px; }
+  .mini__name { font-size: clamp(3rem, 12vw, 6.5rem); line-height: 0.95; margin-top: 0.6rem; text-transform: uppercase; letter-spacing: -0.02em; }
+  .mini__tag { font-size: 1.25rem; margin-top: 1rem; color: var(--muted); }
+  .mini__facts { margin: 2.5rem 0; border-top: 1px solid var(--border); }
+  .fact { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--border); }
+  .fact span { color: var(--muted); }
+  .fact b { text-align: right; }
+  .mini__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .mini__social { margin-top: 1.8rem; }
+  .demo { margin-top: 2rem; font-size: 0.8rem; }
+  @media (max-width: 520px) { .fact { flex-direction: column; gap: 0.1rem; } .fact b { text-align: left; } }
+</style>

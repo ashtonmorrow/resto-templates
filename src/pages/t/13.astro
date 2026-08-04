@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import Gallery from '../../components/blocks/Gallery.astro';
+import Menu from '../../components/blocks/Menu.astro';
+import Book from '../../components/blocks/Book.astro';
+import Social from '../../components/blocks/Social.astro';
+import SiteFooter from '../../components/blocks/SiteFooter.astro';
+import { restaurant } from '../../data/restaurant';
+---
+<Base title={`${restaurant.name} — ${restaurant.neighborhood}`} theme="gallery" description={restaurant.about}>
+  <header class="ig-top wrap">
+    <div>
+      <p class="eyebrow">{restaurant.kicker}</p>
+      <h1 class="ig-name">{restaurant.name}</h1>
+      <p class="muted ig-tag">{restaurant.tagline}</p>
+    </div>
+    <div class="ig-top__actions">
+      <Book />
+      <Social compact />
+    </div>
+  </header>
+
+  <section class="wrap"><Gallery variant="masonry" heading={null} /></section>
+
+  <section class="band" id="menu"><div class="section wrap"><Menu variant="compact" heading="La carta" /></div></section>
+
+  <SiteFooter />
+</Base>
+<style>
+  .ig-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; padding-block: clamp(28px, 5vw, 56px); flex-wrap: wrap; }
+  .ig-name { font-size: clamp(2.6rem, 7vw, 5rem); }
+  .ig-tag { font-size: 1.1rem; margin-top: 0.5rem; }
+  .ig-top__actions { display: flex; align-items: center; gap: 1.2rem; }
+  .band { background: var(--surface); border-top: 1px solid var(--border); margin-top: clamp(24px, 4vw, 48px); }
+</style>

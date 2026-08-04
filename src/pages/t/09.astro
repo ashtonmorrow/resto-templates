@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import Menu from '../../components/blocks/Menu.astro';
+import Book from '../../components/blocks/Book.astro';
+import Gallery from '../../components/blocks/Gallery.astro';
+import SiteFooter from '../../components/blocks/SiteFooter.astro';
+import Img from '../../components/Img.astro';
+import { restaurant } from '../../data/restaurant';
+const events = [
+  { day: 'Jue', title: 'Cata de Malbec', detail: 'Valle de Uco · 20:30' },
+  { day: 'Vie', title: 'Vinos naturales', detail: 'Copas desde $4.500 · 21:00' },
+  { day: 'Sáb', title: 'Música en vivo', detail: 'Jazz + tabla · 22:00' },
+];
+---
+<Base title={`${restaurant.name} — Bar de vinos`} theme="wine" description={restaurant.about}>
+  <a id="top"></a>
+  <header class="cava-hero">
+    <Img src="/images/food/malbec.jpg" alt="Malbec de la casa" class="cava-hero__bg" />
+    <div class="cava-hero__scrim"></div>
+    <div class="wrap cava-hero__content">
+      <p class="eyebrow">Bar de vinos · {restaurant.neighborhood}</p>
+      <h1>{restaurant.name}</h1>
+      <p class="cava-hero__tag">{restaurant.tagline}</p>
+      <Book label="Reservar mesa" />
+    </div>
+  </header>
+
+  <section class="wrap section events">
+    <p class="eyebrow">Esta semana</p>
+    <div class="events__grid">
+      {events.map((e) => (
+        <div class="event">
+          <span class="event__day">{e.day}</span>
+          <div>
+            <h3>{e.title}</h3>
+            <p class="muted">{e.detail}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div class="band" id="menu"><div class="section wrap"><Menu variant="columns" heading="Para acompañar" /></div></div>
+  <div class="section wrap"><Gallery variant="grid" heading="El ambiente" limit={4} /></div>
+  <SiteFooter />
+</Base>
+<style>
+  .cava-hero { position: relative; min-height: 82vh; display: grid; align-items: end; color: #fff; overflow: hidden; }
+  .cava-hero__bg { position: absolute; inset: 0; }
+  .cava-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,6,9,0.85), rgba(12,6,9,0.2)); }
+  .cava-hero__content { position: relative; z-index: 2; padding-block: clamp(32px, 6vw, 72px); }
+  .cava-hero h1 { font-size: clamp(3rem, 9vw, 6rem); margin-top: 0.5rem; }
+  .cava-hero__tag { font-size: clamp(1.1rem, 2.4vw, 1.5rem); margin: 1rem 0 1.8rem; max-width: 40ch; opacity: 0.9; }
+  .events__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+  .event { display: flex; gap: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem; }
+  .event__day { font-family: var(--font-display); font-size: 1.6rem; color: var(--accent); }
+  .event h3 { font-size: 1.15rem; }
+  .band { background: var(--surface); border-block: 1px solid var(--border); }
+  @media (max-width: 720px) { .events__grid { grid-template-columns: 1fr; } }
+</style>

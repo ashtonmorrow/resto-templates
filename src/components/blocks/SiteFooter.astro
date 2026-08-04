@@ -1,0 +1,32 @@
+---
+import { restaurant } from '../../data/restaurant';
+import Social from './Social.astro';
+import Hours from './Hours.astro';
+import Location from './Location.astro';
+interface Props { id?: string; }
+const { id = 'visit' } = Astro.props;
+---
+<footer class="foot section" id={id}>
+  <div class="wrap foot__grid">
+    <div>
+      <p class="foot__brand">{restaurant.name}</p>
+      <p class="muted foot__tag">{restaurant.tagline}</p>
+      <div class="foot__social"><Social /></div>
+    </div>
+    <Hours />
+    <Location />
+  </div>
+  <div class="wrap foot__base">
+    <span class="muted">© {restaurant.name} · {restaurant.neighborhood}, {restaurant.city}</span>
+    <span class="muted foot__demo">Sitio de demostración</span>
+  </div>
+</footer>
+<style>
+  .foot { background: var(--surface-2); border-top: 1px solid var(--border); }
+  .foot__grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); }
+  .foot__brand { font-family: var(--font-display); font-size: 1.6rem; }
+  .foot__tag { margin-top: 0.5rem; max-width: 34ch; }
+  .foot__social { margin-top: 1.2rem; }
+  .foot__base { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: 0.85rem; flex-wrap: wrap; }
+  @media (max-width: 780px) { .foot__grid { grid-template-columns: 1fr; } }
+</style>

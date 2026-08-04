@@ -1,0 +1,37 @@
+---
+import Img from '../Img.astro';
+import { restaurant } from '../../data/restaurant';
+interface Props {
+  variant?: 'strip' | 'grid' | 'masonry';
+  heading?: string | null;
+  limit?: number;
+}
+const { variant = 'grid', heading = null, limit } = Astro.props;
+const items = limit ? restaurant.gallery.slice(0, limit) : restaurant.gallery;
+---
+<section class={`gal gal--${variant}`}>
+  {heading && <h2 class="gal__title">{heading}</h2>}
+  <div class="gal__grid">
+    {items.map((g) => (
+      <figure class="gal__item"><Img src={g.src} alt={g.alt} /></figure>
+    ))}
+  </div>
+</section>
+<style>
+  .gal__title { font-size: clamp(1.6rem, 4vw, 2.6rem); margin-bottom: 1.4rem; }
+  .gal__grid { display: grid; gap: 10px; }
+  .gal--grid .gal__grid { grid-template-columns: repeat(4, 1fr); }
+  .gal--grid .gal__item { aspect-ratio: 1; }
+  .gal--strip .gal__grid { grid-auto-flow: column; grid-auto-columns: minmax(240px, 1fr); overflow-x: auto; scroll-snap-type: x mandatory; }
+  .gal--strip .gal__item { aspect-ratio: 4/5; scroll-snap-align: start; }
+  .gal--masonry .gal__grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 12px; }
+  .gal__item { overflow: hidden; border-radius: var(--radius-sm); margin: 0; }
+  .gal--masonry .gal__item:nth-child(4n+1) { grid-row: span 22; }
+  .gal--masonry .gal__item:nth-child(4n+2) { grid-row: span 16; }
+  .gal--masonry .gal__item:nth-child(4n+3) { grid-row: span 26; }
+  .gal--masonry .gal__item:nth-child(4n) { grid-row: span 18; }
+  .gal--masonry .gal__item :global(.imgw) { height: 100%; }
+  @media (max-width: 780px) {
+    .gal--grid .gal__grid, .gal--masonry .gal__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

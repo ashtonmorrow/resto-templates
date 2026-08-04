@@ -1,0 +1,28 @@
+---
+import { restaurant } from '../../data/restaurant';
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+const wa = `https://wa.me/${restaurant.whatsapp}`;
+---
+<div class={`social ${compact ? 'social--compact' : ''}`}>
+  <a href={restaurant.instagramUrl} target="_blank" rel="noopener" aria-label="Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
+    </svg>
+    {!compact && <span>{restaurant.instagram}</span>}
+  </a>
+  <a href={wa} target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4C8.7 21.5 10.3 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.5 0-3-.4-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.4 15 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8z"/>
+    </svg>
+    {!compact && <span>WhatsApp</span>}
+  </a>
+</div>
+<style>
+  .social { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .social a { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text); font-weight: 600; font-size: 0.95rem; }
+  .social a:hover { color: var(--accent); }
+  .social--compact a span { display: none; }
+</style>

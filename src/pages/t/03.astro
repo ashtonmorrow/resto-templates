@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/blocks/Hero.astro';
+import Menu from '../../components/blocks/Menu.astro';
+import Gallery from '../../components/blocks/Gallery.astro';
+import Book from '../../components/blocks/Book.astro';
+import Img from '../../components/Img.astro';
+import { restaurant } from '../../data/restaurant';
+---
+<Base title={`${restaurant.name} — Bistró en Palermo`} theme="minimal" description={restaurant.about}>
+  <a id="top"></a>
+  <Hero variant="plain" align="left" kicker={restaurant.kicker} title={restaurant.name} tagline={restaurant.tagline}>
+    <Book variant="ghost" />
+  </Hero>
+
+  <section class="feature wrap">
+    <figure class="feature__img"><Img src="/images/food/pasta.jpg" alt="Sorrentinos caseros" /></figure>
+    <div class="feature__text">
+      <p class="eyebrow">Nosotros</p>
+      <p class="lead">{restaurant.about}</p>
+      <p class="muted">{restaurant.story}</p>
+    </div>
+  </section>
+
+  <section class="wrap excerpt" id="menu">
+    <div class="excerpt__head">
+      <h2>Un vistazo a la carta</h2>
+      <a class="excerpt__all" href="#">Carta completa →</a>
+    </div>
+    <Menu variant="columns" heading={null} limit={2} />
+  </section>
+
+  <section class="wrap section"><Gallery variant="strip" heading={null} /></section>
+
+  <footer class="wrap foot">
+    <div>
+      <p class="foot__name">{restaurant.name}</p>
+      <p class="muted">{restaurant.address} · {restaurant.neighborhood}</p>
+    </div>
+    <div class="muted">{restaurant.hours[0].time}</div>
+  </footer>
+</Base>
+<style>
+  .feature { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; padding-block: clamp(40px, 8vw, 90px); }
+  .feature__img { margin: 0; aspect-ratio: 3/4; border-radius: 2px; overflow: hidden; }
+  .lead { font-family: var(--font-display); font-size: clamp(1.5rem, 3.4vw, 2.4rem); line-height: 1.25; margin-bottom: 1rem; }
+  .excerpt { padding-block: clamp(40px, 6vw, 80px); }
+  .excerpt__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+  .excerpt__head h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  .excerpt__all { color: var(--accent); font-weight: 600; }
+  .foot { display: flex; justify-content: space-between; gap: 1rem; padding-block: 48px 72px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .foot__name { font-family: var(--font-display); font-size: 1.6rem; }
+  @media (max-width: 780px) { .feature { grid-template-columns: 1fr; } }
+</style>

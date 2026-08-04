@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+import About from '../../components/blocks/About.astro';
+import Menu from '../../components/blocks/Menu.astro';
+import SiteFooter from '../../components/blocks/SiteFooter.astro';
+import { restaurant } from '../../data/restaurant';
+---
+<Base title={`${restaurant.name} — Reservá tu mesa`} theme="convert" description={restaurant.about}>
+  <a id="top"></a>
+  <header class="resv">
+    <div class="wrap resv__grid">
+      <div class="resv__pitch">
+        <p class="eyebrow">{restaurant.kicker} · {restaurant.neighborhood}</p>
+        <h1>{restaurant.name}</h1>
+        <p class="resv__tag">{restaurant.tagline}</p>
+        <ul class="resv__points">
+          <li>Confirmación inmediata por WhatsApp</li>
+          <li>Mesas para grupos hasta 12</li>
+          <li>Cocina abierta hasta la 1 AM los fines de semana</li>
+        </ul>
+      </div>
+
+      <form class="rform" id="rform">
+        <h2 class="rform__title">Reservá en 30 segundos</h2>
+        <label>Nombre<input name="nombre" type="text" placeholder="Tu nombre" required /></label>
+        <div class="rform__row">
+          <label>Personas
+            <select name="personas">
+              {[2,3,4,5,6,8,10].map((n) => <option>{n}</option>)}
+            </select>
+          </label>
+          <label>Día<input name="dia" type="date" required /></label>
+        </div>
+        <label>Horario
+          <select name="hora">
+            {['20:00','20:30','21:00','21:30','22:00','22:30'].map((h) => <option>{h}</option>)}
+          </select>
+        </label>
+        <button type="submit" class="btn rform__btn">Reservar por WhatsApp</button>
+        <p class="rform__fine muted">Te lleva a WhatsApp con el mensaje listo para enviar.</p>
+      </form>
+    </div>
+  </header>
+
+  <div class="section wrap" id="about"><About image="/images/food/asado-platter.jpg" imageAlt="Asado a la parrilla" /></div>
+  <div class="band" id="menu"><div class="section wrap"><Menu variant="columns" heading="La Carta" /></div></div>
+  <SiteFooter />
+</Base>
+
+<script is:inline define:vars={{ phone: restaurant.whatsapp, name: restaurant.name }}>
+  const f = document.getElementById('rform');
+  f?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(f);
+    const msg = `Hola! Quiero reservar en ${name}.\nNombre: ${d.get('nombre')}\nPersonas: ${d.get('personas')}\nDía: ${d.get('dia')}\nHorario: ${d.get('hora')}`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+  });
+</script>
+
+<style>
+  .resv { background: linear-gradient(160deg, var(--surface-2), var(--bg)); border-bottom: 1px solid var(--border); }
+  .resv__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; padding-block: clamp(40px, 7vw, 88px); }
+  .resv h1 { font-size: clamp(2.8rem, 7vw, 5rem); margin-top: 0.5rem; }
+  .resv__tag { font-size: 1.2rem; margin-top: 1rem; color: var(--muted); max-width: 34ch; }
+  .resv__points { margin-top: 1.6rem; padding-left: 1.1rem; display: grid; gap: 0.5rem; }
+  .rform { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 2.2rem); box-shadow: var(--shadow); display: grid; gap: 0.9rem; }
+  .rform__title { font-size: 1.5rem; }
+  .rform label { display: grid; gap: 0.35rem; font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .rform input, .rform select { font: inherit; text-transform: none; letter-spacing: 0; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75em 0.9em; width: 100%; }
+  .rform__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .rform__btn { justify-content: center; padding-block: 0.95em; margin-top: 0.4rem; }
+  .rform__fine { font-size: 0.78rem; text-align: center; text-transform: none; letter-spacing: 0; font-weight: 400; }
+  .band { background: var(--surface); border-block: 1px solid var(--border); }
+  @media (max-width: 820px) { .resv__grid { grid-template-columns: 1fr; } }
+</style>

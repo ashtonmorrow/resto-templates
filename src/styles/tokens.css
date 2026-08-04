@@ -1,0 +1,170 @@
+/* Design tokens. Every template = one data-theme. Blocks read only these vars,
+   so a new look is a new token block, never new component code. */
+
+:root {
+  --radius: 14px;
+  --radius-sm: 8px;
+  --maxw: 1120px;
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f4f4f2;
+  --text: #16150f;
+  --muted: #7c776c;
+  --border: #e7e4dc;
+  --accent: #b5502a;
+  --accent-2: #3f6f52;
+  --accent-ink: #ffffff;
+  --grad-a: #dedad2;
+  --grad-b: #c6c1b5;
+  --scrim: rgba(15, 12, 8, 0.42);
+}
+
+/* ---- Studio (portfolio home) ---- */
+[data-theme='studio'] {
+  --bg: #0f0f12; --surface: #17171c; --surface-2: #1f1f26;
+  --text: #f2f0ea; --muted: #9b978c; --border: #2a2a31;
+  --accent: #e2591f; --accent-2: #c9a24b; --accent-ink: #ffffff;
+  --grad-a: #1c1c22; --grad-b: #0c0c0f;
+  --font-display: 'Fraunces', Georgia, serif; --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ---- 01 ember / La Brasa ---- */
+[data-theme='ember'] {
+  --bg: #14100e; --surface: #1e1815; --surface-2: #2a211c;
+  --text: #f4ece5; --muted: #b8a595; --border: #3a2e26;
+  --accent: #e2591f; --accent-2: #c9a24b; --accent-ink: #ffffff;
+  --grad-a: #2a1b12; --grad-b: #120c09; --scrim: rgba(10, 6, 4, 0.55);
+  --font-display: 'Bebas Neue', Impact, sans-serif; --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ---- 02 heritage / El Bodegón ---- */
+[data-theme='heritage'] {
+  --bg: #f7f1e6; --surface: #fffdf8; --surface-2: #efe6d5;
+  --text: #2a211b; --muted: #7a6a58; --border: #e0d4bf;
+  --accent: #9c2b2b; --accent-2: #6b7a3a; --accent-ink: #ffffff;
+  --grad-a: #d9c7a8; --grad-b: #b89a6e; --scrim: rgba(40, 20, 15, 0.35);
+  --font-display: 'Playfair Display', Georgia, serif; --font-body: 'Libre Baskerville', Georgia, serif;
+}
+
+/* ---- 03 minimal / Palermo Soho ---- */
+[data-theme='minimal'] {
+  --bg: #ffffff; --surface: #ffffff; --surface-2: #f4f4f2;
+  --text: #14140f; --muted: #8a8a80; --border: #e6e6e0;
+  --accent: #3f6f52; --accent-2: #b5502a; --accent-ink: #ffffff;
+  --grad-a: #dedad2; --grad-b: #c9c4b8; --scrim: rgba(20, 20, 15, 0.25);
+  --font-display: 'Fraunces', Georgia, serif; --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ---- 04 airy / La Carta ---- */
+[data-theme='airy'] {
+  --bg: #fbf7f4; --surface: #ffffff; --surface-2: #f2ece9;
+  --text: #2c2622; --muted: #9a8d84; --border: #ece2db;
+  --accent: #d98b6a; --accent-2: #6bbfa3; --accent-ink: #ffffff;
+  --grad-a: #f2d9cd; --grad-b: #cfe6dc; --scrim: rgba(44, 38, 34, 0.28);
+  --font-display: 'DM Serif Display', Georgia, serif; --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+/* ---- 05 luxe / Puerto Madero ---- */
+[data-theme='luxe'] {
+  --bg: #0f1114; --surface: #16181d; --surface-2: #1f232a;
+  --text: #eef0f2; --muted: #9aa0a8; --border: #2b2f37;
+  --accent: #c9a24b; --accent-2: #8a94a0; --accent-ink: #12140f;
+  --grad-a: #1a1d22; --grad-b: #0c0e11; --scrim: rgba(8, 9, 11, 0.5);
+  --font-display: 'Cormorant Garamond', Georgia, serif; --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ---- 06 bold / La Pizzería ---- */
+[data-theme='bold'] {
+  --bg: #fffdf7; --surface: #ffffff; --surface-2: #fff2ec;
+  --text: #1c1a17; --muted: #857f77; --border: #f0e4d8;
+  --accent: #d1341f; --accent-2: #2e7d47; --accent-ink: #ffffff;
+  --grad-a: #f5c9bf; --grad-b: #e0e6c8; --scrim: rgba(28, 26, 23, 0.4);
+  --font-display: 'Anton', Impact, sans-serif; --font-body: 'Work Sans', system-ui, sans-serif;
+}
+
+/* ---- 07 playful / Bento ---- */
+[data-theme='playful'] {
+  --bg: #f6f4ff; --surface: #ffffff; --surface-2: #efeaff;
+  --text: #201d33; --muted: #837ea0; --border: #e6e0f7;
+  --accent: #6c5ce7; --accent-2: #ff7a59; --accent-ink: #ffffff;
+  --grad-a: #d9d0ff; --grad-b: #ffd6c9; --scrim: rgba(32, 29, 51, 0.32);
+  --font-display: 'Space Grotesk', system-ui, sans-serif; --font-body: 'Space Grotesk', system-ui, sans-serif;
+}
+
+/* ---- 08 cinematic / El Relato ---- */
+[data-theme='cinematic'] {
+  --bg: #0a0a0b; --surface: #111113; --surface-2: #17171a;
+  --text: #f2f0ee; --muted: #9a9792; --border: #232327;
+  --accent: #d8b06a; --accent-2: #b5502a; --accent-ink: #111111;
+  --grad-a: #16161a; --grad-b: #070708; --scrim: rgba(0, 0, 0, 0.55);
+  --font-display: 'Playfair Display', Georgia, serif; --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ---- 09 wine / La Cava ---- */
+[data-theme='wine'] {
+  --bg: #1a0f14; --surface: #241319; --surface-2: #301a22;
+  --text: #f2e7ea; --muted: #bfa0aa; --border: #40232e;
+  --accent: #c06b7e; --accent-2: #c9a24b; --accent-ink: #ffffff;
+  --grad-a: #2a151d; --grad-b: #160b10; --scrim: rgba(12, 6, 9, 0.5);
+  --font-display: 'Cormorant Garamond', Georgia, serif; --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ---- 10 sweet / Heladería ---- */
+[data-theme='sweet'] {
+  --bg: #fff6fb; --surface: #ffffff; --surface-2: #ffeaf4;
+  --text: #35202c; --muted: #a07f90; --border: #ffdcec;
+  --accent: #ff5fa2; --accent-2: #59c6d6; --accent-ink: #ffffff;
+  --grad-a: #ffd0e6; --grad-b: #cdeff5; --scrim: rgba(53, 32, 44, 0.3);
+  --radius: 22px;
+  --font-display: 'Baloo 2', system-ui, sans-serif; --font-body: 'Manrope', system-ui, sans-serif;
+}
+
+/* ---- 11 mono / Mínimo ---- */
+[data-theme='mono'] {
+  --bg: #f4f4f4; --surface: #ffffff; --surface-2: #ececec;
+  --text: #111111; --muted: #888888; --border: #e2e2e2;
+  --accent: #111111; --accent-2: #555555; --accent-ink: #ffffff;
+  --grad-a: #dcdcdc; --grad-b: #bfbfbf; --scrim: rgba(0, 0, 0, 0.3);
+  --radius: 4px;
+  --font-display: 'Space Grotesk', system-ui, sans-serif; --font-body: 'Space Grotesk', system-ui, sans-serif;
+}
+
+/* ---- 12 clean / Clásico ---- */
+[data-theme='clean'] {
+  --bg: #f7f9fb; --surface: #ffffff; --surface-2: #eef2f6;
+  --text: #17202a; --muted: #647587; --border: #e1e8ef;
+  --accent: #2f6f9f; --accent-2: #b5502a; --accent-ink: #ffffff;
+  --grad-a: #cddbe8; --grad-b: #e3d9cf; --scrim: rgba(23, 32, 42, 0.4);
+  --font-display: 'Manrope', system-ui, sans-serif; --font-body: 'Manrope', system-ui, sans-serif;
+}
+
+/* ---- 13 gallery / Instagrameable ---- */
+[data-theme='gallery'] {
+  --bg: #faf9f7; --surface: #ffffff; --surface-2: #f0ede9;
+  --text: #1e1b18; --muted: #8c847b; --border: #e8e2da;
+  --accent: #b06a3c; --accent-2: #3f6f52; --accent-ink: #ffffff;
+  --grad-a: #e6ddd2; --grad-b: #cfc3b4; --scrim: rgba(30, 27, 24, 0.4);
+  --font-display: 'Fraunces', Georgia, serif; --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ---- 14 convert / Reserva-First ---- */
+[data-theme='convert'] {
+  --bg: #ffffff; --surface: #ffffff; --surface-2: #f2f7f4;
+  --text: #16201b; --muted: #6b7d74; --border: #e0ebe5;
+  --accent: #1f9d68; --accent-2: #17202a; --accent-ink: #ffffff;
+  --grad-a: #cdeadb; --grad-b: #e6efe9; --scrim: rgba(22, 32, 27, 0.35);
+  --font-display: 'Manrope', system-ui, sans-serif; --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ---- 15 warm / La Rotisería ---- */
+[data-theme='warm'] {
+  --bg: #fbf5ee; --surface: #fffdf9; --surface-2: #f2e7d8;
+  --text: #2a201a; --muted: #8f7c68; --border: #ecdcc8;
+  --accent: #c1622a; --accent-2: #6b7a3a; --accent-ink: #ffffff;
+  --grad-a: #e8cba7; --grad-b: #d09a63; --scrim: rgba(42, 32, 26, 0.4);
+  --font-display: 'Fraunces', Georgia, serif; --font-body: 'Work Sans', system-ui, sans-serif;
+}

@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import Menu from '../../components/blocks/Menu.astro';
+import About from '../../components/blocks/About.astro';
+import Book from '../../components/blocks/Book.astro';
+import SiteFooter from '../../components/blocks/SiteFooter.astro';
+import { restaurant } from '../../data/restaurant';
+---
+<Base title={`${restaurant.name} — Cocina de barrio`} theme="bold" description={restaurant.about}>
+  <a id="top"></a>
+  <header class="mast">
+    <div class="wrap mast__inner">
+      <div class="mast__brand">
+        <p class="eyebrow">{restaurant.kicker}</p>
+        <h1 class="mast__name">{restaurant.name}</h1>
+        <p class="mast__tag">{restaurant.tagline}</p>
+      </div>
+      <div class="mast__actions">
+        <Book label="Reservar" />
+        <a class="btn btn--ghost" href="#" onclick="return false">Pedí por delivery</a>
+      </div>
+    </div>
+    <div class="ticker"><span>Abierto hoy · 12–16 y 20–00 · {restaurant.neighborhood}, {restaurant.city} · Envíos en 40 min · </span><span>Abierto hoy · 12–16 y 20–00 · {restaurant.neighborhood}, {restaurant.city} · Envíos en 40 min · </span></div>
+  </header>
+
+  <main class="section wrap" id="menu"><Menu variant="cards" heading="La Carta" /></main>
+
+  <div class="aboutband"><div class="section wrap"><About image="/images/food/pizza.jpg" imageAlt="Pizza a la parrilla" heading="La casa" reverse /></div></div>
+
+  <SiteFooter />
+</Base>
+<style>
+  .mast { background: var(--accent); color: var(--accent-ink); }
+  .mast__inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; padding-block: clamp(32px, 6vw, 64px); flex-wrap: wrap; }
+  .mast .eyebrow { color: var(--accent-ink); opacity: 0.85; }
+  .mast__name { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; text-transform: uppercase; }
+  .mast__tag { font-size: clamp(1rem, 2.4vw, 1.4rem); margin-top: 0.6rem; max-width: 40ch; }
+  .mast__actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .mast__actions .btn { background: var(--accent-ink); color: var(--accent); }
+  .mast__actions .btn--ghost { background: transparent; color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent-ink) 45%, transparent); }
+  .ticker { overflow: hidden; white-space: nowrap; border-top: 2px solid var(--accent-ink); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
+  .ticker span { display: inline-block; padding: 0.6rem 0; animation: slide 24s linear infinite; }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+  .aboutband { background: var(--surface-2); border-block: 1px solid var(--border); }
+</style>
