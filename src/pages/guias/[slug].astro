@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import StudioNav from '../../components/StudioNav.astro';
+import StudioFooter from '../../components/StudioFooter.astro';
+import { guides, type Guide } from '../../data/guides';
+import '../../styles/studio-pages.css';
+
+export function getStaticPaths() {
+  return guides.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+
+interface Props { guide: Guide }
+const { guide } = Astro.props;
+---
+
+<Base title={`${guide.title} | Folio Resto`} theme="studio" description={guide.description}>
+  <StudioNav />
+  <article class="article wrap">
+    <a class="article__back" href="/guias/">← Todas las guías</a>
+    <header>
+      <p class="eyebrow">{guide.kicker} · {guide.readTime} de lectura</p>
+      <h1>{guide.title}</h1>
+      <p class="article__deck">{guide.description}</p>
+    </header>
+    <aside class="article__takeaway">
+      <span>La idea central</span>
+      <p>{guide.takeaway}</p>
+    </aside>
+    {guide.sections.map((section, index) => (
+      <section class="article__section">
+        <span class="article__number">{String(index + 1).padStart(2, '0')}</span>
+        <div>
+          <h2>{section.title}</h2>
+          {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          {section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+        </div>
+      </section>
+    ))}
+    <footer class="article__end">
+      <p>¿Querés pasar de la teoría a una base concreta?</p>
+      <a class="docs-btn" href="/#plantillas">Ver las plantillas →</a>
+    </footer>
+  </article>
+  <StudioFooter />
+</Base>

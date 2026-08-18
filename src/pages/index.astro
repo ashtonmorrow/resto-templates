@@ -1,19 +1,52 @@
 ---
 import Base from '../layouts/Base.astro';
+import StudioNav from '../components/StudioNav.astro';
+import StudioFooter from '../components/StudioFooter.astro';
 import { templates } from '../data/templates';
 import { restaurant } from '../data/restaurant';
 ---
-<Base title="Casa Rufina — 15 sistemas de sitio para restaurantes" theme="studio" description="Portfolio de 15 plantillas de sitio web para restaurantes, con la misma marca de demostración.">
+<Base title="Folio Resto — una web propia para tu restaurante" theme="studio" description="Plantillas abiertas y guías prácticas para restaurantes argentinos que quieren tener su propia web, carta y canal directo.">
+  <StudioNav />
   <header class="top wrap">
-    <p class="eyebrow">Estudio · Sitios para restaurantes</p>
-    <h1 class="top__title">Un restaurante.<br />Quince maneras de mostrarlo.</h1>
+    <p class="eyebrow">Web propia · Restaurantes de Argentina</p>
+    <h1 class="top__title">Tu restaurante.<br />Tu sitio. Tus reglas.</h1>
     <p class="top__sub muted">
-      La misma marca de demostración ({restaurant.name}), la misma carta y las mismas fotos,
-      montadas en 15 sistemas de diseño distintos. Elegí el que va con tu lugar y lo hacemos tuyo.
+      Elegí una de 15 bases, reemplazá los datos con ayuda de Claude, Codex o la herramienta que prefieras
+      y publicala en una cuenta propia. Si no querés hacerlo vos, te ayudamos de forma puntual.
     </p>
+    <div class="top__actions">
+      <a class="btn" href="/hacerlo-vos/">Quiero hacerlo yo <span aria-hidden="true">→</span></a>
+      <a class="btn btn--ghost" href="#plantillas">Ver las 15 plantillas</a>
+    </div>
   </header>
 
-  <main class="wrap grid">
+  <section class="paths wrap" aria-labelledby="paths-title">
+    <div class="paths__intro">
+      <p class="eyebrow">Dos caminos</p>
+      <h2 id="paths-title">La propiedad no cambia.</h2>
+      <p class="muted">En ambos casos, el dominio, el código y las cuentas quedan a nombre del restaurante.</p>
+    </div>
+    <a class="path-card" href="/hacerlo-vos/">
+      <span>01 · Gratis</span>
+      <h3>Hacerlo vos</h3>
+      <p>Copiá el proyecto público, abrilo con tu asistente y seguí una guía paso a paso.</p>
+      <strong>Empezar con el código →</strong>
+    </a>
+    <a class="path-card" href="mailto:hola@unwoke.ninja?subject=Quiero%20una%20web%20para%20mi%20restaurante">
+      <span>02 · Ayuda puntual</span>
+      <h3>Te lo dejamos listo</h3>
+      <p>Adaptamos una base, cargamos tu contenido y la publicamos. Trabajo independiente, alcance y precio claros.</p>
+      <strong>Contarnos sobre tu local →</strong>
+    </a>
+  </section>
+
+  <section class="showroom-head wrap" id="plantillas">
+    <p class="eyebrow">El showroom</p>
+    <h2>Un restaurante. Quince maneras de mostrarlo.</h2>
+    <p class="muted">La misma marca de demostración ({restaurant.name}), la misma carta y las mismas fotos, montadas en 15 sistemas distintos.</p>
+  </section>
+
+  <main class="wrap grid" aria-label="Plantillas para restaurantes">
     {
       templates.map((t) => (
         <a class="card" href={`/t/${t.id}/`}>
@@ -40,15 +73,37 @@ import { restaurant } from '../data/restaurant';
     }
   </main>
 
-  <footer class="foot wrap">
-    <span class="muted">Kernel del servicio · datos compartidos, 15 composiciones</span>
-  </footer>
+  <section class="learn wrap">
+    <div>
+      <p class="eyebrow">Biblioteca abierta</p>
+      <h2>Antes de pagar software, entendé qué necesitás.</h2>
+    </div>
+    <p class="muted">Guías cortas sobre carta digital, reservas por WhatsApp, pedidos directos y cómo mantener tu stack bajo control.</p>
+    <a class="btn btn--ghost" href="/guias/">Leer las guías →</a>
+  </section>
+
+  <StudioFooter />
 </Base>
 
 <style>
-  .top { padding-top: clamp(48px, 9vw, 104px); padding-bottom: clamp(28px, 5vw, 52px); }
+  .top { padding-top: clamp(58px, 10vw, 118px); padding-bottom: clamp(50px, 8vw, 90px); }
   .top__title { font-size: clamp(2.6rem, 7vw, 5.2rem); margin-top: 1rem; letter-spacing: -0.01em; }
   .top__sub { margin-top: 1.4rem; max-width: 56ch; font-size: 1.1rem; }
+  .top__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+  .paths { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: clamp(72px, 10vw, 124px); padding: 0; }
+  .paths__intro, .path-card { padding: clamp(26px, 4vw, 42px); background: var(--surface); }
+  .paths__intro h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-block: 0.8rem; }
+  .path-card { display: flex; flex-direction: column; align-items: flex-start; }
+  .path-card > span { color: var(--accent-2); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .path-card h3 { font-size: clamp(1.5rem, 2.5vw, 2.1rem); margin-block: 1.1rem 0.7rem; }
+  .path-card p { color: var(--muted); }
+  .path-card strong { color: var(--accent); margin-top: auto; padding-top: 28px; font-size: 0.88rem; }
+  .path-card:hover { background: var(--surface-2); }
+
+  .showroom-head { padding-bottom: 36px; scroll-margin-top: 30px; }
+  .showroom-head h2 { font-size: clamp(2rem, 4.5vw, 3.7rem); margin-block: 0.75rem 1rem; max-width: 16ch; }
+  .showroom-head p:last-child { max-width: 64ch; }
 
   .grid {
     display: grid;
@@ -92,8 +147,17 @@ import { restaurant } from '../data/restaurant';
   .card__name { font-size: 1.5rem; margin-top: 0.3rem; }
   .card__blurb { margin-top: 0.4rem; font-size: 0.92rem; }
 
-  .foot { padding-block: 40px 64px; border-top: 1px solid var(--border); }
+  .learn { display: grid; grid-template-columns: 1.2fr 1fr auto; gap: 32px; align-items: end; padding-block: clamp(62px, 9vw, 104px); border-top: 1px solid var(--border); }
+  .learn h2 { font-size: clamp(1.8rem, 3.5vw, 2.9rem); max-width: 18ch; margin-top: 0.8rem; }
 
   @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) {
+    .paths { grid-template-columns: 1fr 1fr; }
+    .paths__intro { grid-column: 1 / -1; }
+    .learn { grid-template-columns: 1fr; align-items: start; }
+  }
+  @media (max-width: 560px) {
+    .grid, .paths { grid-template-columns: 1fr; }
+    .paths__intro { grid-column: auto; }
+  }
 </style>

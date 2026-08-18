@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import StudioNav from '../components/StudioNav.astro';
+import StudioFooter from '../components/StudioFooter.astro';
+import '../styles/studio-pages.css';
+
+const repositoryUrl = 'https://github.com/ashtonmorrow/resto-templates';
+const prompt = `Quiero adaptar Folio Resto para mi negocio gastronómico.
+
+Primero leé el README y CLAUDE.md. Conservá la estructura y preguntame solamente por los datos que falten: nombre, tipo de local, ciudad, carta, horarios, WhatsApp, dirección, reservas, colores y fotos.
+
+Después reemplazá el contenido de demostración, verificá la versión móvil y explicame cómo publicarlo en una cuenta que yo controle.`;
+---
+
+<Base title="Hacé vos la web de tu restaurante | Folio Resto" theme="studio" description="Copiá las plantillas abiertas de Folio Resto y adaptalas con Claude, Codex, Cursor o el asistente que prefieras.">
+  <StudioNav />
+  <header class="docs-hero wrap">
+    <p class="eyebrow">Código abierto, en serio</p>
+    <h1>Copialo. Abrilo con tu asistente. Hacelo tuyo.</h1>
+    <p>No hace falta empezar sabiendo qué archivo tocar. El proyecto contiene las 15 plantillas, una sola fuente para los datos del restaurante y una guía pensada para continuar con Claude, Codex, Cursor o cualquier asistente que trabaje con código.</p>
+    <div class="docs-actions">
+      <a class="docs-btn" href={`${repositoryUrl}/generate`} target="_blank" rel="noreferrer">Usar esta plantilla en GitHub ↗</a>
+      <a class="docs-btn docs-btn--ghost" href={repositoryUrl} target="_blank" rel="noreferrer">Ver el código</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="diy-grid" aria-label="Pasos para adaptar el proyecto">
+      <article class="diy-card"><span>01</span><h2>Hacé una copia</h2><p>Usá el botón de GitHub o descargá el ZIP. La copia queda en tu cuenta y nadie puede quitártela.</p></article>
+      <article class="diy-card"><span>02</span><h2>Abrila con un asistente</h2><p>Claude Code, Codex, Cursor u otra herramienta puede leer la carpeta y ayudarte a cambiarla.</p></article>
+      <article class="diy-card"><span>03</span><h2>Reemplazá los datos</h2><p>Nombre, carta, horarios, WhatsApp y dirección viven en un archivo central. Las 15 versiones usan esa información.</p></article>
+      <article class="diy-card"><span>04</span><h2>Publicala a tu nombre</h2><p>Usá Cloudflare, Netlify, Vercel u otro hosting estático. Mantené el dominio y la cuenta bajo tu control.</p></article>
+    </section>
+
+    <section class="prompt">
+      <p class="eyebrow">Pedido inicial sugerido</p>
+      <h2>Copiá esto en tu asistente.</h2>
+      <pre>{prompt}</pre>
+    </section>
+
+    <section class="help-strip">
+      <div><h2>¿Preferís que alguien lo deje listo?</h2><p>Podemos adaptar y publicar una base por un precio cerrado, sin suscripción ni encierro.</p></div>
+      <a class="docs-btn docs-btn--ghost" href="mailto:hola@unwoke.ninja?subject=Quiero%20ayuda%20con%20Folio%20Resto">Pedir ayuda puntual →</a>
+    </section>
+  </main>
+  <StudioFooter />
+</Base>

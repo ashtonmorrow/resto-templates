@@ -1,0 +1,33 @@
+---
+const repositoryUrl = 'https://github.com/ashtonmorrow/resto-templates';
+---
+
+<nav class="studio-nav wrap" aria-label="Navegación principal">
+  <a class="studio-nav__brand" href="/">Folio <span>Resto</span></a>
+  <div class="studio-nav__links">
+    <a href="/#plantillas">Plantillas</a>
+    <a href="/guias/">Guías</a>
+    <a class="studio-nav__repo" href={repositoryUrl} target="_blank" rel="noreferrer">Código ↗</a>
+  </div>
+</nav>
+
+<style>
+  .studio-nav {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .studio-nav__brand { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
+  .studio-nav__brand span { color: var(--accent); }
+  .studio-nav__links { display: flex; align-items: center; gap: clamp(14px, 3vw, 30px); font-size: 0.86rem; }
+  .studio-nav__links a { color: var(--muted); }
+  .studio-nav__links a:hover { color: var(--text); }
+  .studio-nav__repo { padding: 0.55em 0.9em; border: 1px solid var(--border); border-radius: 999px; }
+  @media (max-width: 560px) {
+    .studio-nav { min-height: 64px; }
+    .studio-nav__links > a:first-child { display: none; }
+  }
+</style>

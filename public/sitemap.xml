@@ -2,8 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://folio.unwoke.ninja/</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-18</lastmod>
   </url>
+  <url><loc>https://folio.unwoke.ninja/hacerlo-vos/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://folio.unwoke.ninja/guias/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://folio.unwoke.ninja/guias/como-crear-la-web-de-tu-restaurante/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://folio.unwoke.ninja/guias/menu-digital-para-restaurantes/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://folio.unwoke.ninja/guias/reservas-por-whatsapp/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://folio.unwoke.ninja/guias/pedidos-sin-comisiones/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://folio.unwoke.ninja/guias/software-para-restaurantes-argentina/</loc><lastmod>2026-08-18</lastmod></url>
   <url><loc>https://folio.unwoke.ninja/t/01/</loc><lastmod>2026-08-17</lastmod></url>
   <url><loc>https://folio.unwoke.ninja/t/02/</loc><lastmod>2026-08-17</lastmod></url>
   <url><loc>https://folio.unwoke.ninja/t/03/</loc><lastmod>2026-08-17</lastmod></url>

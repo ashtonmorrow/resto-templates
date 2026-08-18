@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import StudioNav from '../../components/StudioNav.astro';
+import StudioFooter from '../../components/StudioFooter.astro';
+import { guides } from '../../data/guides';
+import '../../styles/studio-pages.css';
+---
+
+<Base title="Guías para la web de tu restaurante | Folio Resto" theme="studio" description="Guías prácticas sobre páginas web, menú digital, reservas por WhatsApp, pedidos directos y software gastronómico en Argentina.">
+  <StudioNav />
+  <header class="docs-hero wrap">
+    <p class="eyebrow">Biblioteca abierta</p>
+    <h1>Internet para restaurantes, sin humo.</h1>
+    <p>Decisiones prácticas para negocios chicos: qué hacer vos, qué contratar y qué conviene mantener bajo tu control.</p>
+  </header>
+  <main class="docs-index wrap">
+    {guides.map((guide, index) => (
+      <a class="docs-index__item" href={`/guias/${guide.slug}/`}>
+        <span class="docs-index__num">{String(index + 1).padStart(2, '0')}</span>
+        <div>
+          <p class="docs-index__meta">{guide.kicker} · {guide.readTime}</p>
+          <h2>{guide.title}</h2>
+          <p>{guide.description}</p>
+        </div>
+        <span class="docs-index__arrow" aria-hidden="true">→</span>
+      </a>
+    ))}
+  </main>
+  <StudioFooter />
+</Base>

@@ -1,0 +1,47 @@
+.docs-hero { padding-block: clamp(64px, 11vw, 132px) clamp(44px, 7vw, 80px); }
+.docs-hero h1 { font-size: clamp(2.7rem, 7vw, 5.5rem); max-width: 13ch; margin-top: 0.8rem; letter-spacing: -0.025em; }
+.docs-hero > p:last-child { max-width: 62ch; color: var(--muted); font-size: clamp(1rem, 2vw, 1.2rem); margin-top: 1.35rem; }
+.docs-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.docs-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; padding: 0.85em 1.25em; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.docs-btn--ghost { color: var(--text); background: transparent; border: 1px solid var(--border); }
+.docs-index { padding-bottom: 96px; }
+.docs-index__item { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 24px; padding-block: 28px; border-top: 1px solid var(--border); align-items: start; }
+.docs-index__item:last-child { border-bottom: 1px solid var(--border); }
+.docs-index__num { color: var(--accent); font-size: 0.78rem; letter-spacing: 0.12em; }
+.docs-index__meta { color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.68rem; font-weight: 700; }
+.docs-index__item h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin-block: 0.35rem 0.55rem; }
+.docs-index__item p:last-child { max-width: 64ch; color: var(--muted); }
+.docs-index__arrow { font-size: 1.35rem; color: var(--muted); }
+.docs-index__item:hover h2, .docs-index__item:hover .docs-index__arrow { color: var(--accent); }
+.article { max-width: 860px; padding-block: 54px 100px; }
+.article__back { color: var(--muted); font-size: 0.86rem; }
+.article header { padding-block: clamp(52px, 8vw, 88px) 42px; }
+.article h1 { font-size: clamp(2.6rem, 7vw, 5rem); letter-spacing: -0.025em; margin-top: 0.85rem; }
+.article__deck { color: var(--muted); max-width: 62ch; font-size: 1.15rem; margin-top: 1.4rem; }
+.article__takeaway { margin-block: 16px 64px; padding: 24px 28px; background: var(--surface-2); border-left: 4px solid var(--accent); }
+.article__takeaway span { color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.68rem; font-weight: 700; }
+.article__takeaway p { font-family: var(--font-display); font-size: clamp(1.25rem, 2.5vw, 1.7rem); line-height: 1.3; margin-top: 0.5rem; }
+.article__section { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 24px; padding-block: 36px; border-top: 1px solid var(--border); }
+.article__number { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.12em; }
+.article__section h2 { font-size: clamp(1.55rem, 3vw, 2.25rem); margin-bottom: 1rem; }
+.article__section p { color: var(--muted); margin-bottom: 1rem; }
+.article__section ul { padding-left: 1.25rem; color: var(--text); }
+.article__section li + li { margin-top: 0.4rem; }
+.article__end { border-top: 1px solid var(--border); padding-top: 36px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.diy-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 80px; }
+.diy-card { background: var(--surface); padding: clamp(26px, 5vw, 48px); }
+.diy-card span { color: var(--accent); font-size: 0.72rem; letter-spacing: 0.12em; }
+.diy-card h2 { font-size: clamp(1.5rem, 3vw, 2.15rem); margin-block: 0.7rem; }
+.diy-card p { color: var(--muted); }
+.prompt { padding: clamp(28px, 6vw, 56px); background: var(--surface-2); border: 1px solid var(--border); margin-bottom: 100px; }
+.prompt pre { margin-top: 24px; color: var(--text); font: inherit; white-space: pre-wrap; line-height: 1.65; }
+.help-strip { padding-block: 56px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+.help-strip h2 { font-size: clamp(1.6rem, 3.5vw, 2.6rem); }
+.help-strip p { color: var(--muted); margin-top: 0.5rem; }
+@media (max-width: 680px) {
+  .docs-index__item { grid-template-columns: 32px minmax(0, 1fr); gap: 14px; }
+  .docs-index__arrow { display: none; }
+  .article__section { grid-template-columns: 1fr; gap: 8px; }
+  .article__end, .help-strip { align-items: flex-start; flex-direction: column; }
+  .diy-grid { grid-template-columns: 1fr; }
+}

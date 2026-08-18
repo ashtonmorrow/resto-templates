@@ -1,0 +1,26 @@
+<footer class="studio-footer wrap">
+  <div>
+    <strong>Folio Resto</strong>
+    <p>Una base abierta para restaurantes que quieren tener su propia web.</p>
+  </div>
+  <div class="studio-footer__links">
+    <a href="/hacerlo-vos/">Quiero hacerlo yo</a>
+    <a href="/guias/">Guías</a>
+    <a href="mailto:hola@unwoke.ninja">Pedir ayuda</a>
+  </div>
+</footer>
+
+<style>
+  .studio-footer {
+    padding-block: 48px 64px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .studio-footer strong { font-family: var(--font-display); font-size: 1.2rem; }
+  .studio-footer p { color: var(--muted); max-width: 42ch; margin-top: 0.35rem; }
+  .studio-footer__links { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 12px 24px; font-size: 0.88rem; color: var(--muted); }
+  .studio-footer a:hover { color: var(--text); }
+  @media (max-width: 700px) { .studio-footer { flex-direction: column; } }
+</style>
