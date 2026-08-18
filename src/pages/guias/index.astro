@@ -6,7 +6,28 @@ import { guides } from '../../data/guides';
 import '../../styles/studio-pages.css';
 ---
 
-<Base title="Guías para la web de tu restaurante | Folio Resto" theme="studio" description="Guías prácticas sobre páginas web, menú digital, reservas por WhatsApp, pedidos directos y software gastronómico en Argentina.">
+<Base
+  title="Guías para la web de tu restaurante | Folio Resto"
+  theme="studio"
+  description="Guías prácticas sobre páginas web, menú digital, reservas por WhatsApp, pedidos directos y software gastronómico en Argentina."
+  structuredData={[
+    {
+      '@type': 'CollectionPage',
+      name: 'Guías para la web de tu restaurante',
+      url: 'https://folio.unwoke.ninja/guias/',
+      description: 'Guías prácticas sobre web, carta digital, reservas, pedidos y software gastronómico para restaurantes de Argentina.',
+      inLanguage: 'es-AR',
+      hasPart: guides.map((guide) => ({ '@type': 'Article', headline: guide.title, url: `https://folio.unwoke.ninja/guias/${guide.slug}/` })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Folio Resto', item: 'https://folio.unwoke.ninja/' },
+        { '@type': 'ListItem', position: 2, name: 'Guías', item: 'https://folio.unwoke.ninja/guias/' },
+      ],
+    },
+  ]}
+>
   <StudioNav />
   <header class="docs-hero wrap">
     <p class="eyebrow">Biblioteca abierta</p>
