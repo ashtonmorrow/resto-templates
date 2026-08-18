@@ -5,7 +5,30 @@ import StudioFooter from '../components/StudioFooter.astro';
 import { templates } from '../data/templates';
 import { restaurant } from '../data/restaurant';
 ---
-<Base title="Folio Resto — una web propia para tu restaurante" theme="studio" description="Plantillas abiertas y guías prácticas para restaurantes argentinos que quieren tener su propia web, carta y canal directo.">
+<Base
+  title="Folio Resto — una web propia para tu restaurante"
+  theme="studio"
+  description="Plantillas abiertas y guías prácticas para restaurantes argentinos que quieren tener su propia web, carta y canal directo."
+  structuredData={[
+    {
+      '@type': 'Organization',
+      '@id': 'https://folio.unwoke.ninja/#organization',
+      name: 'Folio Resto',
+      url: 'https://folio.unwoke.ninja/',
+      email: 'hola@unwoke.ninja',
+      areaServed: { '@type': 'Country', name: 'Argentina' },
+      sameAs: ['https://github.com/ashtonmorrow/resto-templates'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://folio.unwoke.ninja/#website',
+      url: 'https://folio.unwoke.ninja/',
+      name: 'Folio Resto',
+      inLanguage: 'es-AR',
+      publisher: { '@id': 'https://folio.unwoke.ninja/#organization' },
+    },
+  ]}
+>
   <StudioNav />
   <header class="top wrap">
     <p class="eyebrow">Web propia · Restaurantes de Argentina</p>

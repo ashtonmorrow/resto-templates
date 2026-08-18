@@ -12,7 +12,28 @@ Primero leé el README y CLAUDE.md. Conservá la estructura y preguntame solamen
 Después reemplazá el contenido de demostración, verificá la versión móvil y explicame cómo publicarlo en una cuenta que yo controle.`;
 ---
 
-<Base title="Hacé vos la web de tu restaurante | Folio Resto" theme="studio" description="Copiá las plantillas abiertas de Folio Resto y adaptalas con Claude, Codex, Cursor o el asistente que prefieras.">
+<Base
+  title="Hacé vos la web de tu restaurante | Folio Resto"
+  theme="studio"
+  description="Copiá las plantillas abiertas de Folio Resto y adaptalas con Claude, Codex, Cursor o el asistente que prefieras."
+  structuredData={[
+    {
+      '@type': 'WebPage',
+      name: 'Hacé vos la web de tu restaurante',
+      url: 'https://folio.unwoke.ninja/hacerlo-vos/',
+      description: 'Copiá las plantillas abiertas de Folio Resto y adaptalas con el asistente de programación que prefieras.',
+      inLanguage: 'es-AR',
+      isPartOf: { '@id': 'https://folio.unwoke.ninja/#website' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Folio Resto', item: 'https://folio.unwoke.ninja/' },
+        { '@type': 'ListItem', position: 2, name: 'Hacerlo vos', item: 'https://folio.unwoke.ninja/hacerlo-vos/' },
+      ],
+    },
+  ]}
+>
   <StudioNav />
   <header class="docs-hero wrap">
     <p class="eyebrow">Código abierto, en serio</p>
@@ -36,6 +57,11 @@ Después reemplazá el contenido de demostración, verificá la versión móvil 
       <p class="eyebrow">Pedido inicial sugerido</p>
       <h2>Copiá esto en tu asistente.</h2>
       <pre>{prompt}</pre>
+    </section>
+
+    <section class="help-strip">
+      <div><h2>¿Querés ver cada archivo antes de copiarlo?</h2><p>La guía técnica recorre la estructura real, el archivo de datos, el pedido para la IA, la revisión móvil y la publicación.</p></div>
+      <a class="docs-btn docs-btn--ghost" href="/guias/crear-pagina-web-restaurante-con-ia/">Leer la guía completa →</a>
     </section>
 
     <section class="help-strip">
