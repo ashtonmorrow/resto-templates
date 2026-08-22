@@ -4,7 +4,7 @@ import Book from '../../components/blocks/Book.astro';
 import Img from '../../components/Img.astro';
 import { restaurant } from '../../data/restaurant';
 const postres = restaurant.menu.find((m) => m.name === 'Postres')!;
-const pics = ['/images/food/flan.jpg', '/images/food/alfajores.jpg', '/images/detail/table-flatlay.jpg'];
+const pics = ['/images/food/flan.jpg'];
 ---
 <Base title={`${restaurant.name} — Dulces y postres`} theme="sweet" description={restaurant.about}>
   <header class="sweet-hero wrap">
@@ -14,7 +14,7 @@ const pics = ['/images/food/flan.jpg', '/images/food/alfajores.jpg', '/images/de
       <p class="sweet-hero__tag">{restaurant.tagline}</p>
       <Book label="Encargar por WhatsApp" />
     </div>
-    <figure class="sweet-hero__img"><Img src="/images/food/alfajores.jpg" alt="Alfajores rellenos de dulce de leche" /></figure>
+    <figure class="sweet-hero__img"><Img src="/images/food/flan.jpg" alt="Flan mixto con dulce de leche y crema" /></figure>
   </header>
 
   <main class="wrap section">
