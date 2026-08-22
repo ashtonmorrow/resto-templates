@@ -14,14 +14,14 @@ import { restaurant } from '../../data/restaurant';
         <h1>{restaurant.name}</h1>
         <p class="resv__tag">{restaurant.tagline}</p>
         <ul class="resv__points">
-          <li>Confirmación inmediata por WhatsApp</li>
-          <li>Mesas para grupos hasta 12</li>
-          <li>Cocina abierta hasta la 1 AM los fines de semana</li>
+          <li>Solicitud preparada para enviar por WhatsApp</li>
+          <li>El local confirma la disponibilidad</li>
+          <li>Todos los datos llegan en un solo mensaje</li>
         </ul>
       </div>
 
       <form class="rform" id="rform">
-        <h2 class="rform__title">Reservá en 30 segundos</h2>
+        <h2 class="rform__title">Solicitá una reserva</h2>
         <label>Nombre<input name="nombre" type="text" placeholder="Tu nombre" required /></label>
         <div class="rform__row">
           <label>Personas
@@ -36,8 +36,8 @@ import { restaurant } from '../../data/restaurant';
             {['20:00','20:30','21:00','21:30','22:00','22:30'].map((h) => <option>{h}</option>)}
           </select>
         </label>
-        <button type="submit" class="btn rform__btn">Reservar por WhatsApp</button>
-        <p class="rform__fine muted">Te lleva a WhatsApp con el mensaje listo para enviar.</p>
+        <button type="submit" class="btn rform__btn">Solicitar por WhatsApp</button>
+        <p class="rform__fine muted">WhatsApp se abre con el mensaje listo. La reserva queda pendiente hasta que el local responda.</p>
       </form>
     </div>
   </header>
@@ -52,7 +52,7 @@ import { restaurant } from '../../data/restaurant';
   f?.addEventListener('submit', (e) => {
     e.preventDefault();
     const d = new FormData(f);
-    const msg = `Hola! Quiero reservar en ${name}.\nNombre: ${d.get('nombre')}\nPersonas: ${d.get('personas')}\nDía: ${d.get('dia')}\nHorario: ${d.get('hora')}`;
+    const msg = `Hola! Quiero solicitar una reserva en ${name}.\nNombre: ${d.get('nombre')}\nPersonas: ${d.get('personas')}\nDía: ${d.get('dia')}\nHorario: ${d.get('hora')}`;
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
   });
 </script>

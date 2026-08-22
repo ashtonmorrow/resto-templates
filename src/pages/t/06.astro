@@ -17,10 +17,10 @@ import { restaurant } from '../../data/restaurant';
       </div>
       <div class="mast__actions">
         <Book label="Reservar" />
-        <a class="btn btn--ghost" href="#" onclick="return false">Pedí por delivery</a>
+        <Book label="Pedí por WhatsApp" variant="ghost" message={`Hola! Quiero hacer un pedido en ${restaurant.name}.`} />
       </div>
     </div>
-    <div class="ticker"><span>Abierto hoy · 12–16 y 20–00 · {restaurant.neighborhood}, {restaurant.city} · Envíos en 40 min · </span><span>Abierto hoy · 12–16 y 20–00 · {restaurant.neighborhood}, {restaurant.city} · Envíos en 40 min · </span></div>
+    <div class="ticker"><span>Carta, horarios y pedidos por WhatsApp · {restaurant.neighborhood}, {restaurant.city} · </span><span>Carta, horarios y pedidos por WhatsApp · {restaurant.neighborhood}, {restaurant.city} · </span></div>
   </header>
 
   <main class="section wrap" id="menu"><Menu variant="cards" heading="La Carta" /></main>

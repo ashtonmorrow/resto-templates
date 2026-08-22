@@ -3,9 +3,10 @@ import { restaurant } from '../../data/restaurant';
 interface Props {
   label?: string;
   variant?: 'btn' | 'ghost' | 'block';
+  message?: string;
 }
-const { label = 'Reservar por WhatsApp', variant = 'btn' } = Astro.props;
-const href = `https://wa.me/${restaurant.whatsapp}?text=${encodeURIComponent(restaurant.whatsappMsg)}`;
+const { label = 'Reservar por WhatsApp', variant = 'btn', message } = Astro.props;
+const href = `https://wa.me/${restaurant.whatsapp}?text=${encodeURIComponent(message ?? restaurant.whatsappMsg)}`;
 const cls = variant === 'ghost' ? 'btn btn--ghost' : variant === 'block' ? 'btn book--block' : 'btn';
 ---
 <a class={cls} href={href} target="_blank" rel="noopener">

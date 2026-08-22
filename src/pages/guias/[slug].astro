@@ -15,6 +15,7 @@ const relatedGuides = guides.filter((item) => item.slug !== guide.slug).slice(0,
 const canonical = `https://folio.unwoke.ninja/guias/${guide.slug}/`;
 const isRecipe = Boolean(guide.recipe);
 const published = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${guide.datePublished}T00:00:00Z`));
+const modified = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${guide.dateModified}T00:00:00Z`));
 const articleData = {
   '@type': 'Article',
   '@id': `${canonical}#article`,
@@ -73,7 +74,7 @@ if (guide.recipe) {
       <p class="eyebrow">{guide.kicker} · {guide.readTime} de lectura</p>
       <h1>{guide.title}</h1>
       <p class="article__deck">{guide.description}</p>
-      <div class="article__byline"><span>Por Folio Resto</span><span>Publicado el {published}</span><a href="https://github.com/ashtonmorrow/resto-templates" target="_blank" rel="noreferrer">Código y metodología ↗</a></div>
+      <div class="article__byline"><span>Por Folio Resto</span><span>{guide.dateModified === guide.datePublished ? `Publicado el ${published}` : `Actualizado el ${modified}`}</span><a href="https://github.com/ashtonmorrow/resto-templates" target="_blank" rel="noreferrer">Código y metodología ↗</a></div>
     </header>
 
     {guide.recipe && (
@@ -96,11 +97,21 @@ if (guide.recipe) {
           <section class="article__section" id={`paso-${index + 1}`}>
             <div class="article__section-head"><span>{String(index + 1).padStart(2, '0')}</span><h2>{section.title}</h2></div>
             {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            {section.table && (
+              <div class="article__table-wrap">
+                <table class="article__table">
+                  {section.table.caption && <caption>{section.table.caption}</caption>}
+                  <thead><tr>{section.table.columns.map((column) => <th scope="col">{column}</th>)}</tr></thead>
+                  <tbody>{section.table.rows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody>
+                </table>
+              </div>
+            )}
             {section.bullets && <ul class="article__checklist">{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
             {section.image && <figure class="article__figure"><img src={section.image.src} alt={section.image.alt} width="1512" height="900" loading="lazy" /><figcaption>{section.image.caption}</figcaption></figure>}
             {section.code && <div class="article__code"><div><span>{section.code.label}</span><button type="button" data-copy-code aria-label={`Copiar ${section.code.label}`}>Copiar</button></div><pre><code>{section.code.value}</code></pre></div>}
             {section.tip && <aside class="article__tip"><strong>Nota de cocina</strong><p>{section.tip}</p></aside>}
             {section.link && <a class="article__source" href={section.link.url} target="_blank" rel="noreferrer">{section.link.label} ↗</a>}
+            {section.links && <div class="article__sources">{section.links.map((link) => <div><a href={link.url} target="_blank" rel="noreferrer">{link.label} ↗</a>{link.note && <small>{link.note}</small>}</div>)}</div>}
           </section>
         ))}
       </div>
