@@ -13,19 +13,22 @@ interface Props { guide: Guide }
 const { guide } = Astro.props;
 const relatedGuides = guides.filter((item) => item.slug !== guide.slug).slice(0, 3);
 const canonical = `https://folio.unwoke.ninja/guias/${guide.slug}/`;
-const structuredData = [
-  {
-    '@type': 'Article',
-    '@id': `${canonical}#article`,
-    headline: guide.title,
-    description: guide.description,
-    datePublished: guide.datePublished,
-    dateModified: guide.dateModified,
-    inLanguage: 'es-AR',
-    author: { '@type': 'Organization', name: 'Folio Resto', url: 'https://folio.unwoke.ninja/' },
-    publisher: { '@type': 'Organization', name: 'Folio Resto', url: 'https://folio.unwoke.ninja/' },
-    mainEntityOfPage: canonical,
-  },
+const isRecipe = Boolean(guide.recipe);
+const published = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${guide.datePublished}T00:00:00Z`));
+const articleData = {
+  '@type': 'Article',
+  '@id': `${canonical}#article`,
+  headline: guide.title,
+  description: guide.description,
+  datePublished: guide.datePublished,
+  dateModified: guide.dateModified,
+  inLanguage: 'es-AR',
+  author: { '@type': 'Organization', name: 'Folio Resto', url: 'https://folio.unwoke.ninja/' },
+  publisher: { '@type': 'Organization', name: 'Folio Resto', url: 'https://folio.unwoke.ninja/' },
+  mainEntityOfPage: canonical,
+};
+const structuredData: Record<string, unknown>[] = [
+  articleData,
   {
     '@type': 'BreadcrumbList',
     itemListElement: [
@@ -35,64 +38,87 @@ const structuredData = [
     ],
   },
 ];
+if (guide.recipe) {
+  structuredData.push({
+    '@type': 'HowTo',
+    '@id': `${canonical}#howto`,
+    name: guide.title,
+    description: guide.description,
+    inLanguage: 'es-AR',
+    totalTime: 'PT90M',
+    supply: guide.recipe.ingredients.map((name) => ({ '@type': 'HowToSupply', name })),
+    tool: [{ '@type': 'HowToTool', name: 'ChatGPT con Codex' }, { '@type': 'HowToTool', name: 'GitHub' }],
+    step: guide.sections.map((section, index) => ({ '@type': 'HowToStep', position: index + 1, name: section.title, text: section.paragraphs.join(' '), url: `${canonical}#paso-${index + 1}` })),
+  });
+}
 ---
 
 <Base
   title={`${guide.seoTitle ?? guide.title} | Folio Resto`}
   theme="studio"
   description={guide.description}
-  image={null}
+  image={isRecipe ? '/images/guides/chatgpt-recipe/07-final-preview.png' : null}
   structuredData={structuredData}
   ogType="article"
   datePublished={guide.datePublished}
   dateModified={guide.dateModified}
 >
   <StudioNav />
-  <article class="article wrap">
+  <article class:list={['article', 'wrap', { 'article--recipe': isRecipe }]}>
     <nav class="article__breadcrumb" aria-label="Migas de pan">
       <a href="/">Folio Resto</a><span aria-hidden="true">/</span><a href="/guias/">Guías</a><span aria-hidden="true">/</span><span>{guide.kicker}</span>
     </nav>
-    <header>
+
+    <header class="article__hero">
       <p class="eyebrow">{guide.kicker} · {guide.readTime} de lectura</p>
       <h1>{guide.title}</h1>
       <p class="article__deck">{guide.description}</p>
-      <div class="article__byline">
-        <span>Por Folio Resto</span>
-        <span>Publicado el 18 de agosto de 2026</span>
-        <a href="https://github.com/ashtonmorrow/resto-templates" target="_blank" rel="noreferrer">Ver metodología y código ↗</a>
-      </div>
+      <div class="article__byline"><span>Por Folio Resto</span><span>Publicado el {published}</span><a href="https://github.com/ashtonmorrow/resto-templates" target="_blank" rel="noreferrer">Código y metodología ↗</a></div>
     </header>
-    <aside class="article__takeaway">
-      <span>La idea central</span>
-      <p>{guide.takeaway}</p>
-    </aside>
-    {guide.sections.map((section, index) => (
-      <section class="article__section">
-        <span class="article__number">{String(index + 1).padStart(2, '0')}</span>
-        <div>
-          <h2>{section.title}</h2>
-          {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-          {section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
-          {section.code && (
-            <div class="article__code">
-              <span>{section.code.label}</span>
-              <pre><code>{section.code.value}</code></pre>
-            </div>
-          )}
-          {section.link && <a class="article__source" href={section.link.url} target="_blank" rel="noreferrer">{section.link.label} ↗</a>}
-        </div>
+
+    {guide.recipe && (
+      <section class="recipe-card" aria-labelledby="recipe-card-title">
+        <div><p class="eyebrow">Antes de empezar</p><h2 id="recipe-card-title">La receta de un vistazo</h2><dl><div><dt>Tiempo</dt><dd>{guide.recipe.time}</dd></div><div><dt>Dificultad</dt><dd>{guide.recipe.difficulty}</dd></div><div><dt>Resultado</dt><dd>{guide.recipe.result}</dd></div></dl></div>
+        <div class="recipe-card__ingredients"><h3>Ingredientes</h3><ul>{guide.recipe.ingredients.map((item) => <li>{item}</li>)}</ul></div>
       </section>
-    ))}
-    <footer class="article__end">
-      <p>¿Querés pasar de la teoría a una base concreta?</p>
-      <a class="docs-btn" href="/#plantillas">Ver las plantillas →</a>
-    </footer>
-    <aside class="article__related" aria-labelledby="related-title">
-      <p class="eyebrow" id="related-title">Seguir leyendo</p>
-      <div>
-        {relatedGuides.map((item) => <a href={`/guias/${item.slug}/`}><span>{item.kicker}</span><strong>{item.title}</strong></a>)}
+    )}
+
+    <aside class="article__takeaway"><span>La idea central</span><p>{guide.takeaway}</p></aside>
+
+    <div class="article__layout">
+      <aside class="article__toc" aria-label="Contenido de la guía">
+        <p>En esta guía</p>
+        <ol>{guide.sections.map((section, index) => <li><a href={`#paso-${index + 1}`}><span>{String(index + 1).padStart(2, '0')}</span>{section.title}</a></li>)}</ol>
+      </aside>
+
+      <div class="article__content">
+        {guide.sections.map((section, index) => (
+          <section class="article__section" id={`paso-${index + 1}`}>
+            <div class="article__section-head"><span>{String(index + 1).padStart(2, '0')}</span><h2>{section.title}</h2></div>
+            {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            {section.bullets && <ul class="article__checklist">{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+            {section.image && <figure class="article__figure"><img src={section.image.src} alt={section.image.alt} width="1512" height="900" loading="lazy" /><figcaption>{section.image.caption}</figcaption></figure>}
+            {section.code && <div class="article__code"><div><span>{section.code.label}</span><button type="button" data-copy-code aria-label={`Copiar ${section.code.label}`}>Copiar</button></div><pre><code>{section.code.value}</code></pre></div>}
+            {section.tip && <aside class="article__tip"><strong>Nota de cocina</strong><p>{section.tip}</p></aside>}
+            {section.link && <a class="article__source" href={section.link.url} target="_blank" rel="noreferrer">{section.link.label} ↗</a>}
+          </section>
+        ))}
       </div>
-    </aside>
+    </div>
+
+    <footer class="article__end"><div><p class="eyebrow">Siguiente paso</p><h2>Pasá de la receta a tu propia copia.</h2></div><a class="docs-btn" href="https://github.com/ashtonmorrow/resto-templates/generate" target="_blank" rel="noreferrer">Usar la plantilla en GitHub ↗</a></footer>
+    <aside class="article__related" aria-labelledby="related-title"><p class="eyebrow" id="related-title">Seguir leyendo</p><div>{relatedGuides.map((item) => <a href={`/guias/${item.slug}/`}><span>{item.kicker}</span><strong>{item.title}</strong></a>)}</div></aside>
   </article>
   <StudioFooter />
+
+  <script is:inline>
+    document.querySelectorAll('[data-copy-code]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const code = button.closest('.article__code')?.querySelector('code')?.textContent || '';
+        await navigator.clipboard.writeText(code);
+        button.textContent = 'Copiado';
+        setTimeout(() => { button.textContent = 'Copiar'; }, 1800);
+      });
+    });
+  </script>
 </Base>

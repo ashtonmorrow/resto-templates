@@ -2,32 +2,25 @@
 const repositoryUrl = 'https://github.com/ashtonmorrow/resto-templates';
 ---
 
-<nav class="studio-nav wrap" aria-label="Navegación principal">
-  <a class="studio-nav__brand" href="/">Folio <span>Resto</span></a>
-  <div class="studio-nav__links">
+<header class="studio-nav wrap">
+  <a class="studio-brand" href="/" aria-label="Folio Resto, inicio">
+    <span class="studio-brand__mark" aria-hidden="true"></span>
+    <span>Folio Resto</span>
+  </a>
+  <nav class="studio-nav__links" aria-label="Navegación principal">
     <a href="/#plantillas">Plantillas</a>
-    <a href="/guias/">Guías</a>
-    <a class="studio-nav__repo" href={repositoryUrl} target="_blank" rel="noreferrer">Código ↗</a>
-  </div>
-</nav>
+    <a href="/guias/crear-web-restaurante-con-chatgpt/">Guía ChatGPT</a>
+    <a href={repositoryUrl} target="_blank" rel="noreferrer">Código</a>
+    <a class="studio-nav__cta" href="mailto:hola@unwoke.ninja?subject=Quiero%20una%20web%20para%20mi%20restaurante">Te la armamos</a>
+  </nav>
+</header>
 
 <style>
-  .studio-nav {
-    min-height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    border-bottom: 1px solid var(--border);
-  }
-  .studio-nav__brand { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
-  .studio-nav__brand span { color: var(--accent); }
-  .studio-nav__links { display: flex; align-items: center; gap: clamp(14px, 3vw, 30px); font-size: 0.86rem; }
-  .studio-nav__links a { color: var(--muted); }
-  .studio-nav__links a:hover { color: var(--text); }
-  .studio-nav__repo { padding: 0.55em 0.9em; border: 1px solid var(--border); border-radius: 999px; }
-  @media (max-width: 560px) {
-    .studio-nav { min-height: 64px; }
-    .studio-nav__links > a:first-child { display: none; }
-  }
+  .studio-nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--border); }
+  .studio-brand { display: inline-flex; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 900; letter-spacing: -0.045em; white-space: nowrap; }
+  .studio-brand__mark { width: 15px; height: 15px; border-radius: 50%; background: var(--accent); box-shadow: 8px 0 0 var(--acid); margin-right: 8px; }
+  .studio-nav__links { display: flex; align-items: center; gap: clamp(16px, 3vw, 30px); font-size: 0.84rem; font-weight: 700; }
+  .studio-nav__links > a:not(.studio-nav__cta):hover { text-decoration: underline; text-underline-offset: 5px; }
+  .studio-nav__cta { border: 1px solid var(--text); border-radius: 999px; padding: 0.72em 1.25em; background: var(--acid); font-weight: 800; }
+  @media (max-width: 760px) { .studio-nav { min-height: 70px; } .studio-nav__links > a:not(.studio-nav__cta) { display: none; } .studio-nav__cta { padding: 0.62em 1em; } }
 </style>

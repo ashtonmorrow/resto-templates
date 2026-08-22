@@ -29,11 +29,14 @@
 
 /* ---- Studio (portfolio home) ---- */
 [data-theme='studio'] {
-  --bg: #0f0f12; --surface: #17171c; --surface-2: #1f1f26;
-  --text: #f2f0ea; --muted: #a49f92; --border: #2a2a31;
-  --accent: #e2591f; --accent-2: #c9a24b; --accent-ink: #ffffff;
-  --grad-a: #1c1c22; --grad-b: #0c0c0f;
-  --font-display: 'Fraunces', Georgia, serif; --font-lead: 'Fraunces', Georgia, serif; --font-body: 'Inter', system-ui, sans-serif;
+  --bg: #f4efe4; --surface: #f4efe4; --surface-2: #ebe3d3;
+  --text: #1d1c18; --muted: #666154; --border: rgba(29, 28, 24, 0.24);
+  --accent: #e94b32; --accent-2: #3f69ff; --accent-ink: #1d1c18;
+  --acid: #d8ff3e; --pink: #ffb7d2; --paper: #f4efe4; --ink: #1d1c18;
+  --grad-a: #d8ff3e; --grad-b: #ffb7d2;
+  --font-display: 'Inter', system-ui, sans-serif; --font-lead: Georgia, serif; --font-body: 'Inter', system-ui, sans-serif;
+  --radius: 4px;
+  --maxw: 1220px;
 }
 
 /* ---- 01 ember / La Brasa ---- */

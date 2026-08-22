@@ -5,23 +5,24 @@ import StudioFooter from '../components/StudioFooter.astro';
 import '../styles/studio-pages.css';
 
 const repositoryUrl = 'https://github.com/ashtonmorrow/resto-templates';
-const prompt = `Quiero adaptar Folio Resto para mi negocio gastronómico.
+const prompt = `Quiero adaptar este proyecto para mi restaurante.
 
-Primero leé el README y CLAUDE.md. Conservá la estructura y preguntame solamente por los datos que falten: nombre, tipo de local, ciudad, carta, horarios, WhatsApp, dirección, reservas, colores y fotos.
+Primero leé README.md y CLAUDE.md. No cambies nada todavía.
+Haceme una lista corta de los datos que faltan y no inventes precios, horarios ni enlaces.
 
-Después reemplazá el contenido de demostración, verificá la versión móvil y explicame cómo publicarlo en una cuenta que yo controle.`;
+Después usá src/data/restaurant.ts como fuente única, ayudame a elegir una plantilla, reemplazá la demostración, ejecutá npm run build y revisá la versión móvil.`;
 ---
 
 <Base
   title="Hacé vos la web de tu restaurante | Folio Resto"
   theme="studio"
-  description="Copiá las plantillas abiertas de Folio Resto y adaptalas con Claude, Codex, Cursor o el asistente que prefieras."
+  description="Copiá Folio Resto y seguí una receta en español para adaptarlo con ChatGPT y Codex."
   structuredData={[
     {
       '@type': 'WebPage',
       name: 'Hacé vos la web de tu restaurante',
       url: 'https://folio.unwoke.ninja/hacerlo-vos/',
-      description: 'Copiá las plantillas abiertas de Folio Resto y adaptalas con el asistente de programación que prefieras.',
+      description: 'Copiá Folio Resto y seguí una receta en español para adaptarlo con ChatGPT y Codex.',
       inLanguage: 'es-AR',
       isPartOf: { '@id': 'https://folio.unwoke.ninja/#website' },
     },
@@ -36,19 +37,19 @@ Después reemplazá el contenido de demostración, verificá la versión móvil 
 >
   <StudioNav />
   <header class="docs-hero wrap">
-    <p class="eyebrow">Código abierto, en serio</p>
-    <h1>Copialo. Abrilo con tu asistente. Hacelo tuyo.</h1>
-    <p>No hace falta empezar sabiendo qué archivo tocar. El proyecto contiene las 15 plantillas, una sola fuente para los datos del restaurante y una guía pensada para continuar con Claude, Codex, Cursor o cualquier asistente que trabaje con código.</p>
+    <p class="eyebrow">Código abierto, explicado en español</p>
+    <h1>Copialo. Abrilo con ChatGPT. Hacelo tuyo.</h1>
+    <p>No hace falta empezar sabiendo qué archivo tocar. La receta ilustrada te lleva desde el botón de GitHub hasta la revisión en el teléfono.</p>
     <div class="docs-actions">
       <a class="docs-btn" href={`${repositoryUrl}/generate`} target="_blank" rel="noreferrer">Usar esta plantilla en GitHub ↗</a>
-      <a class="docs-btn docs-btn--ghost" href={repositoryUrl} target="_blank" rel="noreferrer">Ver el código</a>
+      <a class="docs-btn docs-btn--ghost" href="/guias/crear-web-restaurante-con-chatgpt/">Seguir la receta con capturas →</a>
     </div>
   </header>
 
   <main class="wrap">
     <section class="diy-grid" aria-label="Pasos para adaptar el proyecto">
       <article class="diy-card"><span>01</span><h2>Hacé una copia</h2><p>Usá el botón de GitHub o descargá el ZIP. La copia queda en tu cuenta y nadie puede quitártela.</p></article>
-      <article class="diy-card"><span>02</span><h2>Abrila con un asistente</h2><p>Claude Code, Codex, Cursor u otra herramienta puede leer la carpeta y ayudarte a cambiarla.</p></article>
+      <article class="diy-card"><span>02</span><h2>Abrila con ChatGPT</h2><p>Conectá tu copia a Codex para que pueda leer los archivos, hacer cambios y ejecutar las comprobaciones.</p></article>
       <article class="diy-card"><span>03</span><h2>Reemplazá los datos</h2><p>Nombre, carta, horarios, WhatsApp y dirección viven en un archivo central. Las 15 versiones usan esa información.</p></article>
       <article class="diy-card"><span>04</span><h2>Publicala a tu nombre</h2><p>Usá Cloudflare, Netlify, Vercel u otro hosting estático. Mantené el dominio y la cuenta bajo tu control.</p></article>
     </section>
@@ -60,8 +61,8 @@ Después reemplazá el contenido de demostración, verificá la versión móvil 
     </section>
 
     <section class="help-strip">
-      <div><h2>¿Querés ver cada archivo antes de copiarlo?</h2><p>La guía técnica recorre la estructura real, el archivo de datos, el pedido para la IA, la revisión móvil y la publicación.</p></div>
-      <a class="docs-btn docs-btn--ghost" href="/guias/crear-pagina-web-restaurante-con-ia/">Leer la guía completa →</a>
+      <div><h2>¿Querés seguirlo como una receta?</h2><p>La guía de ChatGPT incluye ingredientes, pedido listo para copiar, capturas reales, revisión móvil y lista final.</p></div>
+      <a class="docs-btn docs-btn--ghost" href="/guias/crear-web-restaurante-con-chatgpt/">Abrir la receta ilustrada →</a>
     </section>
 
     <section class="help-strip">

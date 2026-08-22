@@ -1,26 +1,24 @@
 <footer class="studio-footer wrap">
   <div>
-    <strong>Folio Resto</strong>
-    <p>Una base abierta para restaurantes que quieren tener su propia web.</p>
+    <a class="studio-footer__brand" href="/"><span aria-hidden="true"></span>Folio Resto</a>
+    <p>Una base abierta para que un negocio gastronómico pueda tener una web propia.</p>
   </div>
   <div class="studio-footer__links">
-    <a href="/hacerlo-vos/">Quiero hacerlo yo</a>
-    <a href="/guias/">Guías</a>
-    <a href="mailto:hola@unwoke.ninja">Pedir ayuda</a>
+    <a href="/#plantillas">Ver plantillas</a>
+    <a href="/guias/crear-web-restaurante-con-chatgpt/">Hacerla con ChatGPT</a>
+    <a href="/guias/">Todas las guías</a>
+    <a href="mailto:hola@unwoke.ninja">Escribirnos</a>
   </div>
+  <p class="studio-footer__note">Código abierto · Sin permanencia obligatoria · Hecho para Argentina</p>
 </footer>
 
 <style>
-  .studio-footer {
-    padding-block: 48px 64px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    gap: 32px;
-  }
-  .studio-footer strong { font-family: var(--font-display); font-size: 1.2rem; }
-  .studio-footer p { color: var(--muted); max-width: 42ch; margin-top: 0.35rem; }
-  .studio-footer__links { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 12px 24px; font-size: 0.88rem; color: var(--muted); }
-  .studio-footer a:hover { color: var(--text); }
-  @media (max-width: 700px) { .studio-footer { flex-direction: column; } }
+  .studio-footer { min-height: 360px; padding-block: 64px 32px; border-top: 1px solid var(--border); display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-content: space-between; }
+  .studio-footer__brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 900; letter-spacing: -0.04em; }
+  .studio-footer__brand span { width: 13px; height: 13px; border-radius: 50%; background: var(--accent); box-shadow: 7px 0 0 var(--acid); margin-right: 7px; }
+  .studio-footer p:not(.studio-footer__note) { color: var(--muted); max-width: 44ch; margin-top: 0.7rem; }
+  .studio-footer__links { display: flex; flex-direction: column; gap: 11px; font-weight: 700; }
+  .studio-footer__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .studio-footer__note { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 18px; color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; }
+  @media (max-width: 700px) { .studio-footer { min-height: 310px; grid-template-columns: 1fr; } .studio-footer__note { grid-column: auto; } }
 </style>

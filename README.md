@@ -7,7 +7,7 @@ Sitio en vivo: [folio.unwoke.ninja](https://folio.unwoke.ninja/)
 ## Empezar sin experiencia técnica
 
 1. Tocá **Use this template** arriba de esta página para crear una copia en tu cuenta.
-2. Descargá tu copia o abrila con Claude Code, Codex, Cursor u otro asistente de programación.
+2. Abrí Codex dentro de ChatGPT, conectá tu cuenta de GitHub y elegí solamente tu copia.
 3. Pedile que lea `README.md` y `CLAUDE.md` antes de cambiar nada.
 4. Elegí una base en `src/pages/t/` y reemplazá la información de demostración.
 5. Revisá la versión móvil y publicala en una cuenta que controles.
@@ -15,6 +15,8 @@ Sitio en vivo: [folio.unwoke.ninja](https://folio.unwoke.ninja/)
 Podés arrancar pegando este pedido:
 
 > Quiero adaptar Folio Resto para mi negocio gastronómico. Primero leé el README y CLAUDE.md. Conservá la estructura y preguntame solamente por los datos que falten: nombre, tipo de local, ciudad, carta, horarios, WhatsApp, dirección, reservas, colores y fotos. Después reemplazá el contenido de demostración, verificá la versión móvil y explicame cómo publicarlo en una cuenta que yo controle.
+
+Guía ilustrada en español: [crear la web de tu restaurante con ChatGPT](https://folio.unwoke.ninja/guias/crear-web-restaurante-con-chatgpt/).
 
 ## Dónde se cambia cada cosa
 

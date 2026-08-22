@@ -5,6 +5,8 @@ export interface GuideSection {
   bullets?: string[];
   code?: { label: string; value: string };
   link?: { label: string; url: string };
+  image?: { src: string; alt: string; caption: string };
+  tip?: string;
 }
 
 export interface Guide {
@@ -16,10 +18,131 @@ export interface Guide {
   takeaway: string;
   datePublished: string;
   dateModified: string;
+  recipe?: {
+    time: string;
+    difficulty: string;
+    result: string;
+    ingredients: string[];
+  };
   sections: GuideSection[];
 }
 
 export const guides: Guide[] = [
+  {
+    slug: 'crear-web-restaurante-con-chatgpt',
+    kicker: 'Receta ChatGPT',
+    title: 'Cómo crear la web de tu restaurante con ChatGPT, paso a paso',
+    seoTitle: 'Crear la web de un restaurante con ChatGPT',
+    description: 'Una receta ilustrada en español para copiar Folio Resto, adaptarlo con ChatGPT y publicar una web propia sin quedar atado a una plataforma.',
+    readTime: '15 min',
+    takeaway: 'Vos ponés los datos reales y aprobás las decisiones. ChatGPT con Codex hace el trabajo repetitivo sobre una copia que sigue siendo tuya.',
+    datePublished: '2026-08-22',
+    dateModified: '2026-08-22',
+    recipe: {
+      time: 'Entre 60 y 90 minutos para una primera versión',
+      difficulty: 'Principiante con paciencia',
+      result: 'Una web de restaurante funcionando en tu propia cuenta',
+      ingredients: [
+        'Una cuenta de GitHub gratuita',
+        'Una cuenta de ChatGPT con acceso a Codex',
+        'Nombre, descripción, dirección y horarios',
+        'Número de WhatsApp e Instagram',
+        'Carta con precios',
+        'De 6 a 10 fotos propias',
+      ],
+    },
+    sections: [
+      {
+        title: 'Prepará los ingredientes antes de abrir ChatGPT',
+        paragraphs: [
+          'No empieces pidiéndole a la IA que invente un restaurante. Juntá primero la información que un cliente necesita para decidir: qué servís, cuánto cuesta, dónde estás, cuándo abrís y cómo reservar o pedir.',
+          'Podés tener la carta en un documento, una planilla o incluso fotos legibles. ChatGPT puede ayudarte a ordenarla, pero los precios, horarios y datos de contacto tienen que salir de vos.',
+        ],
+        bullets: ['Nombre y una descripción corta', 'Dirección, barrio y ciudad', 'Horarios por día', 'WhatsApp con código de país', 'Carta y precios vigentes', 'Fotos del salón, la fachada y los platos'],
+        tip: 'Mise en place digital: cuanto mejores sean tus ingredientes, menos tendrá que adivinar ChatGPT.',
+      },
+      {
+        title: 'Hacé una copia en tu GitHub',
+        paragraphs: [
+          'Abrí el repositorio público y tocá “Use this template”. Después elegí “Create a new repository”. GitHub crea una copia independiente en tu cuenta: ésa es la versión que vas a adaptar.',
+          'Poné un nombre simple, por ejemplo web-mi-restaurante. Puede ser público o privado. No necesitás tocar los archivos desde GitHub todavía.',
+        ],
+        image: { src: '/images/guides/chatgpt-recipe/01-use-this-template.png', alt: 'Repositorio Folio Resto en GitHub con el menú Use this template abierto', caption: 'Paso 1. “Use this template” crea una copia editable en tu cuenta.' },
+        link: { label: 'Crear mi copia en GitHub', url: 'https://github.com/ashtonmorrow/resto-templates/generate' },
+      },
+      {
+        title: 'Abrí Codex dentro de ChatGPT y conectá GitHub',
+        paragraphs: [
+          'En ChatGPT, entrá a Codex y conectá tu cuenta de GitHub cuando te lo pida. Elegí solamente el repositorio nuevo que acabás de crear. La conexión común de GitHub permite consultar el código; Codex, además, puede modificarlo, ejecutar comprobaciones y preparar cambios.',
+          'Los nombres de los botones pueden variar según tu plan y la versión de ChatGPT. Si no aparece Codex, consultá la disponibilidad de tu cuenta antes de seguir. Nunca pegues contraseñas, claves de Cloudflare ni datos bancarios dentro del proyecto.',
+        ],
+        link: { label: 'Ver la documentación oficial de ChatGPT y Codex', url: 'https://learn.chatgpt.com/docs' },
+        tip: 'Dale acceso sólo a la copia de tu restaurante, no a todos tus repositorios.',
+      },
+      {
+        title: 'Pegá este pedido inicial',
+        paragraphs: [
+          'Un pedido útil define el objetivo, la fuente de verdad y qué significa terminar. También obliga a ChatGPT a preguntar antes de inventar información.',
+        ],
+        code: {
+          label: 'Pedido para ChatGPT',
+          value: 'Quiero adaptar este proyecto para mi restaurante.\n\nPrimero leé README.md y CLAUDE.md. No cambies nada todavía.\nDespués haceme una lista corta de los datos que faltan.\n\nCuando te responda:\n1. Usá src/data/restaurant.ts como única fuente de datos.\n2. Ayudame a elegir una de las 15 plantillas según cómo compran mis clientes.\n3. Reemplazá Casa Rufina por mi contenido real.\n4. No inventes precios, horarios, dirección ni enlaces.\n5. Ejecutá npm run build.\n6. Revisá la versión móvil y todos los enlaces.\n7. Mostrame una vista previa y una lista de lo que debo confirmar antes de publicar.',
+        },
+        tip: 'No hace falta pedir “haceme una web increíble”. Este pedido concreto produce un resultado mucho más controlable.',
+      },
+      {
+        title: 'Contestá una tanda de preguntas, como una comanda',
+        paragraphs: [
+          'Respondé con datos concretos. Si algo todavía no existe, decilo. Es mejor publicar sin Instagram que dejar un enlace falso. Para la carta, mantené una estructura simple de categoría, plato, descripción opcional y precio.',
+          'También contale cuál es la acción principal: reservar, pedir por WhatsApp, llegar al local o mirar la carta. Esa decisión sirve para elegir la plantilla.',
+        ],
+        bullets: ['Acción principal del sitio', 'Tipo de local y estilo de cocina', 'Datos prácticos verificados', 'Carta vigente', 'Colores o referencias de marca', 'Fotos que realmente podés usar'],
+      },
+      {
+        title: 'Revisá el archivo que funciona como ficha del restaurante',
+        paragraphs: [
+          'ChatGPT va a concentrar la información en src/data/restaurant.ts. Ese archivo alimenta nombre, historia, ubicación, horarios, WhatsApp, carta y fotografías. Tener una sola ficha evita cambiar un precio en cinco lugares distintos.',
+          'Pedile que te muestre el cambio antes de aprobarlo. Buscá especialmente el número de WhatsApp, la moneda, los horarios y cualquier texto que todavía diga Casa Rufina.',
+        ],
+        image: { src: '/images/guides/chatgpt-recipe/03-edit-restaurant-data.png', alt: 'Archivo restaurant.ts abierto en GitHub con los datos de demostración del restaurante', caption: 'Paso 5. Todos los datos compartidos viven en una ficha central.' },
+        code: { label: 'La parte que más vas a reconocer', value: "export const restaurant = {\n  name: 'Tu restaurante',\n  city: 'Rosario',\n  whatsapp: '5493410000000',\n  hours: [/* tus horarios */],\n  menu: [/* tu carta */],\n};" },
+      },
+      {
+        title: 'Probá una plantilla según el trabajo que tiene que hacer',
+        paragraphs: [
+          'No elijas sólo por color. La 06 pone carta y precios primero; la 14 lleva rápido a reservar; la 11 sirve para un local chico con horario, mapa y WhatsApp; la 13 depende de buenas fotos.',
+          'Pedile a ChatGPT que prepare primero una sola opción. Mezclar tres diseños suele producir una web menos clara y tarda más.',
+        ],
+        link: { label: 'Comparar las 15 plantillas', url: 'https://folio.unwoke.ninja/#plantillas' },
+      },
+      {
+        title: 'Mirá la vista previa como cliente, no como dueño',
+        paragraphs: [
+          'Abrí la vista previa en el teléfono. Intentá encontrar la carta, confirmar si está abierto, tocar WhatsApp y abrir el mapa sin explicaciones. Si algo importante requiere buscar demasiado, pedile a ChatGPT un ajuste puntual.',
+          'Usá pedidos concretos: “el botón de reservar tiene que verse sin hacer scroll en un iPhone” o “mostrá las categorías de la carta antes de las fotos”.',
+        ],
+        image: { src: '/images/guides/chatgpt-recipe/07-final-preview.png', alt: 'Vista móvil de una plantilla de restaurante terminada con carta y botón de WhatsApp', caption: 'Paso 7. La prueba importante ocurre en un teléfono y termina en una acción real.' },
+        bullets: ['WhatsApp abre el número correcto', 'Maps abre la ubicación correcta', 'Los precios coinciden con la carta', 'Las fotos cargan y tienen permiso de uso', 'No quedan datos de demostración', 'La acción principal se entiende enseguida'],
+      },
+      {
+        title: 'Publicá en una cuenta que controles',
+        paragraphs: [
+          'La demostración usa Cloudflare, pero el sitio es estático y puede vivir en distintos proveedores. Pedile a ChatGPT que te guíe con el proveedor que elijas y frená cuando necesite crear una cuenta, conectar un dominio o guardar una clave: esos pasos deben hacerse con tus propios accesos.',
+          'Registrá el dominio con un correo del negocio. Anotá dónde está el dominio, dónde está el repositorio y dónde se publica. Esa pequeña lista es tu garantía de salida.',
+        ],
+        code: { label: 'Comprobación antes de publicar', value: 'npm run build' },
+        link: { label: 'Ver opciones oficiales de publicación de Astro', url: 'https://docs.astro.build/es/guides/deploy/' },
+      },
+      {
+        title: 'La prueba del plato terminado',
+        paragraphs: [
+          'Antes de compartir la dirección, pedile a otra persona que complete una tarea real sin ayuda: encontrar un plato, reservar o iniciar un pedido. Corregí lo que la frene y publicá una primera versión simple.',
+          'Después podés volver a ChatGPT para cambiar una foto, sumar una categoría o mejorar un texto. Conservá siempre el repositorio y evitá convertir una corrección pequeña en una reconstrucción completa.',
+        ],
+        bullets: ['Dominio y cuentas a nombre del negocio', 'Copia completa en GitHub', 'Build exitoso', 'Revisión en teléfono', 'Carta, horarios y enlaces confirmados', 'Una persona externa pudo completar la acción principal'],
+      },
+    ],
+  },
   {
     slug: 'crear-pagina-web-restaurante-con-ia',
     kicker: 'Guía técnica',

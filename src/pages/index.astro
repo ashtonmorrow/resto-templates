@@ -3,12 +3,23 @@ import Base from '../layouts/Base.astro';
 import StudioNav from '../components/StudioNav.astro';
 import StudioFooter from '../components/StudioFooter.astro';
 import { templates } from '../data/templates';
-import { restaurant } from '../data/restaurant';
+import { guides } from '../data/guides';
+
+const repositoryUrl = 'https://github.com/ashtonmorrow/resto-templates';
+const featuredTemplates = templates.slice(0, 4);
+const featuredGuides = guides.slice(0, 4);
+const faqs = [
+  ['¿De verdad puedo hacerlo sin saber programar?', 'Sí, si te animás a seguir una receta y revisar el resultado. ChatGPT con Codex puede leer el proyecto, cambiar los datos y comprobar el sitio. Vos seguís decidiendo qué dice y qué se publica.'],
+  ['¿Hay una cuota mensual?', 'No por usar la base. El dominio se renueva y el proveedor de hosting puede tener costos, aunque una web estática chica suele entrar en planes gratuitos.'],
+  ['¿Puedo seguir usando PedidosYa, Fudo u otro sistema?', 'Sí. Tu web puede convivir con las herramientas que ya usás y enlazarlas cuando conviene.'],
+  ['¿Qué significa que el código es mío?', 'Que tenés una copia completa, podés moverla a otro proveedor y otra persona puede continuar el trabajo sin empezar de cero.'],
+];
 ---
+
 <Base
-  title="Folio Resto — una web propia para tu restaurante"
+  title="Página web para restaurantes en Argentina | Folio Resto"
   theme="studio"
-  description="Plantillas abiertas y guías prácticas para restaurantes argentinos que quieren tener su propia web, carta y canal directo."
+  description="Plantillas abiertas y una guía en español para crear con ChatGPT la web de tu restaurante: carta, WhatsApp, reservas y dominio propio."
   structuredData={[
     {
       '@type': 'Organization',
@@ -17,7 +28,7 @@ import { restaurant } from '../data/restaurant';
       url: 'https://folio.unwoke.ninja/',
       email: 'hola@unwoke.ninja',
       areaServed: { '@type': 'Country', name: 'Argentina' },
-      sameAs: ['https://github.com/ashtonmorrow/resto-templates'],
+      sameAs: [repositoryUrl],
     },
     {
       '@type': 'WebSite',
@@ -27,160 +38,178 @@ import { restaurant } from '../data/restaurant';
       inLanguage: 'es-AR',
       publisher: { '@id': 'https://folio.unwoke.ninja/#organization' },
     },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })),
+    },
   ]}
 >
   <StudioNav />
-  <header class="top wrap">
-    <p class="eyebrow">Web propia · Restaurantes de Argentina</p>
-    <h1 class="top__title">Tu restaurante.<br />Tu sitio. Tus reglas.</h1>
-    <p class="top__sub muted">
-      Elegí una de 15 bases, reemplazá los datos con ayuda de Claude, Codex o la herramienta que prefieras
-      y publicala en una cuenta propia. Si no querés hacerlo vos, te ayudamos de forma puntual.
-    </p>
-    <div class="top__actions">
-      <a class="btn" href="/hacerlo-vos/">Quiero hacerlo yo <span aria-hidden="true">→</span></a>
-      <a class="btn btn--ghost" href="#plantillas">Ver las 15 plantillas</a>
-    </div>
-  </header>
 
-  <section class="paths wrap" aria-labelledby="paths-title">
-    <div class="paths__intro">
-      <p class="eyebrow">Dos caminos</p>
-      <h2 id="paths-title">La propiedad no cambia.</h2>
-      <p class="muted">En ambos casos, el dominio, el código y las cuentas quedan a nombre del restaurante.</p>
-    </div>
-    <a class="path-card" href="/hacerlo-vos/">
-      <span>01 · Gratis</span>
-      <h3>Hacerlo vos</h3>
-      <p>Copiá el proyecto público, abrilo con tu asistente y seguí una guía paso a paso.</p>
-      <strong>Empezar con el código →</strong>
-    </a>
-    <a class="path-card" href="mailto:hola@unwoke.ninja?subject=Quiero%20una%20web%20para%20mi%20restaurante">
-      <span>02 · Ayuda puntual</span>
-      <h3>Te lo dejamos listo</h3>
-      <p>Adaptamos una base, cargamos tu contenido y la publicamos. Trabajo independiente, alcance y precio claros.</p>
-      <strong>Contarnos sobre tu local →</strong>
-    </a>
-  </section>
+  <main>
+    <header class="folio-hero wrap">
+      <p class="eyebrow">Hecho para la gastronomía argentina</p>
+      <h1>Tu restaurante.<br />Tu web.<br /><em>Tus clientes.</em></h1>
+      <p class="folio-hero__copy">Una web lista para mostrar tu carta, recibir reservas y llevar pedidos a WhatsApp. Sin comisiones por cada venta, sin quedar atado a una plataforma y con todo a tu nombre.</p>
+      <div class="folio-actions">
+        <a class="folio-button folio-button--primary" href="/guias/crear-web-restaurante-con-chatgpt/">Quiero hacerlo yo <span>Guía ChatGPT</span></a>
+        <a class="folio-button" href="mailto:hola@unwoke.ninja?subject=Quiero%20una%20web%20para%20mi%20restaurante">Quiero que me la armen <span>→</span></a>
+      </div>
+      <div class="ownership-strip" aria-label="Qué queda a tu nombre"><span>Tu dominio</span><span>Tu código</span><span>Tus clientes</span></div>
+    </header>
 
-  <section class="showroom-head wrap" id="plantillas">
-    <p class="eyebrow">El showroom</p>
-    <h2>Un restaurante. Quince maneras de mostrarlo.</h2>
-    <p class="muted">La misma marca de demostración ({restaurant.name}), la misma carta y las mismas fotos, montadas en 15 sistemas distintos.</p>
-  </section>
+    <section class="statement-section">
+      <div class="wrap statement-grid">
+        <p class="section-index">01 — El punto</p>
+        <p class="statement">Instagram muestra el momento. Una plataforma te presta espacio. <em>Tu web construye un lugar propio.</em></p>
+        <p class="statement-note">No hace falta empezar con una app, un panel enorme ni una suscripción eterna. Hace falta que te encuentren, entiendan qué ofrecés y puedan actuar.</p>
+      </div>
+    </section>
 
-  <main class="wrap grid" aria-label="Plantillas para restaurantes">
-    {
-      templates.map((t) => (
-        <a class="card" href={`/t/${t.id}/`}>
-          <div
-            class="thumb"
-            style={`--tb:${t.preview.bg};--ti:${t.preview.ink};--ta:${t.preview.accent};--tn:${t.preview.band}`}
-          >
-            <span class="thumb__bar" />
-            <span class="thumb__h" />
-            <span class="thumb__l" />
-            <span class="thumb__l thumb__l--short" />
-            <span class="thumb__chip">{t.menuPos}</span>
-          </div>
-          <div class="card__body">
-            <div class="card__row">
-              <span class="card__num">{t.id}</span>
-              <span class="card__fits">{t.fits}</span>
-            </div>
-            <h2 class="card__name">{t.codename}</h2>
-            <p class="card__blurb muted">{t.blurb}</p>
-          </div>
-        </a>
-      ))
-    }
+    <section class="paths wrap">
+      <p class="section-index">02 — Dos caminos</p>
+      <div class="path-grid">
+        <article class="path-card path-card--diy">
+          <span class="path-number">A</span><p class="eyebrow">Hacelo vos</p>
+          <h2>Copiá, contale a ChatGPT sobre tu local y publicá.</h2>
+          <p>La receta usa una copia del proyecto en tu GitHub. ChatGPT con Codex te ayuda a reemplazar la demostración sin esconderte el código.</p>
+          <ul><li>15 diseños gastronómicos</li><li>Receta ilustrada en español</li><li>Código abierto y portable</li><li>Sin costo de licencia</li></ul>
+          <a class="text-link" href="/guias/crear-web-restaurante-con-chatgpt/">Abrir la receta <span>→</span></a>
+        </article>
+        <article class="path-card path-card--service">
+          <span class="path-number">B</span><p class="eyebrow">Te la armamos</p>
+          <h2>Una web lista, sin convertirte en técnico.</h2>
+          <p>Nos pasás tu marca, carta, fotos y datos. Adaptamos una base, la publicamos y te entregamos el dominio, el código y las cuentas.</p>
+          <ul><li>Configuración y adaptación</li><li>Dominio y publicación</li><li>WhatsApp, Maps e Instagram</li><li>Precio cerrado, soporte opcional</li></ul>
+          <a class="text-link" href="mailto:hola@unwoke.ninja?subject=Quiero%20que%20armen%20mi%20web">Contarnos sobre tu local <span>→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="ownership wrap">
+      <p class="section-index">03 — Propiedad</p>
+      <div><h2>No alquiles tu vidriera digital.</h2><p class="lead">El dominio, el código y las cuentas quedan bajo tu control. Si mañana cambiás de proveedor, tu negocio no desaparece.</p></div>
+      <div class="ownership-list">
+        <article><strong>01</strong><h3>Tu dominio</h3><p>Registrado a nombre del negocio, no de quien hizo la web.</p></article>
+        <article><strong>02</strong><h3>Tu código</h3><p>Descargable, portable y sin una cuota para mantenerlo cautivo.</p></article>
+        <article><strong>03</strong><h3>Tus clientes</h3><p>Las reservas y consultas llegan a tus propios canales.</p></article>
+      </div>
+    </section>
+
+    <section class="template-preview wrap" id="plantillas">
+      <div class="section-heading"><div><p class="section-index">04 — Las bases</p><h2>Quince maneras de mostrar el mismo restaurante.</h2></div><a class="text-link" href="#todas-las-plantillas">Ver las 15 <span>↓</span></a></div>
+      <div class="template-row">
+        {featuredTemplates.map((template) => (
+          <a class="template-card" href={`/t/${template.id}/`}>
+            <img src={`/images/templates/${template.id}.png`} alt={`Captura de la plantilla ${template.codename}, pensada para ${template.fits}`} width="1200" height="750" loading="lazy" />
+            <div class="template-meta"><span>{template.id}</span><span>{template.fits}</span></div>
+            <h3>{template.codename}</h3><p>{template.blurb}</p>
+          </a>
+        ))}
+      </div>
+      <div class="all-templates" id="todas-las-plantillas">
+        {templates.map((template) => <a href={`/t/${template.id}/`}><span>{template.id}</span><strong>{template.codename}</strong><small>{template.fits}</small><b>↗</b></a>)}
+      </div>
+    </section>
+
+    <section class="steps-section">
+      <div class="wrap">
+        <div class="section-heading"><div><p class="section-index">05 — DIY, de verdad</p><h2>Como una receta: cuatro pasos y una revisión final.</h2></div></div>
+        <ol class="steps">
+          <li><span>01</span><div><h3>Hacé tu copia</h3><p>Un botón crea el proyecto en tu propia cuenta de GitHub.</p></div></li>
+          <li><span>02</span><div><h3>Abrilo con ChatGPT</h3><p>Conectá el repositorio a Codex y pegá el pedido que preparamos.</p></div></li>
+          <li><span>03</span><div><h3>Pasale los ingredientes</h3><p>Nombre, carta, horarios, WhatsApp, fotos, colores y dirección.</p></div></li>
+          <li><span>04</span><div><h3>Probá y publicá</h3><p>Revisá el teléfono, los enlaces y el dominio antes de servir.</p></div></li>
+        </ol>
+        <a class="folio-button folio-button--dark" href="/guias/crear-web-restaurante-con-chatgpt/">Seguir la receta con capturas <span>→</span></a>
+      </div>
+    </section>
+
+    <section class="guides-preview wrap">
+      <div class="section-heading"><div><p class="section-index">06 — Aprendé sin humo</p><h2>Guías para tomar mejores decisiones digitales.</h2></div><a class="text-link" href="/guias/">Ver todas <span>→</span></a></div>
+      <div class="guide-grid">
+        {featuredGuides.map((guide, index) => <a class={`guide-card guide-card--${index + 1}`} href={`/guias/${guide.slug}/`}><span>{guide.kicker} · {guide.readTime}</span><h3>{guide.title}</h3><p>{guide.description}</p><strong>Leer guía →</strong></a>)}
+      </div>
+    </section>
+
+    <section class="not-software wrap"><p class="section-index">07 — Sin promesas infladas</p><div><h2>Esto no reemplaza la caja, las comandas ni el stock.</h2><p class="lead">Es la capa pública de tu negocio: la que Google puede encontrar y tus clientes pueden visitar. Puede conectarse a otras herramientas sin convertirse en otra jaula.</p><a class="text-link" href="/guias/software-para-restaurantes-argentina/">Entender qué software necesitás <span>→</span></a></div></section>
+
+    <section class="faq wrap"><p class="section-index">08 — Preguntas honestas</p><div>{faqs.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+
+    <section class="bottom-cta"><div class="wrap"><p class="eyebrow">Elegí cómo empezar</p><h2>Hacela vos.<br />O la hacemos <em>con vos.</em></h2><div class="folio-actions"><a class="folio-button folio-button--primary" href="/guias/crear-web-restaurante-con-chatgpt/">Abrir la receta <span>ChatGPT</span></a><a class="folio-button folio-button--light" href="mailto:hola@unwoke.ninja?subject=Quiero%20una%20web%20lista">Quiero una lista para publicar <span>→</span></a></div></div></section>
   </main>
-
-  <section class="learn wrap">
-    <div>
-      <p class="eyebrow">Biblioteca abierta</p>
-      <h2>Antes de pagar software, entendé qué necesitás.</h2>
-    </div>
-    <p class="muted">Guías cortas sobre carta digital, reservas por WhatsApp, pedidos directos y cómo mantener tu stack bajo control.</p>
-    <a class="btn btn--ghost" href="/guias/">Leer las guías →</a>
-  </section>
 
   <StudioFooter />
 </Base>
 
 <style>
-  .top { padding-top: clamp(58px, 10vw, 118px); padding-bottom: clamp(50px, 8vw, 90px); }
-  .top__title { font-size: clamp(2.6rem, 7vw, 5.2rem); margin-top: 1rem; letter-spacing: -0.01em; }
-  .top__sub { margin-top: 1.4rem; max-width: 56ch; font-size: 1.1rem; }
-  .top__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-
-  .paths { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: clamp(72px, 10vw, 124px); padding: 0; }
-  .paths__intro, .path-card { padding: clamp(26px, 4vw, 42px); background: var(--surface); }
-  .paths__intro h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-block: 0.8rem; }
-  .path-card { display: flex; flex-direction: column; align-items: flex-start; }
-  .path-card > span { color: var(--accent-2); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
-  .path-card h3 { font-size: clamp(1.5rem, 2.5vw, 2.1rem); margin-block: 1.1rem 0.7rem; }
-  .path-card p { color: var(--muted); }
-  .path-card strong { color: var(--accent); margin-top: auto; padding-top: 28px; font-size: 0.88rem; }
-  .path-card:hover { background: var(--surface-2); }
-
-  .showroom-head { padding-bottom: 36px; scroll-margin-top: 30px; }
-  .showroom-head h2 { font-size: clamp(2rem, 4.5vw, 3.7rem); margin-block: 0.75rem 1rem; max-width: 16ch; }
-  .showroom-head p:last-child { max-width: 64ch; }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(16px, 2.2vw, 28px);
-    padding-bottom: 64px;
-  }
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-  }
-  .card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 18px 44px rgba(0,0,0,0.35); }
-
-  .thumb {
-    position: relative;
-    aspect-ratio: 16 / 10;
-    background: var(--tb);
-    padding: 16px;
-    display: block;
-    overflow: hidden;
-  }
-  .thumb__bar { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--ta); }
-  .thumb__h { display: block; width: 62%; height: 14px; border-radius: 4px; background: var(--ti); opacity: 0.85; margin-top: 14px; }
-  .thumb__l { display: block; height: 8px; border-radius: 4px; background: var(--tn); margin-top: 10px; }
-  .thumb__l--short { width: 40%; }
-  .thumb__l:not(.thumb__l--short) { width: 78%; }
-  .thumb__chip {
-    position: absolute; left: 16px; bottom: 14px;
-    font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--tb); background: var(--ta);
-    padding: 0.35em 0.7em; border-radius: 999px; font-weight: 700;
-  }
-
-  .card__body { padding: 16px 18px 20px; }
-  .card__row { display: flex; justify-content: space-between; align-items: center; }
-  .card__num { font-family: var(--font-display); color: var(--muted); font-size: 0.9rem; letter-spacing: 0.1em; }
-  .card__fits { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-2); font-weight: 600; }
-  .card__name { font-size: 1.5rem; margin-top: 0.3rem; }
-  .card__blurb { margin-top: 0.4rem; font-size: 0.92rem; }
-
-  .learn { display: grid; grid-template-columns: 1.2fr 1fr auto; gap: 32px; align-items: end; padding-block: clamp(62px, 9vw, 104px); border-top: 1px solid var(--border); }
-  .learn h2 { font-size: clamp(1.8rem, 3.5vw, 2.9rem); max-width: 18ch; margin-top: 0.8rem; }
-
-  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 900px) {
-    .paths { grid-template-columns: 1fr 1fr; }
-    .paths__intro { grid-column: 1 / -1; }
-    .learn { grid-template-columns: 1fr; align-items: start; }
-  }
-  @media (max-width: 560px) {
-    .grid, .paths { grid-template-columns: 1fr; }
-    .paths__intro { grid-column: auto; }
-  }
+  .section-index { color: var(--muted); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.13em; }
+  .lead { font-size: clamp(1.15rem, 2.1vw, 1.55rem); line-height: 1.45; letter-spacing: -0.025em; }
+  .folio-hero { min-height: calc(100vh - 82px); padding-block: clamp(62px, 8vw, 104px) 30px; display: flex; flex-direction: column; }
+  .folio-hero > .eyebrow { color: var(--text); margin-bottom: 28px; }
+  .folio-hero h1 { font-size: clamp(4.1rem, 10.7vw, 9.6rem); line-height: 0.79; letter-spacing: -0.078em; font-weight: 900; }
+  .folio-hero h1 em, .bottom-cta h2 em, .statement em { color: var(--accent); font-family: Georgia, serif; font-weight: 400; }
+  .folio-hero__copy { width: min(620px, 100%); margin: 42px 0 0 auto; font-size: clamp(1.12rem, 2vw, 1.5rem); line-height: 1.4; letter-spacing: -0.025em; }
+  .folio-actions { width: min(620px, 100%); margin: 32px 0 54px auto; display: flex; flex-wrap: wrap; gap: 12px; }
+  .folio-button { min-height: 58px; padding: 0 22px; border: 1px solid var(--text); display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; font-weight: 800; border-radius: 4px; flex: 1; transition: transform .18s ease, box-shadow .18s ease; }
+  .folio-button:hover { transform: translateY(-2px); box-shadow: 4px 4px 0 var(--text); }
+  .folio-button--primary { background: var(--acid); flex: 1.18; }
+  .folio-button > span { font-size: .66rem; padding: 5px 8px; border: 1px solid currentColor; border-radius: 999px; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+  .folio-button--dark { background: var(--text); color: var(--bg); border-color: var(--bg); width: fit-content; }
+  .folio-button--light { background: var(--bg); color: var(--text); border-color: var(--bg); }
+  .ownership-strip { margin-top: auto; border-block: 1px solid var(--border); padding: 17px 0; display: grid; grid-template-columns: repeat(3, 1fr); text-transform: uppercase; font-weight: 800; letter-spacing: .08em; font-size: .68rem; }
+  .ownership-strip span:nth-child(2) { text-align: center; } .ownership-strip span:last-child { text-align: right; }
+  .statement-section { background: var(--text); color: var(--bg); }
+  .statement-grid { min-height: 72vh; padding-block: clamp(78px, 12vw, 150px); display: grid; grid-template-columns: 1fr 3fr; gap: 48px; }
+  .statement-grid .section-index { color: #9b968b; }
+  .statement { font-size: clamp(2.5rem, 5.8vw, 5.8rem); line-height: .98; letter-spacing: -.058em; font-weight: 800; }
+  .statement em { color: var(--acid); }
+  .statement-note { grid-column: 2; width: min(560px, 100%); font-size: 1.05rem; color: #beb9ae; }
+  .paths, .template-preview, .guides-preview { padding-block: clamp(78px, 11vw, 140px); }
+  .path-grid { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .path-card { min-height: 620px; padding: clamp(28px, 4vw, 54px); border: 1px solid var(--text); position: relative; display: flex; flex-direction: column; }
+  .path-card h2 { margin: 95px 0 18px; font-size: clamp(2.1rem, 4.1vw, 4.25rem); line-height: .98; letter-spacing: -.058em; font-weight: 900; }
+  .path-card ul { padding: 0; margin: 30px 0; list-style: none; border-top: 1px solid currentColor; }
+  .path-card li { padding: 11px 0; border-bottom: 1px solid currentColor; }
+  .path-number { position: absolute; right: 24px; top: 18px; font-size: 4rem; line-height: 1; font-weight: 900; opacity: .16; }
+  .path-card--diy { background: var(--acid); } .path-card--service { background: var(--accent); color: #fff7ea; }
+  .path-card--diy .eyebrow, .path-card--service .eyebrow { color: inherit; }
+  .text-link { margin-top: auto; font-weight: 800; display: inline-flex; justify-content: space-between; align-items: center; gap: 28px; border-bottom: 1px solid currentColor; padding-bottom: 8px; width: fit-content; }
+  .ownership { padding-block: clamp(78px, 11vw, 140px); border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 3fr; gap: 40px; }
+  .ownership h2, .not-software h2 { font-size: clamp(3rem, 6.5vw, 6.4rem); line-height: .93; letter-spacing: -.068em; font-weight: 900; }
+  .ownership-list { grid-column: 2; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 36px; }
+  .ownership-list article { padding: 24px; border: 1px solid var(--border); margin-right: -1px; }
+  .ownership-list strong { color: var(--accent); } .ownership-list h3 { font-size: 1.45rem; margin: 40px 0 10px; } .ownership-list p { color: var(--muted); }
+  .template-preview { border-top: 1px solid var(--border); scroll-margin-top: 20px; }
+  .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 42px; }
+  .section-heading h2 { max-width: 840px; margin-top: 16px; font-size: clamp(2.7rem, 5.5vw, 5.4rem); line-height: .96; letter-spacing: -.064em; font-weight: 900; }
+  .template-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .template-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top; border: 1px solid var(--text); transition: transform .2s ease; }
+  .template-card:hover img { transform: translateY(-5px); }
+  .template-meta { margin-top: 14px; display: flex; justify-content: space-between; color: var(--muted); font-size: .65rem; text-transform: uppercase; font-weight: 800; letter-spacing: .08em; }
+  .template-card h3 { margin: 7px 0 4px; font-size: 1.45rem; letter-spacing: -.04em; } .template-card p { color: var(--muted); font-size: .88rem; }
+  .all-templates { margin-top: 70px; border-top: 1px solid var(--border); scroll-margin-top: 20px; }
+  .all-templates a { display: grid; grid-template-columns: 56px 1fr 1fr auto; gap: 18px; align-items: center; padding: 17px 0; border-bottom: 1px solid var(--border); }
+  .all-templates span, .all-templates small { color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; } .all-templates strong { font-size: 1.15rem; }
+  .steps-section { background: var(--accent-2); color: #f8f5e9; padding-block: clamp(78px, 11vw, 140px); }
+  .steps-section .section-index { color: #cfd7ff; } .steps { list-style: none; padding: 0; margin-bottom: 38px; border-top: 1px solid rgba(255,255,255,.4); }
+  .steps li { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,.4); } .steps li > span { font-weight: 800; }
+  .steps h3 { font-size: clamp(1.5rem, 3vw, 2.7rem); letter-spacing: -.045em; font-weight: 900; } .steps p { color: #d9dfff; margin-top: 6px; }
+  .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .guide-card { min-height: 350px; padding: clamp(24px, 3vw, 40px); border: 1px solid var(--text); display: flex; flex-direction: column; }
+  .guide-card > span { font-size: .66rem; text-transform: uppercase; font-weight: 800; letter-spacing: .1em; }
+  .guide-card h3 { margin: 70px 0 12px; font-size: clamp(1.8rem, 3.2vw, 3.3rem); line-height: 1; letter-spacing: -.05em; font-weight: 900; }
+  .guide-card strong { margin-top: auto; font-size: .82rem; } .guide-card--1 { background: var(--acid); } .guide-card--2 { background: var(--pink); } .guide-card--3 { background: #fff7ea; } .guide-card--4 { background: var(--text); color: var(--bg); }
+  .not-software, .faq { padding-block: clamp(78px, 11vw, 140px); border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 3fr; gap: 40px; }
+  .not-software .text-link { margin-top: 20px; }
+  .faq details { border-top: 1px solid var(--border); } .faq details:last-child { border-bottom: 1px solid var(--border); }
+  .faq summary { padding: 26px 46px 26px 0; cursor: pointer; font-size: clamp(1.2rem, 2.3vw, 1.9rem); font-weight: 800; letter-spacing: -.035em; list-style: none; position: relative; }
+  .faq summary::-webkit-details-marker { display: none; } .faq summary::after { content: '+'; position: absolute; right: 4px; } .faq details[open] summary::after { content: '−'; }
+  .faq details p { margin: 0 0 28px; max-width: 700px; color: var(--muted); }
+  .bottom-cta { background: var(--text); color: var(--bg); padding-block: clamp(78px, 10vw, 125px); }
+  .bottom-cta h2 { margin: 22px 0; font-size: clamp(4rem, 9vw, 9rem); line-height: .82; letter-spacing: -.078em; font-weight: 900; }
+  .bottom-cta h2 em { color: var(--acid); } .bottom-cta .folio-actions { margin: 46px 0 0; }
+  @media (max-width: 900px) { .template-row { grid-template-columns: repeat(2, 1fr); } .statement-grid, .ownership, .not-software, .faq { grid-template-columns: 1fr; } .statement-note, .ownership-list { grid-column: auto; } .ownership-list { margin-top: 0; } }
+  @media (max-width: 700px) { .folio-hero h1 { font-size: clamp(3.9rem, 18vw, 7rem); } .folio-hero__copy, .folio-actions { margin-left: 0; } .path-grid, .guide-grid { grid-template-columns: 1fr; } .path-card { min-height: 570px; } .ownership-list { grid-template-columns: 1fr; } .ownership-list article { margin: -1px 0 0; } .steps li { grid-template-columns: 48px 1fr; } }
+  @media (max-width: 520px) { .template-row { grid-template-columns: 1fr; } .section-heading { align-items: start; flex-direction: column; } .all-templates a { grid-template-columns: 42px 1fr auto; } .all-templates small { display: none; } .folio-button { flex-basis: 100%; } }
 </style>
