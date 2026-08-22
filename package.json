@@ -3,6 +3,9 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.19.0"
+  },
   "scripts": {
     "dev": "astro dev --port 4321",
     "build": "astro build",
@@ -10,9 +13,9 @@
     "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
-    "astro": "^4.16.0"
+    "astro": "^7.2.4"
   },
   "devDependencies": {
-    "wrangler": "^4.118.0"
+    "wrangler": "^4.125.0"
   }
 }
