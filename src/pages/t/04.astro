@@ -8,8 +8,9 @@ import Social from '../../components/blocks/Social.astro';
 import Img from '../../components/Img.astro';
 import { restaurant } from '../../data/restaurant';
 ---
-<Base title={`${restaurant.name} — Café y brunch`} theme="airy" description={restaurant.about}>
-  <div class="layout">
+<Base title={`${restaurant.name} — Café y brunch`} theme="airy" description={restaurant.about} image="/images/ambiance/modern-bright.jpg">
+  <a id="top"></a>
+  <main class="layout" id="main-content">
     <aside class="side">
       <div class="side__inner">
         <p class="eyebrow">{restaurant.kicker}</p>
@@ -27,7 +28,7 @@ import { restaurant } from '../../data/restaurant';
       </div>
     </aside>
 
-    <main class="content" id="top">
+    <div class="content">
       <figure class="content__hero"><Img src="/images/ambiance/modern-bright.jpg" alt="Salón luminoso de Casa Rufina en Palermo" priority /></figure>
       <section class="content__about section" id="about">
         <p class="eyebrow">Nosotros</p>
@@ -42,8 +43,8 @@ import { restaurant } from '../../data/restaurant';
         <p class="muted">{restaurant.neighborhood}, {restaurant.city} · {restaurant.phone}</p>
         <p class="muted demo">Sitio de demostración</p>
       </footer>
-    </main>
-  </div>
+    </div>
+  </main>
 </Base>
 <style>
   .layout { display: grid; grid-template-columns: 340px 1fr; }

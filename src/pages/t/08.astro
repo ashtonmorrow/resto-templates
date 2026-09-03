@@ -5,8 +5,8 @@ import Menu from '../../components/blocks/Menu.astro';
 import Img from '../../components/Img.astro';
 import { restaurant } from '../../data/restaurant';
 ---
-<Base title={`${restaurant.name} — Una historia a fuego lento`} theme="cinematic" description={restaurant.about}>
-  <main class="snap">
+<Base title={`${restaurant.name} — Una historia a fuego lento`} theme="cinematic" description={restaurant.about} image="/images/ambiance/parrilla-grill.jpg">
+  <main class="snap" id="main-content">
     <section class="scene scene--hero">
       <Img src="/images/ambiance/parrilla-grill.jpg" alt="Brasas de quebracho al rojo vivo en la parrilla" class="scene__bg" />
       <div class="scene__scrim"></div>
@@ -36,7 +36,7 @@ import { restaurant } from '../../data/restaurant';
     </section>
 
     <section class="scene scene--menu">
-      <div class="scene__content scene__content--wide"><Menu variant="columns" heading="La carta" limit={3} /></div>
+      <div class="scene__content scene__content--wide"><Menu id="menu" variant="columns" heading="La carta" limit={3} /></div>
     </section>
 
     <section class="scene scene--book">

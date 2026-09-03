@@ -8,8 +8,9 @@ import Book from '../../components/blocks/Book.astro';
 import SiteFooter from '../../components/blocks/SiteFooter.astro';
 import { restaurant } from '../../data/restaurant';
 ---
-<Base title={`${restaurant.name} — Parrilla en Palermo`} theme="ember" description={restaurant.about}>
+<Base title={`${restaurant.name} — Parrilla en Palermo`} theme="ember" description={restaurant.about} image="/images/ambiance/parrilla-grill.jpg">
   <a id="top"></a>
+  <main id="main-content">
   <Hero
     image="/images/ambiance/parrilla-grill.jpg"
     imageAlt="Cortes de carne y chorizo a las brasas en la parrilla"
@@ -29,6 +30,7 @@ import { restaurant } from '../../data/restaurant';
   </div>
 
   <div class="section wrap" id="gallery"><Gallery variant="grid" heading="El fuego, la mesa" /></div>
+  </main>
 
   <SiteFooter />
 </Base>

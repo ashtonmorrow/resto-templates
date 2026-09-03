@@ -1,0 +1,260 @@
+---
+import Base from '../../layouts/Base.astro';
+import StudioNav from '../../components/StudioNav.astro';
+import StudioFooter from '../../components/StudioFooter.astro';
+
+const groups = [
+  {
+    number: '01',
+    title: 'Objetivo',
+    intro: 'Anotá qué tiene que resolver esta página.',
+    fields: [
+      {
+        id: 'goal',
+        label: 'Resultado de la página',
+        help: 'Qué debería poder hacer o entender una persona cuando la visite.',
+        rows: 3,
+        value: 'Entender el trabajo del estudio y poder enviar una consulta.',
+      },
+      {
+        id: 'action',
+        label: 'Acción principal',
+        help: 'Elegí una. Las acciones secundarias pueden venir después.',
+        rows: 2,
+        value: 'Enviar una consulta.',
+      },
+    ],
+  },
+  {
+    number: '02',
+    title: 'Estructura',
+    intro: 'Listá los bloques y su orden en una pantalla chica.',
+    fields: [
+      {
+        id: 'sections',
+        label: 'Bloques de la página',
+        help: 'Escribí uno por línea, en el orden en que deberían aparecer.',
+        rows: 6,
+        value: 'Portada\nServicios\nTrabajo reciente\nQuiénes somos\nContacto',
+      },
+      {
+        id: 'mobile',
+        label: 'Comportamiento en teléfono',
+        help: 'Indicá qué aparece primero, qué forma una columna y qué no se debería recortar.',
+        rows: 4,
+        value: 'Los bloques forman una columna. El título y el botón principal aparecen antes de la imagen.',
+      },
+    ],
+  },
+  {
+    number: '03',
+    title: 'Límites',
+    intro: 'Separá lo que se conserva de lo que todavía falta decidir.',
+    fields: [
+      {
+        id: 'preserve',
+        label: 'Lo que no debería cambiar',
+        help: 'Puede ser contenido, una pieza existente o un comportamiento que ya está implementado.',
+        rows: 3,
+        value: 'El contenido real, los componentes compartidos y los enlaces existentes.',
+      },
+      {
+        id: 'unknowns',
+        label: 'Lo que todavía falta',
+        help: 'Usá PENDIENTE para que el agente no complete ese hueco por su cuenta.',
+        rows: 3,
+        value: 'PENDIENTE: fotografías finales y texto del último proyecto.',
+      },
+    ],
+  },
+];
+---
+
+<Base
+  title="Preparar un diseño para trabajar con IA | Folio"
+  theme="studio"
+  description="Anotá el objetivo, la acción principal, el orden en teléfono y los datos pendientes antes de pedir código."
+  image={null}
+  structuredData={{
+    '@type': 'LearningResource',
+    name: 'Preparar un diseño para trabajar con IA',
+    url: 'https://folio.unwoke.ninja/aprender/preparar-un-diseno/',
+    description: 'Un ejercicio para preparar una primera iteración de diseño a código.',
+    inLanguage: 'es-AR',
+    educationalLevel: 'Principiante',
+    learningResourceType: 'Ejercicio interactivo',
+  }}
+>
+  <StudioNav />
+
+  <main class="brief-page wrap" id="main-content">
+    <nav class="brief-breadcrumb" aria-label="Migas de pan">
+      <a href="/">Folio</a><span aria-hidden="true">/</span><a href="/aprender/">Aprender</a><span aria-hidden="true">/</span><span>Preparar una página</span>
+    </nav>
+
+    <header class="brief-hero">
+      <p class="eyebrow">Ejercicio de 10 minutos</p>
+      <h1>Anotá lo que la imagen no dice.</h1>
+      <p>Completá el objetivo, la acción principal, el orden en teléfono y los datos pendientes. La ficha arma un pedido para trabajar sobre una sola sección.</p>
+      <p class="brief-private"><span aria-hidden="true">●</span> La información queda en este navegador. No se envía ni se guarda.</p>
+    </header>
+
+    <form class="brief-form" data-brief-form>
+      <div class="brief-source">
+        <div>
+          <p class="eyebrow">La referencia</p>
+          <h2>De dónde viene el diseño</h2>
+        </div>
+        <label for="source">Herramienta o formato</label>
+        <select id="source" name="source">
+          <option>Figma</option>
+          <option>Adobe Illustrator</option>
+          <option>Adobe Photoshop</option>
+          <option>PDF</option>
+          <option>Captura de pantalla</option>
+          <option>Wireframe</option>
+          <option>Boceto</option>
+          <option>Otra referencia</option>
+        </select>
+      </div>
+
+      {groups.map((group) => (
+        <fieldset class="brief-group">
+          <legend>
+            <span>{group.number}</span>
+            <strong>{group.title}</strong>
+            <small>{group.intro}</small>
+          </legend>
+          <div class="brief-group__fields">
+            {group.fields.map((field) => (
+              <label class="brief-field" for={field.id}>
+                <strong>{field.label}</strong>
+                <small>{field.help}</small>
+                <textarea id={field.id} name={field.id} rows={field.rows}>{field.value}</textarea>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ))}
+    </form>
+
+    <section class="brief-output" aria-labelledby="brief-output-title">
+      <div class="brief-output__head">
+        <div>
+          <p class="eyebrow">Resultado</p>
+          <h2 id="brief-output-title">Revisá el pedido antes de copiarlo</h2>
+          <p>Editá cualquier dato que no describa tu página.</p>
+        </div>
+        <button type="button" data-copy-brief>Copiar pedido</button>
+      </div>
+      <pre><code data-brief-output aria-live="polite"></code></pre>
+      <p class="brief-output__status" data-copy-status>El pedido limita el trabajo a una sección y pide una vista previa, el diff y la comprobación completa.</p>
+    </section>
+
+    <section class="brief-after">
+      <div>
+        <p class="eyebrow">Dentro del proyecto</p>
+        <h2>Primero, pedile al agente que lea.</h2>
+      </div>
+      <div>
+        <p>Pegá el pedido dentro de una copia de Folio. Antes de editar, el agente tiene que leer las instrucciones y decir qué archivos va a tocar. Si falta una decisión, que la deje como pendiente.</p>
+        <a href="/guias/del-diseno-a-una-web-con-ia/#paso-5">Ver cómo revisar la primera iteración <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <StudioFooter />
+</Base>
+
+<script>
+  import { buildDesignBrief } from '../../lib/design-brief.mjs';
+
+  const form = document.querySelector('[data-brief-form]');
+  const output = document.querySelector('[data-brief-output]');
+  const copyButton = document.querySelector('[data-copy-brief]');
+  const copyStatus = document.querySelector('[data-copy-status]');
+
+  function updateBrief() {
+    if (!(form instanceof HTMLFormElement) || !(output instanceof HTMLElement)) return;
+    const data = Object.fromEntries(new FormData(form).entries());
+    output.textContent = buildDesignBrief(data);
+  }
+
+  form?.addEventListener('input', updateBrief);
+  updateBrief();
+
+  copyButton?.addEventListener('click', async () => {
+    if (!(output instanceof HTMLElement) || !(copyButton instanceof HTMLButtonElement)) return;
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable');
+      await navigator.clipboard.writeText(output.textContent ?? '');
+      copyButton.textContent = 'Copiado';
+      if (copyStatus) copyStatus.textContent = 'El pedido quedó copiado. Leelo una vez antes de usarlo.';
+      window.setTimeout(() => { copyButton.textContent = 'Copiar pedido'; }, 1800);
+    } catch {
+      copyButton.textContent = 'No se pudo copiar';
+      if (copyStatus) copyStatus.textContent = 'Seleccioná el texto del recuadro y copialo manualmente.';
+    }
+  });
+</script>
+
+<style>
+  .brief-page { padding-block: 28px 104px; }
+  .brief-breadcrumb { display: flex; flex-wrap: wrap; gap: .45rem; color: var(--muted); font-size: .78rem; }
+  .brief-breadcrumb a:hover { color: var(--text); }
+  .brief-hero { max-width: 940px; padding-block: clamp(54px, 8vw, 92px) 60px; }
+  .brief-hero h1 { margin-top: 18px; font-size: clamp(3rem, 6vw, 5.7rem); line-height: .96; letter-spacing: -.06em; font-weight: 850; }
+  .brief-hero > p:not(.eyebrow, .brief-private) { max-width: 700px; margin-top: 28px; font-family: Georgia, serif; font-size: clamp(1.08rem, 2vw, 1.3rem); line-height: 1.65; }
+  .brief-private { margin-top: 20px; color: var(--muted); font-size: .82rem; }
+  .brief-private span { color: var(--accent-2); margin-right: 7px; }
+
+  .brief-form, .brief-output { width: min(900px, 100%); margin-inline: auto; border: 1px solid var(--text); background: #fffaf0; }
+  .brief-source { padding: clamp(24px, 4vw, 36px); display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 8px 24px; align-items: end; background: var(--acid); border-bottom: 1px solid var(--text); }
+  .brief-source > div { grid-row: 1 / 3; }
+  .brief-source h2, .brief-output h2 { margin-top: 7px; font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1; letter-spacing: -.045em; font-weight: 850; }
+  .brief-source > label { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  select, textarea { width: 100%; border: 1px solid var(--text); border-radius: 3px; background: #fffef9; color: var(--text); font: inherit; }
+  select { padding: 11px; }
+  textarea { margin-top: 12px; padding: 13px 14px; line-height: 1.5; resize: vertical; }
+  textarea:focus, select:focus { outline: 3px solid rgba(63, 105, 255, .28); outline-offset: 1px; }
+
+  .brief-group { margin: 0; padding: clamp(28px, 4vw, 42px); border: 0; border-bottom: 1px solid var(--border); }
+  .brief-group:last-child { border-bottom: 0; }
+  .brief-group legend { width: 100%; padding: 0; display: grid; grid-template-columns: 42px 180px minmax(0, 1fr); gap: 16px; align-items: baseline; }
+  .brief-group legend > span { color: var(--accent); font-size: .7rem; font-weight: 800; letter-spacing: .1em; }
+  .brief-group legend > strong { font-size: 1.25rem; }
+  .brief-group legend > small { color: var(--muted); line-height: 1.5; }
+  .brief-group__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin: 28px 0 0 58px; }
+  .brief-field { display: flex; flex-direction: column; }
+  .brief-field > strong { font-size: .95rem; }
+  .brief-field > small { min-height: 2.7em; margin-top: 4px; color: var(--muted); font-size: .76rem; line-height: 1.4; }
+
+  .brief-output { margin-top: 28px; background: #1d1c18; color: #f6f2e8; }
+  .brief-output__head { padding: clamp(24px, 4vw, 36px); display: flex; justify-content: space-between; gap: 28px; align-items: start; border-bottom: 1px solid #5b584f; }
+  .brief-output__head > div > p:last-child { max-width: 520px; margin-top: 10px; color: #bdb9ae; font-size: .84rem; }
+  .brief-output .eyebrow { color: var(--acid); }
+  .brief-output button { flex-shrink: 0; border: 1px solid var(--acid); border-radius: 4px; padding: .7em 1em; background: var(--acid); color: var(--text); cursor: pointer; font: inherit; font-size: .78rem; font-weight: 800; }
+  .brief-output pre { max-height: 560px; overflow: auto; padding: clamp(24px, 4vw, 38px); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .brief-output code { font: .86rem/1.75 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+  .brief-output__status { padding: 15px clamp(24px, 4vw, 38px); border-top: 1px solid #5b584f; color: #bdb9ae; font-size: .76rem; }
+
+  .brief-after { width: min(900px, 100%); margin: 72px auto 0; padding-top: 54px; border-top: 1px solid var(--border); display: grid; grid-template-columns: .9fr 1.1fr; gap: 44px; }
+  .brief-after h2 { margin-top: 12px; font-size: clamp(2.1rem, 4vw, 3.7rem); line-height: .98; letter-spacing: -.05em; font-weight: 850; }
+  .brief-after > div:last-child > p { color: var(--muted); font-family: Georgia, serif; font-size: 1.08rem; line-height: 1.7; }
+  .brief-after a { display: inline-flex; gap: 24px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid currentColor; font-weight: 800; font-size: .86rem; }
+  .brief-after a span { color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .brief-source, .brief-group legend, .brief-group__fields, .brief-after { grid-template-columns: 1fr; }
+    .brief-source > div { grid-row: auto; }
+    .brief-group legend { gap: 6px; }
+    .brief-group legend > small { margin-top: 3px; }
+    .brief-group__fields { margin-left: 0; }
+    .brief-field > small { min-height: 0; }
+    .brief-output__head { flex-direction: column; }
+  }
+  @media (max-width: 480px) {
+    .brief-hero h1 { font-size: clamp(2.8rem, 13vw, 3.8rem); }
+    .brief-output button { width: 100%; }
+  }
+</style>

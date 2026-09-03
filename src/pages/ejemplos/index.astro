@@ -1,0 +1,172 @@
+---
+import Base from '../../layouts/Base.astro';
+import StudioNav from '../../components/StudioNav.astro';
+import StudioFooter from '../../components/StudioFooter.astro';
+import { templates } from '../../data/templates';
+import { responsiveImage } from '../../lib/images';
+
+const repositoryUrl = 'https://github.com/ashtonmorrow/resto-templates';
+const featuredTemplates = templates.slice(0, 4);
+const pieces = [
+  ['Datos compartidos', 'La carta, los horarios y los enlaces viven en un lugar.'],
+  ['Componentes', 'Cada bloque tiene un trabajo claro y se puede reutilizar.'],
+  ['Tokens visuales', 'Colores y tipografías cambian sin duplicar la estructura.'],
+  ['Quince versiones', 'El mismo contenido permite comparar decisiones de diseño.'],
+];
+---
+
+<Base
+  title="Ejemplos abiertos para aprender con IA | Folio"
+  theme="studio"
+  description="Folio Resto reúne una ficha de datos, componentes compartidos y quince composiciones en un repositorio abierto."
+  structuredData={[
+    {
+      '@type': 'CollectionPage',
+      name: 'Ejemplos abiertos de Folio',
+      url: 'https://folio.unwoke.ninja/ejemplos/',
+      description: 'Proyectos abiertos para aprender a construir y revisar con IA.',
+      inLanguage: 'es-AR',
+      hasPart: [{ '@type': 'CreativeWork', name: 'Folio Resto', url: 'https://folio.unwoke.ninja/ejemplos/#folio-resto' }],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Folio', item: 'https://folio.unwoke.ninja/' },
+        { '@type': 'ListItem', position: 2, name: 'Ejemplos', item: 'https://folio.unwoke.ninja/ejemplos/' },
+      ],
+    },
+  ]}
+>
+  <StudioNav />
+
+  <main id="main-content">
+  <header class="examples-hero wrap">
+    <nav class="examples-breadcrumb" aria-label="Migas de pan"><a href="/">Folio</a><span aria-hidden="true">/</span><span>Ejemplos</span></nav>
+    <p class="eyebrow">Código y páginas abiertas</p>
+    <h1>Abrí el proyecto y compará las versiones.</h1>
+    <p>Los ejemplos incluyen la página publicada y el repositorio que la genera. Usalos para seguir un dato desde la pantalla hasta el archivo donde se cambia.</p>
+  </header>
+
+  <div>
+    <section class="example-intro wrap" id="folio-resto">
+      <div class="example-intro__title">
+        <p class="eyebrow">Ejemplo 01</p>
+        <h2>Folio Resto</h2>
+        <p>Una web gastronómica con una ficha de datos, bloques reutilizables y quince composiciones.</p>
+      </div>
+      <div class="example-intro__body">
+        <p>Las quince páginas usan la misma carta, horarios, dirección y fotos. Lo único que cambia es la composición. Así se ve con claridad qué viene de los datos y qué viene del diseño.</p>
+        <div class="example-actions">
+          <a class="example-button example-button--primary" href="#plantillas">Ver las quince versiones <span>↓</span></a>
+          <a class="example-button" href={repositoryUrl} target="_blank" rel="noreferrer">Abrir el código <span>GitHub ↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="example-pieces">
+      <div class="wrap example-pieces__grid">
+        <div><p class="eyebrow">Qué hay para mirar</p><h2>Las partes que conviene ubicar primero.</h2></div>
+        <dl>{pieces.map(([term, description], index) => <div><dt><span>{String(index + 1).padStart(2, '0')}</span>{term}</dt><dd>{description}</dd></div>)}</dl>
+      </div>
+    </section>
+
+    <section class="templates wrap" id="plantillas">
+      <div class="templates-heading">
+        <div><p class="eyebrow">Las versiones</p><h2>Mismos datos, quince composiciones.</h2></div>
+        <a href="/guias/crear-pagina-web-restaurante-con-ia/">Ver cómo está armado →</a>
+      </div>
+      <div class="template-grid">
+        {featuredTemplates.map((template) => (
+          <a class="template-card" href={`/t/${template.id}/`}>
+            <img src={`/images/templates/${template.id}.jpg`} srcset={responsiveImage(`/images/templates/${template.id}.jpg`, 1512).srcset} sizes="(max-width: 540px) 100vw, (max-width: 820px) 50vw, 25vw" alt={`Vista de ${template.codename}, una versión del ejemplo Folio Resto`} width="1512" height="767" loading="lazy" decoding="async" />
+            <div><span>{template.id}</span><small>{template.fits}</small></div>
+            <h3>{template.codename}</h3>
+            <p>{template.blurb}</p>
+          </a>
+        ))}
+      </div>
+      <nav class="template-index" aria-label="Las quince versiones de Folio Resto">
+        {templates.map((template) => (
+          <a href={`/t/${template.id}/`}><span>{template.id}</span><strong>{template.codename}</strong><small>{template.fits}</small><b aria-hidden="true">↗</b></a>
+        ))}
+      </nav>
+    </section>
+
+    <section class="example-end">
+      <div class="wrap">
+        <div><p class="eyebrow">Usar el ejemplo</p><h2>Copiá el proyecto y cambiá una sola sección.</h2></div>
+        <div class="example-actions">
+          <a class="example-button example-button--primary" href="/guias/crear-web-restaurante-con-chatgpt/">Abrir la guía <span>Con capturas →</span></a>
+          <a class="example-button example-button--light" href={`${repositoryUrl}/generate`} target="_blank" rel="noreferrer">Hacer una copia <span>GitHub ↗</span></a>
+        </div>
+      </div>
+    </section>
+  </div>
+  </main>
+
+  <StudioFooter />
+</Base>
+
+<style>
+  .examples-hero { padding-block: 28px clamp(70px, 10vw, 118px); border-bottom: 1px solid var(--border); }
+  .examples-breadcrumb { display: flex; gap: .45rem; margin-bottom: clamp(52px, 8vw, 88px); color: var(--muted); font-size: .78rem; }
+  .examples-hero h1 { max-width: 900px; margin-top: 18px; font-size: clamp(3.1rem, 6.7vw, 6.2rem); line-height: .95; letter-spacing: -.06em; font-weight: 850; }
+  .examples-hero > p:last-child { width: min(680px, 100%); margin: 34px 0 0 auto; font-family: Georgia, serif; font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.65; }
+
+  .example-intro { padding-block: clamp(68px, 9vw, 104px); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(42px, 8vw, 96px); scroll-margin-top: 20px; }
+  .example-intro h2, .example-pieces h2, .templates h2, .example-end h2 { margin-top: 13px; font-size: clamp(2.35rem, 4.7vw, 4.5rem); line-height: .98; letter-spacing: -.052em; font-weight: 850; }
+  .example-intro__title > p:last-child { max-width: 500px; margin-top: 18px; color: var(--muted); }
+  .example-intro__body > p { font-family: Georgia, serif; font-size: 1.12rem; line-height: 1.7; }
+  .example-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .example-button { min-height: 54px; padding: .8em 1.05em; border: 1px solid currentColor; border-radius: 4px; display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; font-weight: 800; flex: 1; }
+  .example-button:hover { box-shadow: 3px 3px 0 currentColor; transform: translate(-1px, -1px); }
+  .example-button--primary { background: var(--acid); color: var(--text); }
+  .example-button > span { font-size: .67rem; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+
+  .example-pieces { padding-block: clamp(72px, 9vw, 106px); background: var(--text); color: var(--bg); }
+  .example-pieces__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(46px, 8vw, 100px); }
+  .example-pieces .eyebrow { color: var(--acid); }
+  .example-pieces dl { border-top: 1px solid #57544d; }
+  .example-pieces dl > div { padding-block: 18px; border-bottom: 1px solid #57544d; display: grid; grid-template-columns: .8fr 1.2fr; gap: 22px; }
+  .example-pieces dt { font-weight: 800; }
+  .example-pieces dt span { display: inline-block; width: 38px; color: var(--acid); font-size: .68rem; }
+  .example-pieces dd { margin: 0; color: #bbb6aa; font-size: .9rem; }
+
+  .templates { padding-block: clamp(74px, 10vw, 118px); scroll-margin-top: 20px; }
+  .templates-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; }
+  .templates-heading h2 { max-width: 760px; }
+  .templates-heading > a { flex-shrink: 0; padding-bottom: 5px; border-bottom: 1px solid currentColor; font-size: .82rem; font-weight: 800; }
+  .template-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 42px 18px; margin-top: 48px; }
+  .template-card { min-width: 0; }
+  .template-card img { width: 100%; height: auto; aspect-ratio: 1512 / 767; object-fit: cover; object-position: top; border: 1px solid var(--text); transition: transform .18s ease; }
+  .template-card:hover img { transform: translateY(-4px); }
+  .template-card > div { display: flex; justify-content: space-between; gap: 14px; margin-top: 13px; color: var(--muted); font-size: .67rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .template-card h3 { margin-top: 7px; font-size: 1.5rem; letter-spacing: -.04em; font-weight: 850; }
+  .template-card p { margin-top: 4px; color: var(--muted); font-size: .86rem; }
+  .template-index { margin-top: 64px; border-top: 1px solid var(--border); }
+  .template-index a { display: grid; grid-template-columns: 52px 1fr 1fr auto; gap: 18px; align-items: center; padding-block: 16px; border-bottom: 1px solid var(--border); }
+  .template-index span, .template-index small { color: var(--muted); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
+  .template-index strong { font-size: 1.05rem; }
+  .template-index b { color: var(--accent); }
+
+  .example-end { padding-block: clamp(70px, 9vw, 102px); background: var(--accent); color: #fff7ed; }
+  .example-end .wrap { display: grid; grid-template-columns: 1fr minmax(360px, .7fr); gap: 48px; align-items: end; }
+  .example-end .eyebrow { color: var(--acid); }
+  .example-end .example-actions { margin: 0; }
+  .example-button--light { color: #fff7ed; }
+
+  @media (max-width: 820px) {
+    .example-intro, .example-pieces__grid, .example-end .wrap { grid-template-columns: 1fr; }
+    .template-grid { grid-template-columns: 1fr 1fr; }
+    .templates-heading { align-items: start; flex-direction: column; }
+    .example-end .example-actions { margin-top: 0; }
+  }
+  @media (max-width: 540px) {
+    .examples-hero h1 { font-size: clamp(2.9rem, 14vw, 4.2rem); }
+    .example-button { flex-basis: 100%; }
+    .example-pieces dl > div, .template-grid { grid-template-columns: 1fr; }
+    .example-pieces dl > div { gap: 7px; }
+    .template-index a { grid-template-columns: 38px 1fr auto; gap: 12px; }
+    .template-index small { display: none; }
+  }
+</style>

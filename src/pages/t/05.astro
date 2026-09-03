@@ -8,7 +8,7 @@ import Social from '../../components/blocks/Social.astro';
 import Img from '../../components/Img.astro';
 import { restaurant } from '../../data/restaurant';
 ---
-<Base title={`${restaurant.name} — Alta cocina`} theme="luxe" description={restaurant.about}>
+<Base title={`${restaurant.name} — Alta cocina`} theme="luxe" description={restaurant.about} image="/images/ambiance/dining-moody.jpg">
   <div class="split">
     <aside class="split__media">
       <Img src="/images/ambiance/dining-moody.jpg" alt="Salón a la luz de las velas para cenar en Casa Rufina" priority />
@@ -18,7 +18,7 @@ import { restaurant } from '../../data/restaurant';
       </div>
     </aside>
 
-    <main class="split__scroll">
+    <main class="split__scroll" id="main-content">
       <section class="pad intro">
         <h1 class="intro__title">{restaurant.name}</h1>
         <p class="intro__tag">{restaurant.tagline}</p>

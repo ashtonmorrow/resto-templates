@@ -11,9 +11,10 @@ import Book from '../../components/blocks/Book.astro';
 import SiteFooter from '../../components/blocks/SiteFooter.astro';
 import { restaurant } from '../../data/restaurant';
 ---
-<Base title={`${restaurant.name} — Restaurante en ${restaurant.neighborhood}`} theme="clean" description={restaurant.about}>
+<Base title={`${restaurant.name} — Restaurante en ${restaurant.neighborhood}`} theme="clean" description={restaurant.about} image="/images/ambiance/modern-bright.jpg">
   <a id="top"></a>
   <Nav variant="solid" />
+  <main id="main-content">
   <Hero image="/images/ambiance/modern-bright.jpg" imageAlt="Salón luminoso de Casa Rufina en Palermo" variant="compact" kicker={restaurant.kicker} title={restaurant.name} tagline={restaurant.tagline}>
     <Book />
     <a class="btn btn--ghost" href="#menu" style="color:#fff;border-color:rgba(255,255,255,.4)">Ver la carta</a>
@@ -27,6 +28,7 @@ import { restaurant } from '../../data/restaurant';
       <Location />
     </div>
   </section>
+  </main>
   <SiteFooter id="contacto" />
 </Base>
 <style>

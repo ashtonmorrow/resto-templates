@@ -10,65 +10,70 @@ const prompt = `Quiero adaptar este proyecto para mi restaurante.
 Primero leé README.md y CLAUDE.md. No cambies nada todavía.
 Haceme una lista corta de los datos que faltan y no inventes precios, horarios ni enlaces.
 
-Después usá src/data/restaurant.ts como fuente única, ayudame a elegir una plantilla, reemplazá la demostración, ejecutá npm run build y revisá la versión móvil.`;
+Después usá src/data/restaurant.ts como fuente única, ayudame a elegir una plantilla, reemplazá la demostración, ejecutá npm run verify y revisá la versión móvil.`;
 ---
 
 <Base
-  title="Hacé vos la web de tu restaurante | Folio Resto"
+  title="Hacé vos la web de tu restaurante | Folio"
   theme="studio"
-  description="Copiá Folio Resto y seguí una receta en español para adaptarlo con ChatGPT y Codex."
+  description="Copiá Folio Resto y seguí una guía en español para adaptarlo con ChatGPT y Codex."
   structuredData={[
     {
       '@type': 'WebPage',
       name: 'Hacé vos la web de tu restaurante',
       url: 'https://folio.unwoke.ninja/hacerlo-vos/',
-      description: 'Copiá Folio Resto y seguí una receta en español para adaptarlo con ChatGPT y Codex.',
+      description: 'Copiá Folio Resto y seguí una guía en español para adaptarlo con ChatGPT y Codex.',
       inLanguage: 'es-AR',
       isPartOf: { '@id': 'https://folio.unwoke.ninja/#website' },
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Folio Resto', item: 'https://folio.unwoke.ninja/' },
-        { '@type': 'ListItem', position: 2, name: 'Hacerlo vos', item: 'https://folio.unwoke.ninja/hacerlo-vos/' },
+        { '@type': 'ListItem', position: 1, name: 'Folio', item: 'https://folio.unwoke.ninja/' },
+        { '@type': 'ListItem', position: 2, name: 'Ejemplos', item: 'https://folio.unwoke.ninja/ejemplos/' },
+        { '@type': 'ListItem', position: 3, name: 'Folio Resto', item: 'https://folio.unwoke.ninja/ejemplos/#folio-resto' },
+        { '@type': 'ListItem', position: 4, name: 'Hacerlo vos', item: 'https://folio.unwoke.ninja/hacerlo-vos/' },
       ],
     },
   ]}
 >
   <StudioNav />
+  <main id="main-content">
   <header class="docs-hero wrap">
-    <p class="eyebrow">Código abierto, explicado en español</p>
-    <h1>Copialo. Abrilo con ChatGPT. Hacelo tuyo.</h1>
-    <p>No hace falta empezar sabiendo qué archivo tocar. La receta ilustrada te lleva desde el botón de GitHub hasta la revisión en el teléfono.</p>
+    <nav class="article__breadcrumb" aria-label="Migas de pan"><a href="/">Folio</a><span aria-hidden="true">/</span><a href="/ejemplos/">Ejemplos</a><span aria-hidden="true">/</span><a href="/ejemplos/#folio-resto">Folio Resto</a><span aria-hidden="true">/</span><span>Hacerlo vos</span></nav>
+    <p class="eyebrow">Adaptar Folio Resto</p>
+    <h1>Copiá el proyecto y reemplazá los datos del ejemplo.</h1>
+    <p>La guía muestra dónde cambiar la carta, los horarios, WhatsApp y las fotos. También indica qué revisar antes de publicar.</p>
     <div class="docs-actions">
       <a class="docs-btn" href={`${repositoryUrl}/generate`} target="_blank" rel="noreferrer">Usar esta plantilla en GitHub ↗</a>
-      <a class="docs-btn docs-btn--ghost" href="/guias/crear-web-restaurante-con-chatgpt/">Seguir la receta con capturas →</a>
+      <a class="docs-btn docs-btn--ghost" href="/guias/crear-web-restaurante-con-chatgpt/">Abrir la guía con capturas →</a>
     </div>
   </header>
 
-  <main class="wrap">
+  <div class="wrap">
     <section class="diy-grid" aria-label="Pasos para adaptar el proyecto">
-      <article class="diy-card"><span>01</span><h2>Hacé una copia</h2><p>Usá el botón de GitHub o descargá el ZIP. La copia queda en tu cuenta y nadie puede quitártela.</p></article>
-      <article class="diy-card"><span>02</span><h2>Abrila con ChatGPT</h2><p>Conectá tu copia a Codex para que pueda leer los archivos, hacer cambios y ejecutar las comprobaciones.</p></article>
-      <article class="diy-card"><span>03</span><h2>Reemplazá los datos</h2><p>Nombre, carta, horarios, WhatsApp y dirección viven en un archivo central. Las 15 versiones usan esa información.</p></article>
-      <article class="diy-card"><span>04</span><h2>Publicala a tu nombre</h2><p>Usá Cloudflare, Netlify, Vercel u otro hosting estático. Mantené el dominio y la cuenta bajo tu control.</p></article>
+      <article class="diy-card"><span>01</span><h2>Hacé una copia</h2><p>Creá un repositorio nuevo desde la plantilla. Esa copia y su historial quedan en tu cuenta de GitHub.</p></article>
+      <article class="diy-card"><span>02</span><h2>Abrila en Codex</h2><p>Autorizá solamente la copia. El agente podrá leer sus archivos, editarlos y ejecutar las comprobaciones.</p></article>
+      <article class="diy-card"><span>03</span><h2>Cargá los datos reales</h2><p>Nombre, carta, horarios, WhatsApp y dirección viven en una ficha que comparten las quince versiones.</p></article>
+      <article class="diy-card"><span>04</span><h2>Revisá antes de publicar</h2><p>Probá la versión elegida en teléfono y escritorio. El dominio y la cuenta de publicación quedan a nombre del negocio.</p></article>
     </section>
 
     <section class="prompt">
-      <p class="eyebrow">Pedido inicial sugerido</p>
-      <h2>Copiá esto en tu asistente.</h2>
+      <p class="eyebrow">Primer pedido</p>
+      <h2>Usá este texto para abrir el proyecto.</h2>
       <pre>{prompt}</pre>
     </section>
 
     <section class="help-strip">
-      <div><h2>¿Querés seguirlo como una receta?</h2><p>La guía de ChatGPT incluye ingredientes, pedido listo para copiar, capturas reales, revisión móvil y lista final.</p></div>
-      <a class="docs-btn docs-btn--ghost" href="/guias/crear-web-restaurante-con-chatgpt/">Abrir la receta ilustrada →</a>
+      <div><h2>Querés ver los pasos con capturas?</h2><p>La guía empieza en GitHub, muestra la ficha de datos y termina con la revisión en teléfono.</p></div>
+      <a class="docs-btn docs-btn--ghost" href="/guias/crear-web-restaurante-con-chatgpt/">Abrir la guía →</a>
     </section>
 
     <section class="help-strip">
-      <div><h2>¿Preferís que alguien lo deje listo?</h2><p>Podemos adaptar y publicar una base por un precio cerrado, sin suscripción ni encierro.</p></div>
+      <div><h2>Preferís que lo adaptemos?</h2><p>Podemos cargar los datos, ajustar una plantilla y publicar desde cuentas del negocio.</p></div>
       <a class="docs-btn docs-btn--ghost" href="mailto:hola@unwoke.ninja?subject=Quiero%20ayuda%20con%20Folio%20Resto">Pedir ayuda puntual →</a>
     </section>
+  </div>
   </main>
   <StudioFooter />
 </Base>

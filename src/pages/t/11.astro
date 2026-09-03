@@ -5,8 +5,8 @@ import Social from '../../components/blocks/Social.astro';
 import { restaurant } from '../../data/restaurant';
 const maps = `https://www.google.com/maps/search/?api=1&query=${restaurant.geo.lat},${restaurant.geo.lng}`;
 ---
-<Base title={`${restaurant.name} — ${restaurant.neighborhood}`} theme="mono" description={restaurant.tagline}>
-  <main class="mini">
+<Base title={`${restaurant.name} — Mínimo`} theme="mono" description={restaurant.tagline} image={null}>
+  <main class="mini" id="main-content">
     <div class="mini__inner">
       <p class="eyebrow">{restaurant.kicker}</p>
       <h1 class="mini__name">{restaurant.name}</h1>

@@ -6,26 +6,27 @@ import Book from '../../components/blocks/Book.astro';
 import SiteFooter from '../../components/blocks/SiteFooter.astro';
 import { restaurant } from '../../data/restaurant';
 ---
-<Base title={`${restaurant.name} — Cocina de barrio`} theme="bold" description={restaurant.about}>
+<Base title={`${restaurant.name} — Cocina de barrio`} theme="bold" description={restaurant.about} image="/images/food/pizza.jpg">
   <a id="top"></a>
-  <header class="mast">
-    <div class="wrap mast__inner">
-      <div class="mast__brand">
-        <p class="eyebrow">{restaurant.kicker}</p>
-        <h1 class="mast__name">{restaurant.name}</h1>
-        <p class="mast__tag">{restaurant.tagline}</p>
+  <main id="main-content">
+    <header class="mast">
+      <div class="wrap mast__inner">
+        <div class="mast__brand">
+          <p class="eyebrow">{restaurant.kicker}</p>
+          <h1 class="mast__name">{restaurant.name}</h1>
+          <p class="mast__tag">{restaurant.tagline}</p>
+        </div>
+        <div class="mast__actions">
+          <Book label="Reservar" />
+          <Book label="Pedí por WhatsApp" variant="ghost" message={`Hola! Quiero hacer un pedido en ${restaurant.name}.`} />
+        </div>
       </div>
-      <div class="mast__actions">
-        <Book label="Reservar" />
-        <Book label="Pedí por WhatsApp" variant="ghost" message={`Hola! Quiero hacer un pedido en ${restaurant.name}.`} />
-      </div>
-    </div>
-    <div class="ticker"><span>Carta, horarios y pedidos por WhatsApp · {restaurant.neighborhood}, {restaurant.city} · </span><span>Carta, horarios y pedidos por WhatsApp · {restaurant.neighborhood}, {restaurant.city} · </span></div>
-  </header>
+      <div class="ticker"><span>Carta, horarios y pedidos por WhatsApp · {restaurant.neighborhood}, {restaurant.city} · </span><span>Carta, horarios y pedidos por WhatsApp · {restaurant.neighborhood}, {restaurant.city} · </span></div>
+    </header>
 
-  <main class="section wrap" id="menu"><Menu variant="cards" heading="La Carta" /></main>
-
-  <div class="aboutband"><div class="section wrap"><About image="/images/food/pizza.jpg" imageAlt="Pizza estilo argentino con muzzarella y aceitunas" heading="La casa" reverse /></div></div>
+    <section class="section wrap"><Menu id="menu" variant="cards" heading="La Carta" /></section>
+    <div class="aboutband"><div class="section wrap"><About image="/images/food/pizza.jpg" imageAlt="Pizza estilo argentino con muzzarella y aceitunas" heading="La casa" reverse /></div></div>
+  </main>
 
   <SiteFooter />
 </Base>

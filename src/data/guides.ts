@@ -19,7 +19,7 @@ export interface GuideSection {
   link?: GuideLink;
   links?: GuideLink[];
   table?: GuideTable;
-  image?: { src: string; alt: string; caption: string };
+  image?: { src: string; alt: string; caption: string; width: number; height: number };
   tip?: string;
 }
 
@@ -30,11 +30,15 @@ export interface Guide {
   seoTitle?: string;
   description: string;
   readTime: string;
+  collection?: { title: string; href: string };
   takeaway: string;
   datePublished: string;
   dateModified: string;
+  proficiencyLevel?: string;
+  tipLabel?: string;
   recipe?: {
     time: string;
+    totalTime: string;
     difficulty: string;
     result: string;
     ingredients: string[];
@@ -44,18 +48,171 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'del-diseno-a-una-web-con-ia',
+    kicker: 'IA para diseñadores',
+    title: 'Cómo pasar de un diseño a una web con IA',
+    seoTitle: 'Cómo pasar de un diseño a una web con IA',
+    description: 'Elegí una página, ubicá sus piezas en el proyecto y revisá un cambio hecho con un agente de código.',
+    readTime: '10 min',
+    takeaway: 'Elegí una página y pedí un solo cambio. Antes de seguir, abrilo en el navegador y revisá los archivos que tocó el agente.',
+    datePublished: '2026-09-02',
+    dateModified: '2026-09-02',
+    proficiencyLevel: 'Principiante',
+    tipLabel: 'Para tener en cuenta',
+    recipe: {
+      time: 'Reservá alrededor de una hora',
+      totalTime: 'PT60M',
+      difficulty: 'Primera práctica con instrucciones paso a paso',
+      result: 'Una copia de Folio con una sección modificada y revisada',
+      ingredients: [
+        'Una referencia de Figma, Adobe, PDF, captura o boceto',
+        'Una cuenta de GitHub',
+        'Un agente de código como Codex',
+        'Una copia de Folio',
+        'Una página para practicar',
+      ],
+    },
+    sections: [
+      {
+        title: 'Elegí una página para practicar',
+        paragraphs: [
+          'Usá una pantalla de Figma, Illustrator o Photoshop, un PDF, una captura o un boceto. La referencia muestra el aspecto. Sumale qué tiene que hacer la página y cómo debería ordenarse en un teléfono.',
+          'Elegí una sola página y una acción principal. En Folio Resto puede ser abrir la carta o solicitar una reserva. En un portfolio, ver un proyecto o enviar una consulta.',
+        ],
+        bullets: [
+          'Qué debería lograr la página',
+          'Cuál es la acción principal',
+          'Qué partes aparecen y en qué orden',
+          'Qué cambia en una pantalla chica',
+        ],
+        link: { label: 'Preparar esa primera página', url: 'https://folio.unwoke.ninja/aprender/preparar-un-diseno/' },
+      },
+      {
+        title: 'Dale al agente un lugar donde trabajar',
+        paragraphs: [
+          'Un agente de código trabaja dentro de una carpeta que vos autorizás. Puede leer los archivos, proponer cambios y ejecutar las comprobaciones del proyecto. Vos decidís el objetivo, revisás el resultado y elegís si se publica.',
+          'En herramientas de IA aparece a veces la palabra harness. Acá la llamamos entorno de trabajo: la carpeta, las instrucciones y los controles disponibles. Folio ya incluye esa estructura.',
+        ],
+        table: {
+          caption: 'Las piezas del entorno de Folio',
+          columns: ['Pieza', 'Qué te permite hacer', 'Dónde está'],
+          rows: [
+            ['Repositorio', 'Tener una copia completa y un historial', 'GitHub'],
+            ['Instrucciones', 'Explicar cómo está organizado el proyecto', 'README.md y CLAUDE.md'],
+            ['Componentes', 'Cambiar una pieza sin rehacer la página', 'src/components/blocks/'],
+            ['Tokens', 'Cambiar colores y tipografías compartidas', 'src/styles/tokens.css'],
+            ['Comprobación', 'Revisar tipos, tests, rutas, anclas, sitemap e imágenes', 'npm run verify'],
+          ],
+        },
+        links: [
+          { label: 'Inicio rápido oficial de ChatGPT y Codex', url: 'https://learn.chatgpt.com/docs/quickstart', note: 'La interfaz y la disponibilidad pueden cambiar según el sistema y la cuenta.' },
+          { label: 'Ver los archivos de Folio', url: 'https://github.com/ashtonmorrow/resto-templates' },
+        ],
+      },
+      {
+        title: 'Hacé tu copia y mirá cómo está armada',
+        paragraphs: [
+          'Creá una copia de Folio en tu cuenta de GitHub. Los cambios quedan en esa copia y Git conserva el historial.',
+          'Abrí esa copia en Codex. El primer pedido es sólo para orientarte. Pedile que lea las instrucciones y te muestre dónde están los datos, las piezas visuales y los estilos compartidos.',
+        ],
+        code: {
+          label: 'Pedido para conocer el proyecto',
+          value: 'Leé README.md y CLAUDE.md. No cambies nada todavía.\n\nMostrame dónde están:\n- los datos del restaurante,\n- los componentes de la página,\n- los colores y las tipografías,\n- el comando para abrir una vista previa,\n- la comprobación que hay que ejecutar antes de publicar.\n\nExplicalo sin asumir que ya conozco la estructura.',
+        },
+        links: [
+          { label: 'Crear tu copia de Folio', url: 'https://github.com/ashtonmorrow/resto-templates/generate' },
+          { label: 'Abrir la guía de instalación con capturas', url: 'https://folio.unwoke.ninja/guias/crear-web-restaurante-con-chatgpt/' },
+        ],
+      },
+      {
+        title: 'Pasá el diseño a piezas del proyecto',
+        paragraphs: [
+          'En diseño ya trabajás con piezas que se repiten. En código esas piezas se llaman componentes. La navegación, la portada, la galería y el bloque de contacto pueden ser componentes distintos. La página los reúne y decide su orden.',
+          'Los colores, las tipografías y algunos espacios compartidos viven en tokens. Si cambiás un token, todas las piezas que lo usan reciben el mismo valor. Empezar por esas reglas evita corregir cada pantalla por separado.',
+        ],
+        table: {
+          columns: ['En el diseño', 'En Folio', 'Responsabilidad'],
+          rows: [
+            ['Portada', 'Hero.astro', 'Nombre, mensaje y acción principal'],
+            ['Carta', 'Menu.astro', 'Categorías, platos y precios'],
+            ['Galería', 'Gallery.astro', 'Imágenes y composición'],
+            ['Horarios', 'Hours.astro', 'Días y horas verificadas'],
+            ['Ubicación', 'Location.astro', 'Dirección, mapa y llegada'],
+          ],
+        },
+        tip: 'Volvé a esta tabla cuando aparezca un nombre de archivo. Lo importante es relacionarlo con una parte visible de la página.',
+        links: [
+          { label: 'Ver los componentes', url: 'https://github.com/ashtonmorrow/resto-templates/tree/master/src/components/blocks' },
+          { label: 'Ver los tokens', url: 'https://github.com/ashtonmorrow/resto-templates/blob/master/src/styles/tokens.css' },
+        ],
+      },
+      {
+        title: 'Pedí una primera sección',
+        paragraphs: [
+          'Elegí una sección, por ejemplo la portada. Decí qué referencia debe seguir, qué contenido se conserva y qué cambia en teléfono. Pedí una vista previa antes de sumar otra parte de la página.',
+          'Con una sola sección, la comparación muestra enseguida qué coincide con el diseño y qué decisión todavía falta.',
+        ],
+        code: {
+          label: 'Pedido para una primera iteración',
+          value: 'Adaptá solamente la portada de la plantilla 06 a mi referencia.\n\nConservá los datos y los componentes existentes. Usá los tokens compartidos para color y tipografía. En teléfono, el nombre y el botón para ver la carta tienen que aparecer antes de la imagen.\n\nAl terminar, mostrame la vista previa, ejecutá npm run verify y resumí los archivos que cambiaste. Si falta una decisión, preguntame antes de inventarla.',
+        },
+      },
+      {
+        title: 'Revisá antes de seguir',
+        paragraphs: [
+          'Abrí la vista previa en una pantalla grande y en un teléfono. Revisá el orden, los cortes de imagen, la lectura y la acción principal. Después probá los enlaces y el teclado.',
+          'Pedile al agente el diff, la comparación entre la versión anterior y el cambio. Buscá archivos fuera del pedido, contenido duplicado y datos que vos no diste. El build detecta errores del proyecto; la revisión visual encuentra otro tipo de problemas.',
+        ],
+        bullets: [
+          'La página se entiende en una pantalla grande y en un teléfono',
+          'La acción principal funciona',
+          'No hay texto, imágenes ni enlaces inventados',
+          'El cambio se limita a la sección acordada',
+          'npm run verify termina sin errores',
+        ],
+      },
+      {
+        title: 'Usá el cambio para aprender código',
+        paragraphs: [
+          'Cuando una sección esté bien, pedile al agente que explique un archivo de ese cambio. Que separe estructura, estilos, datos y comportamiento, y que señale dónde se ve cada parte en la página.',
+          'Después hacé un ajuste manual pequeño, como cambiar un texto o un token de color. Abrí otra vez la vista previa y ejecutá npm run verify. Ya tenés un cambio concreto para relacionar con el código.',
+        ],
+        code: {
+          label: 'Pedido para entender el cambio',
+          value: 'Explicame este diff sin asumir que ya sé programar. Separá estructura, estilos, datos y comportamiento. Para cada parte, indicame qué puedo mirar en la vista previa. Después proponeme un cambio manual chico y reversible para practicar.',
+        },
+      },
+      {
+        title: 'Publicá cuando la página ya esté revisada',
+        paragraphs: [
+          'La publicación conecta cuentas, dominio y una versión que otras personas van a usar. Frená si hace falta crear una cuenta, aceptar un costo, guardar una credencial o cambiar el dominio. Esas decisiones quedan bajo tu control.',
+          'Antes de publicar, guardá una versión aprobada en Git y pedile a otra persona que complete la acción principal sin explicarle la página. Si puede hacerlo y el contenido es correcto, ya tenés una base para continuar con la siguiente sección.',
+        ],
+        bullets: [
+          'El repositorio y el dominio están en cuentas que controlás',
+          'No quedan datos ni imágenes de demostración',
+          'La versión móvil fue revisada',
+          'Los enlaces y acciones principales funcionan',
+          'npm run verify se ejecutó después del último cambio',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'crear-web-restaurante-con-chatgpt',
-    kicker: 'Receta ChatGPT',
-    title: 'Cómo crear la web de tu restaurante con ChatGPT, paso a paso',
+    collection: { title: 'Folio Resto', href: '/ejemplos/#folio-resto' },
+    kicker: 'Guía con ChatGPT',
+    title: 'Cómo adaptar Folio Resto a tu restaurante',
     seoTitle: 'Crear la web de un restaurante con ChatGPT',
-    description: 'Una receta ilustrada para copiar Folio Resto, cargar datos reales, revisar el resultado y publicar una web que siga siendo tuya.',
+    description: 'Hacé una copia del proyecto, cargá la carta y los datos reales, elegí una versión y probala antes de publicar.',
     readTime: '15 min',
-    takeaway: 'El trabajo no empieza con un prompt. Empieza con la carta, los horarios, los accesos y una copia del proyecto bajo tu control.',
+    takeaway: 'Juntá la carta, los horarios, los enlaces y las fotos antes de abrir el proyecto. La copia de GitHub tiene que quedar en una cuenta del negocio.',
     datePublished: '2026-08-22',
-    dateModified: '2026-08-22',
+    dateModified: '2026-09-02',
     recipe: {
       time: 'Entre 60 y 90 minutos para una primera versión',
-      difficulty: 'Principiante con paciencia',
+      totalTime: 'PT90M',
+      difficulty: 'Primera vez: seguí cada paso',
       result: 'Una web de restaurante funcionando en tu propia cuenta',
       ingredients: [
         'Una cuenta de GitHub gratuita',
@@ -70,19 +227,19 @@ export const guides: Guide[] = [
       {
         title: 'Prepará los datos antes de abrir ChatGPT',
         paragraphs: [
-          'Juntá primero la información que una persona necesita para decidir: qué servís, cuánto cuesta, dónde estás, cuándo abrís y cómo reservar o pedir. No le pidas a la IA que complete huecos con información inventada.',
-          'La carta puede estar en un documento, una planilla o fotos legibles. ChatGPT puede ordenarla. Los precios, horarios, enlaces y datos de contacto tienen que salir del negocio.',
+          'Juntá la información que una persona busca antes de ir o pedir: qué servís, cuánto cuesta, dónde estás, cuándo abrís y cómo contactarte. Dejá marcado cualquier dato que todavía no esté confirmado.',
+          'La carta puede estar en un documento, una planilla o fotos legibles. Pedile a ChatGPT que la ordene, pero verificá precios, horarios, enlaces y datos de contacto contra la fuente del negocio.',
         ],
         bullets: ['Nombre y descripción corta', 'Dirección, barrio y ciudad', 'Horarios por día', 'WhatsApp con código de país', 'Carta y precios vigentes', 'Fotos propias del salón, la fachada y los platos'],
-        tip: 'Marcá cualquier dato pendiente como PENDIENTE. Es más fácil encontrar esa palabra que detectar una dirección inventada.',
+        tip: 'Marcá cualquier dato pendiente como PENDIENTE. Esa palabra se puede buscar. Una dirección inventada puede pasar inadvertida.',
       },
       {
         title: 'Hacé una copia en tu GitHub',
         paragraphs: [
           'Abrí el repositorio público y tocá “Use this template”. Después elegí “Create a new repository”. GitHub crea una copia independiente en tu cuenta.',
-          'Poné un nombre simple, por ejemplo web-mi-restaurante. La copia es el lugar donde ChatGPT hará los cambios y donde queda el historial para volver atrás.',
+          'Poné un nombre reconocible, por ejemplo web-mi-restaurante. Codex trabajará en esa copia y Git guardará el historial.',
         ],
-        image: { src: '/images/guides/chatgpt-recipe/01-use-this-template.png', alt: 'Repositorio Folio Resto en GitHub con el menú Use this template abierto', caption: '“Use this template” crea un repositorio nuevo. No modifica el proyecto original.' },
+        image: { src: '/images/guides/chatgpt-recipe/01-use-this-template.jpg', alt: 'Repositorio Folio Resto en GitHub con el menú Use this template abierto', caption: '“Use this template” crea un repositorio nuevo. No modifica el proyecto original.', width: 1512, height: 767 },
         links: [
           { label: 'Crear una copia de Folio Resto', url: 'https://github.com/ashtonmorrow/resto-templates/generate' },
           { label: 'Leer el README', url: 'https://github.com/ashtonmorrow/resto-templates#readme' },
@@ -91,22 +248,22 @@ export const guides: Guide[] = [
       {
         title: 'Abrí Codex y conectá sólo esa copia',
         paragraphs: [
-          'En ChatGPT, entrá a Codex y conectá tu cuenta de GitHub cuando te lo pida. Elegí solamente el repositorio nuevo. La conexión común de GitHub permite consultar código. Codex también puede modificarlo, ejecutar comprobaciones y preparar cambios.',
+          'En ChatGPT, abrí Codex y conectá GitHub cuando aparezca la opción. Autorizá solamente el repositorio nuevo. Dentro de esa copia, Codex puede leer archivos, modificarlos y ejecutar las comprobaciones del proyecto.',
           'Los nombres de los botones y la disponibilidad pueden variar según el plan. No pegues contraseñas, claves de Cloudflare ni datos bancarios dentro del proyecto.',
         ],
         links: [{ label: 'Documentación oficial de ChatGPT y Codex', url: 'https://learn.chatgpt.com/docs' }],
         tip: 'Dale acceso a la copia del restaurante, no a todos tus repositorios.',
       },
       {
-        title: 'Pegá un pedido que obligue a preguntar',
-        paragraphs: ['El pedido inicial tiene que nombrar la fuente de datos y la comprobación final. También tiene que frenar al asistente cuando falte información.'],
+        title: 'Usá un pedido que frene cuando falten datos',
+        paragraphs: ['El primer pedido nombra el archivo de datos, limita el alcance y exige una comprobación. También indica qué debe quedar pendiente en vez de ser inventado.'],
         code: {
           label: 'Pedido inicial para ChatGPT',
-          value: 'Quiero adaptar este proyecto para mi restaurante.\n\nPrimero leé README.md y CLAUDE.md. No cambies nada todavía.\nDespués haceme una lista corta de los datos que faltan.\n\nCuando te responda:\n1. Usá src/data/restaurant.ts como única fuente de datos.\n2. Ayudame a elegir una de las 15 plantillas según la acción principal.\n3. Reemplazá Casa Rufina por mi contenido real.\n4. No inventes precios, horarios, dirección, disponibilidad ni enlaces.\n5. Señalá cualquier texto fijo de la plantilla que también deba verificarse.\n6. Ejecutá npm run build.\n7. Revisá la versión móvil y todos los enlaces.\n8. Mostrame una vista previa y una lista de pendientes antes de publicar.',
+          value: 'Quiero adaptar este proyecto para mi restaurante.\n\nPrimero leé README.md y CLAUDE.md. No cambies nada todavía.\nDespués haceme una lista corta de los datos que faltan.\n\nCuando te responda:\n1. Usá src/data/restaurant.ts como única fuente de datos.\n2. Ayudame a elegir una de las 15 plantillas según la acción principal.\n3. Reemplazá Casa Rufina por mi contenido real.\n4. No inventes precios, horarios, dirección, disponibilidad ni enlaces.\n5. Señalá cualquier texto fijo de la plantilla que también deba verificarse.\n6. Ejecutá npm run verify.\n7. Revisá la versión móvil y todos los enlaces.\n8. Mostrame una vista previa y una lista de pendientes antes de publicar.',
         },
       },
       {
-        title: 'Respondé como si completaras una ficha de alta',
+        title: 'Completá los datos que te pida',
         paragraphs: [
           'Contestá con datos concretos. Si todavía no hay Instagram, reservas o delivery, decilo. Es mejor ocultar una función que publicar un enlace que no funciona.',
           'Definí una acción principal: reservar, pedir por WhatsApp, llegar al local o mirar la carta. Esa decisión sirve para elegir la composición y ordenar los botones.',
@@ -119,16 +276,16 @@ export const guides: Guide[] = [
           'Los datos compartidos viven en src/data/restaurant.ts. El archivo alimenta el nombre, la historia, la ubicación, los horarios, WhatsApp, la carta y las fotografías.',
           'Revisá el número de WhatsApp, la moneda, los horarios, las coordenadas y cualquier mención a Casa Rufina. Mirá también la plantilla elegida: algunas demostraciones contienen textos fijos que no salen de la ficha central.',
         ],
-        image: { src: '/images/guides/chatgpt-recipe/03-edit-restaurant-data.png', alt: 'Archivo restaurant.ts abierto en GitHub con los datos de demostración', caption: 'La ficha central evita cambiar el mismo precio o teléfono en varios archivos.' },
+        image: { src: '/images/guides/chatgpt-recipe/03-edit-restaurant-data.jpg', alt: 'Archivo restaurant.ts abierto en GitHub con los datos de demostración', caption: 'La ficha central evita cambiar el mismo precio o teléfono en varios archivos.', width: 1512, height: 767 },
         code: { label: 'Parte reconocible de restaurant.ts', value: "export const restaurant = {\n  name: 'Tu restaurante',\n  city: 'Rosario',\n  whatsapp: '5493410000000',\n  hours: [/* tus horarios */],\n  menu: [/* tu carta */],\n};" },
       },
       {
         title: 'Elegí una plantilla por la acción',
         paragraphs: [
           'La 06 muestra carta y precios enseguida. La 14 prepara una solicitud de reserva. La 11 concentra horario, mapa y WhatsApp. La 13 depende de tener buenas fotografías.',
-          'Prepará primero una sola opción. Mezclar varias composiciones agrega trabajo y suele esconder la acción principal.',
+          'Trabajá primero con una sola opción. Si mezclás composiciones antes de probarla, cuesta saber qué decisión mejoró la página.',
         ],
-        links: [{ label: 'Comparar las 15 plantillas', url: 'https://folio.unwoke.ninja/#plantillas' }],
+        links: [{ label: 'Comparar las 15 plantillas', url: 'https://folio.unwoke.ninja/ejemplos/#plantillas' }],
       },
       {
         title: 'Probá el sitio como cliente',
@@ -136,16 +293,16 @@ export const guides: Guide[] = [
           'Abrí la vista previa en el teléfono. Buscá la carta, comprobá el horario, tocá WhatsApp y abrí el mapa sin explicaciones. El build puede terminar bien y el número de teléfono seguir equivocado.',
           'Pedí cambios observables: “mostrá el botón de reservar antes del primer scroll” o “poné las categorías de la carta antes de la galería”.',
         ],
-        image: { src: '/images/guides/chatgpt-recipe/07-final-preview.png', alt: 'Vista móvil de una plantilla con carta y botón de WhatsApp', caption: 'La revisión termina en una acción real: abrir la carta, el mapa o WhatsApp.' },
+        image: { src: '/images/guides/chatgpt-recipe/07-final-preview.jpg', alt: 'Vista móvil de una plantilla con carta y botón de WhatsApp', caption: 'La revisión termina en una acción real: abrir la carta, el mapa o WhatsApp.', width: 430, height: 860 },
         bullets: ['WhatsApp abre el número correcto', 'Maps abre la ubicación correcta', 'Los precios coinciden con la carta', 'Las fotos tienen permiso de uso', 'No quedan datos de demostración', 'La acción principal se entiende sin ayuda'],
       },
       {
         title: 'Publicá desde cuentas del negocio',
         paragraphs: [
-          'La demostración usa Cloudflare, pero el sitio es estático y puede publicarse en distintos proveedores. Frená cuando el proceso pida crear una cuenta, conectar un dominio o guardar una clave. Esos pasos se hacen con accesos del negocio.',
+          'La demostración está publicada en Cloudflare, pero cualquier proveedor compatible con sitios estáticos sirve. Las cuentas, el dominio y las claves se crean con accesos del negocio.',
           'Anotá dónde está el dominio, dónde está el repositorio y dónde se publica. Guardá los accesos en un gestor de contraseñas.',
         ],
-        code: { label: 'Comprobación antes de publicar', value: 'npm run build' },
+        code: { label: 'Comprobación antes de publicar', value: 'npm run verify' },
         links: [{ label: 'Opciones oficiales de publicación de Astro', url: 'https://docs.astro.build/es/guides/deploy/' }],
       },
       {
@@ -154,20 +311,21 @@ export const guides: Guide[] = [
           'Dale el teléfono a otra persona y pedile una tarea: encontrar un plato, solicitar una reserva o iniciar un pedido. No le indiques dónde tocar.',
           'Corregí el primer punto donde se frena. Después publicá una versión simple y conservá el repositorio para los cambios futuros.',
         ],
-        bullets: ['Dominio y cuentas a nombre del negocio', 'Copia completa en GitHub', 'Build exitoso', 'Revisión en teléfono', 'Carta, horarios y enlaces confirmados', 'Una persona externa completó la acción principal'],
+        bullets: ['Dominio y cuentas a nombre del negocio', 'Copia completa en GitHub', 'Comprobación automatizada completa', 'Revisión en teléfono', 'Carta, horarios y enlaces confirmados', 'Una persona externa completó la acción principal'],
       },
     ],
   },
   {
     slug: 'como-crear-la-web-de-tu-restaurante',
+    collection: { title: 'Folio Resto', href: '/ejemplos/#folio-resto' },
     kicker: 'Antes del diseño',
     title: 'Qué necesita la web de un restaurante antes de elegir diseño',
     seoTitle: 'Qué necesita una web para restaurantes',
-    description: 'Una ficha de contenido, un mapa de acciones y una lista de cuentas para preparar la web sin empezar por colores o animaciones.',
+    description: 'Anotá el contenido, elegí la acción principal y definí quién controla el dominio, el código y la publicación.',
     readTime: '9 min',
-    takeaway: 'La primera versión tiene que responder preguntas concretas. El diseño organiza esas respuestas. No puede inventarlas.',
+    takeaway: 'Antes de elegir una plantilla, confirmá carta, precios, dirección, horarios y forma de contacto. El diseño ordena esos datos en la página.',
     datePublished: '2026-08-18',
-    dateModified: '2026-08-22',
+    dateModified: '2026-09-02',
     sections: [
       {
         title: 'Empezá por cinco preguntas de cliente',
@@ -178,17 +336,17 @@ export const guides: Guide[] = [
         table: {
           columns: ['Pregunta', 'Respuesta visible', 'Fuente interna'],
           rows: [
-            ['¿Qué sirven?', 'Descripción y categorías de carta', 'Carta vigente'],
-            ['¿Cuánto cuesta?', 'Precios y moneda', 'Sistema o lista de precios'],
-            ['¿Dónde queda?', 'Dirección, barrio y mapa', 'Ubicación verificada'],
-            ['¿Cuándo abre?', 'Horarios por día', 'Horario operativo'],
-            ['¿Cómo sigo?', 'Reservar, pedir, llamar o llegar', 'Proceso real del equipo'],
+            ['Qué sirven?', 'Descripción y categorías de carta', 'Carta vigente'],
+            ['Cuánto cuesta?', 'Precios y moneda', 'Sistema o lista de precios'],
+            ['Dónde queda?', 'Dirección, barrio y mapa', 'Ubicación verificada'],
+            ['Cuándo abre?', 'Horarios por día', 'Horario operativo'],
+            ['Cómo sigo?', 'Reservar, pedir, llamar o llegar', 'Proceso real del equipo'],
           ],
         },
       },
       {
         title: 'Completá una ficha antes de contratar o abrir ChatGPT',
-        paragraphs: ['Esta ficha se puede pegar en un correo, documento o conversación. Si una respuesta falta, dejala marcada. No hace falta rellenarla con lenguaje de marca todavía.'],
+        paragraphs: ['Pegá esta ficha en un correo, documento o conversación. Si una respuesta falta, escribí PENDIENTE. El texto de marca puede venir después.'],
         code: { label: 'Ficha de contenido', value: 'NOMBRE:\nTIPO DE LOCAL:\nCIUDAD Y BARRIO:\nDIRECCIÓN EXACTA:\nHORARIOS POR DÍA:\nACCIÓN PRINCIPAL:\nWHATSAPP CON CÓDIGO DE PAÍS:\nINSTAGRAM:\nENLACE DE MAPA:\nCARTA Y FECHA DE ACTUALIZACIÓN:\nMÉTODO DE RESERVA:\nMÉTODO DE PEDIDO:\nFOTOS DISPONIBLES Y AUTOR:' },
       },
       {
@@ -206,7 +364,7 @@ export const guides: Guide[] = [
       },
       {
         title: 'Dibujá una página antes de elegir plantilla',
-        paragraphs: ['Una primera página puede resolverse con seis bloques. El orden cambia según la acción principal, pero cada bloque tiene una función que se puede comprobar.'],
+        paragraphs: ['Dibujá estos seis bloques y cambiales el orden según la acción principal. Al lado de cada uno, anotá qué dato necesita y qué debería poder hacer la persona.'],
         bullets: ['Cabecera: nombre, tipo de cocina y acción principal', 'Carta: categorías, platos, precios y fecha de vigencia', 'Datos prácticos: dirección y horarios', 'Prueba visual: fotos propias con descripciones', 'Historia: sólo lo que ayuda a entender el local', 'Cierre: repetir contacto, mapa y redes'],
       },
       {
@@ -229,10 +387,10 @@ export const guides: Guide[] = [
         table: {
           columns: ['Camino', 'Sirve cuando', 'Pregunta incómoda'],
           rows: [
-            ['Plantilla abierta + IA', 'Hay tiempo para revisar y aprender', '¿Quién se ocupa del dominio y la publicación?'],
-            ['Profesional independiente', 'Querés delegar la implementación', '¿Las cuentas y el código quedan a mi nombre?'],
-            ['Constructor visual', 'El equipo editará con frecuencia', '¿Qué puedo exportar si cancelo?'],
-            ['Plataforma gastronómica', 'La web debe conectarse con operación', '¿Qué parte deja de funcionar sin el abono?'],
+            ['Plantilla abierta + IA', 'Hay tiempo para revisar y aprender', 'Quién se ocupa del dominio y la publicación?'],
+            ['Profesional independiente', 'Querés delegar la implementación', 'Las cuentas y el código quedan a mi nombre?'],
+            ['Constructor visual', 'El equipo editará con frecuencia', 'Qué puedo exportar si cancelo?'],
+            ['Plataforma gastronómica', 'La web debe conectarse con operación', 'Qué parte deja de funcionar sin el abono?'],
           ],
         },
       },
@@ -240,25 +398,26 @@ export const guides: Guide[] = [
         title: 'Dejá estas funciones para una necesidad comprobada',
         paragraphs: [
           'Cuentas de usuario, puntos, stock, pagos integrados, delivery automático y un panel propio agregan mantenimiento. Incorporalos cuando exista un proceso, una persona responsable y un volumen que justifique el costo.',
-          'Una página con carta, horarios, ubicación y contacto puede publicarse primero. Después se mide qué pregunta o tarea sigue consumiendo tiempo del equipo.',
+          'Publicá primero carta, horarios, ubicación y contacto. Durante las semanas siguientes, anotá qué preguntas siguen llegando al equipo.',
         ],
         links: [
-          { label: 'Seguir la receta con ChatGPT', url: 'https://folio.unwoke.ninja/guias/crear-web-restaurante-con-chatgpt/' },
-          { label: 'Comparar las 15 composiciones', url: 'https://folio.unwoke.ninja/#plantillas' },
+          { label: 'Abrir la guía de ChatGPT', url: 'https://folio.unwoke.ninja/guias/crear-web-restaurante-con-chatgpt/' },
+          { label: 'Comparar las 15 composiciones', url: 'https://folio.unwoke.ninja/ejemplos/#plantillas' },
         ],
       },
     ],
   },
   {
     slug: 'menu-digital-para-restaurantes',
+    collection: { title: 'Folio Resto', href: '/ejemplos/#folio-resto' },
     kicker: 'Carta digital',
     title: 'Menú digital para restaurantes: HTML, PDF o foto',
     seoTitle: 'Menú digital para restaurantes: guía práctica',
-    description: 'Una comparación de formatos, una estructura HTML y una prueba móvil para publicar una carta que se pueda leer y mantener.',
+    description: 'Compará HTML, PDF y foto. Después probá la lectura, el QR y la actualización de precios desde un teléfono.',
     readTime: '10 min',
-    takeaway: 'El QR sólo abre una dirección. La calidad depende del formato que aparece después y de cómo se actualizan los precios.',
+    takeaway: 'El QR abre una URL. Probá en un teléfono lo que aparece después y dejá claro quién actualiza los precios.',
     datePublished: '2026-08-18',
-    dateModified: '2026-08-22',
+    dateModified: '2026-09-02',
     sections: [
       {
         title: 'Compará el archivo que recibe el cliente',
@@ -279,12 +438,12 @@ export const guides: Guide[] = [
           'La versión de demostración separa categorías, nombre, descripción y precio. Cada pieza sigue siendo texto y puede cambiar de posición en una pantalla angosta.',
           'El diseño no necesita convertir todos los platos en tarjetas. La estructura semántica puede presentarse como lista, columnas o bloques.',
         ],
-        image: { src: '/images/guides/menu-digital/menu-mobile.png', alt: 'Carta HTML de Casa Rufina vista en un teléfono con categorías y precios legibles', caption: 'La plantilla 06 muestra categorías y precios como texto real. Casa Rufina y sus valores son demostrativos.' },
+        image: { src: '/images/guides/menu-digital/menu-mobile.png', alt: 'Carta HTML de Casa Rufina vista en un teléfono con categorías y precios legibles', caption: 'La plantilla 06 muestra categorías y precios como texto real. Casa Rufina y sus valores son demostrativos.', width: 656, height: 1000 },
         code: { label: 'Estructura mínima de un plato', value: '<section aria-labelledby="pastas">\n  <h2 id="pastas">Pastas caseras</h2>\n  <article>\n    <h3>Sorrentinos de jamón y queso</h3>\n    <p>Salsa fileto, crema o mixta.</p>\n    <strong>$13.900</strong>\n  </article>\n</section>' },
       },
       {
         title: 'Definí una regla para cada dato',
-        paragraphs: ['El diseño se rompe cuando cada plato usa una convención distinta. Antes de cargar, definí cómo se escriben moneda, porciones, variantes y descripciones.'],
+        paragraphs: ['Antes de cargar la carta, definí cómo se escriben moneda, porciones, variantes y descripciones. Usá la misma regla en todos los platos.'],
         table: {
           columns: ['Dato', 'Regla de ejemplo', 'Error que evita'],
           rows: [
@@ -336,22 +495,23 @@ export const guides: Guide[] = [
   },
   {
     slug: 'reservas-por-whatsapp',
+    collection: { title: 'Folio Resto', href: '/ejemplos/#folio-resto' },
     kicker: 'Reservas manuales',
     title: 'Reservas por WhatsApp: flujo, mensajes y límites',
     seoTitle: 'Reservas por WhatsApp para restaurantes',
-    description: 'Cómo preparar una solicitud, diferenciar pedido de confirmación y saber cuándo una conversación deja de alcanzar.',
+    description: 'Armá una solicitud clara, separala de la confirmación y registrá qué pasa después del mensaje.',
     readTime: '9 min',
-    takeaway: 'Un enlace de WhatsApp prepara una solicitud. La mesa sólo está reservada cuando una persona o sistema confirma disponibilidad.',
+    takeaway: 'El formulario prepara un mensaje para WhatsApp. Mostrá que la solicitud queda pendiente hasta que el local confirme la mesa.',
     datePublished: '2026-08-18',
-    dateModified: '2026-08-22',
+    dateModified: '2026-09-02',
     sections: [
       {
         title: 'Primero, nombrá correctamente el resultado',
         paragraphs: [
           'El formulario de Folio arma un mensaje con nombre, personas, día y horario. Después abre WhatsApp. No consulta inventario de mesas ni bloquea un turno.',
-          'La interfaz original decía “confirmación inmediata”. Era incorrecto y ya fue reemplazado por una explicación de que la solicitud queda pendiente hasta que el local responda.',
+          'El botón y el texto de ayuda deben decir “solicitar”, no “confirmar”. Después del envío, el local todavía tiene que revisar la disponibilidad.',
         ],
-        image: { src: '/images/guides/reservas-whatsapp/form-mobile.png', alt: 'Formulario móvil que prepara una solicitud de reserva para enviar por WhatsApp', caption: 'El formulario reduce preguntas. WhatsApp sigue siendo el canal donde el local confirma o rechaza.' },
+        image: { src: '/images/guides/reservas-whatsapp/form-mobile.png', alt: 'Formulario móvil que prepara una solicitud de reserva para enviar por WhatsApp', caption: 'El formulario reduce preguntas. WhatsApp sigue siendo el canal donde el local confirma o rechaza.', width: 656, height: 1000 },
       },
       {
         title: 'Pedí los datos que cambian la disponibilidad',
@@ -406,20 +566,21 @@ export const guides: Guide[] = [
   },
   {
     slug: 'crear-pagina-web-restaurante-con-ia',
+    collection: { title: 'Folio Resto', href: '/ejemplos/#folio-resto' },
     kicker: 'Código abierto',
     title: 'Cómo está armado Folio Resto: archivos, componentes y datos',
     seoTitle: 'Código de una web para restaurantes',
-    description: 'Un recorrido por el código real: dónde vive la carta, cómo se arman las 15 composiciones y qué revisar antes de publicar.',
+    description: 'Ubicá la carta, los componentes y los temas visuales que usan las quince versiones del ejemplo.',
     readTime: '11 min',
-    takeaway: 'Folio Resto compila páginas estáticas. La carta y los datos compartidos viven en un archivo. Cada plantilla decide cómo mostrarlos.',
+    takeaway: 'La carta, los horarios y los enlaces viven en src/data/restaurant.ts. Las quince páginas importan esa ficha y ordenan sus bloques de maneras distintas.',
     datePublished: '2026-08-18',
-    dateModified: '2026-08-22',
+    dateModified: '2026-09-02',
     sections: [
       {
         title: 'El mapa real del proyecto',
         paragraphs: [
           'Folio Resto usa Astro para convertir componentes y datos en HTML, CSS e imágenes estáticas. No hay una base de datos, un panel administrativo ni una cuenta de cliente detrás de la demostración.',
-          'El repositorio contiene 15 composiciones gastronómicas y las páginas del estudio que las explican. El build del 22 de agosto de 2026 generó 25 rutas estáticas.',
+          'El repositorio contiene 15 composiciones gastronómicas y las guías de Folio. El build actual genera 29 rutas estáticas.',
         ],
         table: {
           columns: ['Ruta', 'Responsabilidad', 'Cambio habitual'],
@@ -439,7 +600,7 @@ export const guides: Guide[] = [
           'El tipo Restaurant enumera los campos que el sitio acepta. El objeto restaurant contiene la demostración de Casa Rufina. Cambiar ese objeto actualiza todos los componentes que lo importan.',
           'El archivo no valida que un dato sea cierto. Un WhatsApp con la cantidad correcta de dígitos puede pertenecer a otra persona.',
         ],
-        image: { src: '/images/guides/chatgpt-recipe/03-edit-restaurant-data.png', alt: 'Código de restaurant.ts con el objeto central', caption: 'Nombre, carta, horarios, enlaces y fotografías comparten una sola ficha.' },
+        image: { src: '/images/guides/chatgpt-recipe/03-edit-restaurant-data.jpg', alt: 'Código de restaurant.ts con el objeto central', caption: 'Nombre, carta, horarios, enlaces y fotografías comparten una sola ficha.', width: 1512, height: 767 },
         code: { label: 'Contrato abreviado', value: "export interface Restaurant {\n  name: string;\n  address: string;\n  whatsapp: string;\n  hours: HoursRow[];\n  menu: MenuCategory[];\n  hero: Media[];\n}\n\nexport const restaurant: Restaurant = { /* datos */ };" },
       },
       {
@@ -451,8 +612,8 @@ export const guides: Guide[] = [
         code: { label: 'src/pages/t/06.astro, abreviado', value: "import Menu from '../../components/blocks/Menu.astro';\nimport Book from '../../components/blocks/Book.astro';\nimport { restaurant } from '../../data/restaurant';\n\n<h1>{restaurant.name}</h1>\n<Book label=\"Reservar\" />\n<Menu variant=\"cards\" heading=\"La Carta\" />" },
       },
       {
-        title: 'Los bloques tienen trabajos específicos',
-        paragraphs: ['Un bloque recibe datos y devuelve una parte de la página. Menu recorre las categorías y platos. Hours recorre los horarios. Book construye un enlace wa.me. Location usa la dirección y las coordenadas.'],
+        title: 'Qué hace cada bloque',
+        paragraphs: ['Menu muestra categorías y platos. Hours arma las filas de horarios. Book construye un enlace wa.me. Location usa la dirección y las coordenadas para mostrar la ubicación.'],
         table: {
           columns: ['Bloque', 'Lee de restaurant.ts', 'Salida'],
           rows: [
@@ -479,12 +640,12 @@ export const guides: Guide[] = [
         tip: 'Que un texto compile no significa que sea cierto.',
       },
       {
-        title: 'El build comprueba estructura, no negocio',
-        paragraphs: ['npm run build detecta errores que impiden generar las páginas. Después hay que abrir las rutas, tocar los enlaces y comparar la carta con la fuente original.'],
+        title: 'La comprobación automática no conoce el negocio',
+        paragraphs: ['npm run verify revisa tipos, tests, build, rutas, anclas, sitemap e imágenes. Después hay que abrir las páginas, tocar las acciones y comparar la carta con la fuente original.'],
         table: {
           columns: ['Comprobación', 'Qué detecta', 'Qué no detecta'],
           rows: [
-            ['npm run build', 'Errores de importación y compilación', 'Teléfono, precio o dirección equivocados'],
+            ['npm run verify', 'Errores de código, rutas, anclas, sitemap e imágenes', 'Teléfono, precio o dirección equivocados'],
             ['Revisión móvil', 'Desbordes y jerarquía visual', 'Disponibilidad real de una mesa'],
             ['Prueba de enlaces', 'Destinos rotos o vacíos', 'Quién responde el mensaje'],
             ['Segunda persona', 'Pasos confusos', 'Cumplimiento fiscal'],
@@ -506,14 +667,15 @@ export const guides: Guide[] = [
   },
   {
     slug: 'pedidos-sin-comisiones',
+    collection: { title: 'Folio Resto', href: '/ejemplos/#folio-resto' },
     kicker: 'Venta directa',
     title: 'Pedidos directos por WhatsApp: costos, flujo y límites',
     seoTitle: 'Pedidos directos por WhatsApp para restaurantes',
-    description: 'Un modelo de costos, un mensaje estructurado y una prueba operativa para saber si un canal directo realmente mejora el pedido.',
+    description: 'Calculá el costo completo del canal, ordená el mensaje y probá cómo entra el pedido al restaurante.',
     readTime: '10 min',
-    takeaway: 'Directo no significa gratis. Significa que el restaurante elige y puede medir el pago, la entrega, el embalaje y el trabajo de atención.',
+    takeaway: 'Sumá cobro, reparto, embalaje, descuentos, errores y tiempo de atención. Compará ese total con la liquidación del canal actual.',
     datePublished: '2026-08-18',
-    dateModified: '2026-08-22',
+    dateModified: '2026-09-02',
     sections: [
       {
         title: 'Separá descubrimiento de repetición',
@@ -521,7 +683,7 @@ export const guides: Guide[] = [
           'Una plataforma puede traer una primera compra. El dominio, el packaging y el ticket pueden ofrecer un camino directo para la siguiente. Los dos canales pueden convivir.',
           'Antes de mover pedidos, verificá que el canal directo muestre la misma carta, zona, horarios y disponibilidad que el equipo puede cumplir.',
         ],
-        image: { src: '/images/guides/pedidos-directos/order-mobile.png', alt: 'Página móvil de rotisería con un botón Encargar por WhatsApp', caption: 'La plantilla 15 abre WhatsApp con un mensaje de pedido. No procesa pago ni asigna repartidor.' },
+        image: { src: '/images/guides/pedidos-directos/order-mobile.png', alt: 'Página móvil de rotisería con un botón Encargar por WhatsApp', caption: 'La plantilla 15 abre WhatsApp con un mensaje de pedido. No procesa pago ni asigna repartidor.', width: 656, height: 1000 },
       },
       {
         title: 'Calculá el costo completo de cada canal',
@@ -568,7 +730,7 @@ export const guides: Guide[] = [
         },
       },
       {
-        title: 'Medí el canal sin seguir personas',
+        title: 'Medí el canal con datos mínimos',
         paragraphs: [
           'Contá aperturas del botón y pedidos confirmados. La diferencia muestra conversaciones abandonadas, problemas de disponibilidad o una llamada a la acción confusa.',
           'Registrá fuente, importe, estado y motivo de cancelación. No hace falta construir perfiles publicitarios para saber si el proceso funciona.',
@@ -595,14 +757,15 @@ export const guides: Guide[] = [
   },
   {
     slug: 'software-para-restaurantes-argentina',
+    collection: { title: 'Folio Resto', href: '/ejemplos/#folio-resto' },
     kicker: 'Comparación fechada',
     title: 'Software para restaurantes en Argentina: qué comparar en 2026',
     seoTitle: 'Software para restaurantes en Argentina 2026',
-    description: 'Fudo, Bistrosoft, Tango Restô y una web propia comparados por trabajo, precios publicados, facturación, operación y salida.',
+    description: 'Compará Fudo, Bistrosoft, Tango Restô y una web propia por precio, operación, facturación, soporte y exportación.',
     readTime: '14 min',
-    takeaway: 'Caja, cocina, facturación, reservas, pedidos y presencia pública tienen costos y dependencias distintas.',
+    takeaway: 'Separá la web pública de caja, cocina, facturación, reservas y pedidos. Después compará proveedores para la capa que el negocio necesita cambiar.',
     datePublished: '2026-08-18',
-    dateModified: '2026-08-22',
+    dateModified: '2026-09-02',
     sections: [
       {
         title: 'Primero, separá las capas',
@@ -685,10 +848,10 @@ export const guides: Guide[] = [
           'Fudo declara que puede funcionar sobre 3G o 4G si el proveedor móvil responde. Tango ofrece distintos niveles de soporte, incluidos paquetes con atención de urgencia. Esas promesas tienen que convertirse en una prueba y un número de contrato.',
           'Desconectá la red en una demostración controlada. Preguntá qué tareas siguen, qué queda en cola y cómo se recupera el turno. Después enviá una consulta real al soporte y medí la respuesta.',
         ],
-        code: { label: 'Incidente de prueba', value: 'Viernes 22:15\n- Internet principal caído\n- 14 mesas abiertas\n- 3 pedidos en cocina\n- una factura pendiente\n\n¿Qué puede seguir haciendo cada puesto?\n¿Qué dato se recupera automáticamente?' },
+        code: { label: 'Incidente de prueba', value: 'Viernes 22:15\n- Internet principal caído\n- 14 mesas abiertas\n- 3 pedidos en cocina\n- una factura pendiente\n\nQué puede seguir haciendo cada puesto?\nQué dato se recupera automáticamente?' },
       },
       {
-        title: 'La salida también forma parte del producto',
+        title: 'Pedí una exportación antes de firmar',
         paragraphs: [
           'Pedí una exportación antes de firmar. Productos, clientes, ventas, recetas y proveedores pueden salir en formatos distintos o no estar incluidos. Abrí los archivos y comprobá identificadores, columnas y fechas.',
           'El dominio y la web pública pueden permanecer separados del POS. Si cambiás el sistema operativo, los clientes siguen usando la misma dirección mientras se reemplaza la integración.',
@@ -712,7 +875,7 @@ export const guides: Guide[] = [
           'El POS puede cambiar sin obligar a cambiar el dominio. La integración puede ser un enlace, una tienda embebida o un desarrollo específico, según lo que el proveedor permita.',
         ],
         links: [
-          { label: 'Ver qué contiene Folio Resto', url: 'https://folio.unwoke.ninja/' },
+          { label: 'Ver qué contiene Folio Resto', url: 'https://folio.unwoke.ninja/ejemplos/' },
           { label: 'Revisar el código abierto', url: 'https://github.com/ashtonmorrow/resto-templates' },
         ],
       },

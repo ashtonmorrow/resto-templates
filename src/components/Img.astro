@@ -12,17 +12,23 @@ interface Props {
 const { src, alt, class: className = '', grad, ratio, priority = false } = Astro.props;
 const gradient = grad ?? 'var(--grad-a), var(--grad-b)';
 const styleVars = `--g:${gradient};${ratio ? `aspect-ratio:${ratio};` : ''}`;
+const imageKey = src.replace(/^\/images\//, '').replace(/\.[^.]+$/, '');
+const optimizedBase = `/images/optimized/${imageKey}`;
 ---
 <div class={`imgw ${className}`} style={styleVars}>
-  <img
-    src={src}
-    alt={alt}
-    loading={priority ? 'eager' : 'lazy'}
-    fetchpriority={priority ? 'high' : 'auto'}
-    decoding="async"
-    onload="this.parentElement.classList.add('is-loaded')"
-    onerror="this.remove();this.parentElement.classList.add('is-fallback')"
-  />
+  <picture>
+    <source media="(max-width: 700px)" srcset={`${optimizedBase}-640.webp`} type="image/webp" />
+    <source srcset={`${optimizedBase}-full.webp`} type="image/webp" />
+    <img
+      src={src}
+      alt={alt}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : 'auto'}
+      decoding="async"
+      onload="this.closest('.imgw')?.classList.add('is-loaded')"
+      onerror="this.closest('.imgw')?.classList.add('is-fallback');this.remove()"
+    />
+  </picture>
   <span class="imgw__label" aria-hidden="true">{alt}</span>
 </div>
 
@@ -32,6 +38,10 @@ const styleVars = `--g:${gradient};${ratio ? `aspect-ratio:${ratio};` : ''}`;
     overflow: hidden;
     background: linear-gradient(135deg, var(--g));
     display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .imgw picture {
     width: 100%;
     height: 100%;
   }

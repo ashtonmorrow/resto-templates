@@ -7,9 +7,9 @@ import Social from '../../components/blocks/Social.astro';
 import Img from '../../components/Img.astro';
 import { restaurant } from '../../data/restaurant';
 ---
-<Base title={`${restaurant.name} — Rotisería y comidas`} theme="warm" description={restaurant.about}>
+<Base title={`${restaurant.name} — Rotisería y comidas`} theme="warm" description={restaurant.about} image="/images/food/asado-platter.jpg">
   <div class="rot">
-    <main class="rot__main">
+    <main class="rot__main" id="main-content">
       <header class="rot__hero">
         <p class="eyebrow">{restaurant.kicker}</p>
         <h1>{restaurant.name}</h1>
@@ -37,7 +37,7 @@ import { restaurant } from '../../data/restaurant';
     <aside class="rot__panel">
       <div class="rot__panel-inner">
         <h2 class="rot__panel-title">La carta</h2>
-        <Menu variant="list" heading={null} />
+        <Menu id="menu" variant="list" heading={null} />
         <div class="rot__panel-hours"><Hours compact /></div>
       </div>
     </aside>

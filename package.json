@@ -8,14 +8,29 @@
   },
   "scripts": {
     "dev": "astro dev --port 4321",
-    "build": "astro build",
+    "images:build": "node scripts/build-images.mjs",
+    "prebuild": "npm run images:build",
+    "build": "astro build && node scripts/generate-sitemap.mjs dist",
     "preview": "astro preview --port 4321",
-    "deploy": "astro build && wrangler deploy"
+    "preview:test": "node scripts/serve-dist.mjs 4337",
+    "deploy": "npm run build && wrangler deploy",
+    "check": "astro check",
+    "check:site": "node scripts/site-check.mjs dist",
+    "lint:voice": "node scripts/voice-lint.mjs src",
+    "lint:voice:selftest": "node scripts/voice-lint.mjs --selftest",
+    "test": "node --test",
+    "test:browser": "npm run build && playwright test",
+    "verify": "npm run lint:voice && npm test && npm run check && npm run build && npm run check:site"
   },
   "dependencies": {
-    "astro": "^7.2.4"
+    "astro": "^7.2.10"
   },
   "devDependencies": {
-    "wrangler": "^4.125.0"
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.4.1",
+    "sharp": "^0.35.4",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.128.0"
   }
 }

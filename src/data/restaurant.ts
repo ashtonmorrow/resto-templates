@@ -20,6 +20,11 @@ export interface Media {
   src: string;
   alt: string;
 }
+export interface RestaurantEvent {
+  day: string;
+  title: string;
+  detail: string;
+}
 export interface Restaurant {
   name: string;
   shortName: string;
@@ -40,6 +45,9 @@ export interface Restaurant {
   instagramUrl: string;
   hours: HoursRow[];
   geo: { lat: number; lng: number };
+  reservationPartySizes: number[];
+  reservationTimes: string[];
+  events: RestaurantEvent[];
   menu: MenuCategory[];
   hero: Media[];
   gallery: Media[];
@@ -70,6 +78,13 @@ export const restaurant: Restaurant = {
     { days: 'Domingo', time: '12:00 – 16:00' },
   ],
   geo: { lat: -34.5889, lng: -58.4306 },
+  reservationPartySizes: [2, 3, 4, 5, 6, 8, 10],
+  reservationTimes: ['20:00', '20:30', '21:00', '21:30', '22:00', '22:30'],
+  events: [
+    { day: 'Jue', title: 'Cata de Malbec', detail: 'Valle de Uco · 20:30' },
+    { day: 'Vie', title: 'Vinos naturales', detail: 'Copas desde $4.500 · 21:00' },
+    { day: 'Sáb', title: 'Música en vivo', detail: 'Jazz + tabla · 22:00' },
+  ],
   menu: [
     {
       name: 'Entradas',
@@ -110,9 +125,9 @@ export const restaurant: Restaurant = {
       name: 'Vinos',
       note: 'Carta completa en el salón.',
       items: [
-        { name: 'Malbec — copa / botella', price: '$4.500 / $22.000', desc: 'Valle de Uco, Mendoza.' },
-        { name: 'Cabernet Sauvignon — botella', price: '$24.000', desc: 'Mendoza.' },
-        { name: 'Torrontés — botella', price: '$20.000', desc: 'Cafayate, Salta.' },
+        { name: 'Malbec, copa o botella', price: '$4.500 / $22.000', desc: 'Valle de Uco, Mendoza.' },
+        { name: 'Cabernet Sauvignon, botella', price: '$24.000', desc: 'Mendoza.' },
+        { name: 'Torrontés, botella', price: '$20.000', desc: 'Cafayate, Salta.' },
       ],
     },
   ],

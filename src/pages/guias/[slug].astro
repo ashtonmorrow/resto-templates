@@ -4,6 +4,7 @@ import StudioNav from '../../components/StudioNav.astro';
 import StudioFooter from '../../components/StudioFooter.astro';
 import { guides, type Guide } from '../../data/guides';
 import '../../styles/studio-pages.css';
+import { responsiveImage } from '../../lib/images';
 
 export function getStaticPaths() {
   return guides.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
@@ -14,6 +15,15 @@ const { guide } = Astro.props;
 const relatedGuides = guides.filter((item) => item.slug !== guide.slug).slice(0, 3);
 const canonical = `https://folio.unwoke.ninja/guias/${guide.slug}/`;
 const isRecipe = Boolean(guide.recipe);
+const breadcrumbItems = [
+  { name: 'Folio', item: 'https://folio.unwoke.ninja/' },
+  { name: 'Guías', item: 'https://folio.unwoke.ninja/guias/' },
+  ...(guide.collection ? [{ name: guide.collection.title, item: `https://folio.unwoke.ninja${guide.collection.href}` }] : []),
+  { name: guide.title, item: canonical },
+];
+const endTitle = guide.collection ? `Abrí el ejemplo ${guide.collection.title}.` : 'Hacé la prueba en una copia del proyecto.';
+const endHref = guide.collection?.href ?? 'https://github.com/ashtonmorrow/resto-templates/generate';
+const endLabel = guide.collection ? 'Abrir el ejemplo →' : 'Hacer una copia en GitHub ↗';
 const published = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${guide.datePublished}T00:00:00Z`));
 const modified = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${guide.dateModified}T00:00:00Z`));
 const articleData = {
@@ -24,19 +34,16 @@ const articleData = {
   datePublished: guide.datePublished,
   dateModified: guide.dateModified,
   inLanguage: 'es-AR',
-  author: { '@type': 'Organization', name: 'Folio Resto', url: 'https://folio.unwoke.ninja/' },
-  publisher: { '@type': 'Organization', name: 'Folio Resto', url: 'https://folio.unwoke.ninja/' },
+  author: { '@type': 'Organization', name: 'Folio', url: 'https://folio.unwoke.ninja/' },
+  publisher: { '@type': 'Organization', name: 'Folio', url: 'https://folio.unwoke.ninja/' },
   mainEntityOfPage: canonical,
+  ...(guide.proficiencyLevel ? { proficiencyLevel: guide.proficiencyLevel } : {}),
 };
 const structuredData: Record<string, unknown>[] = [
   articleData,
   {
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Folio Resto', item: 'https://folio.unwoke.ninja/' },
-      { '@type': 'ListItem', position: 2, name: 'Guías', item: 'https://folio.unwoke.ninja/guias/' },
-      { '@type': 'ListItem', position: 3, name: guide.title, item: canonical },
-    ],
+    itemListElement: breadcrumbItems.map((item, index) => ({ '@type': 'ListItem', position: index + 1, ...item })),
   },
 ];
 if (guide.recipe) {
@@ -46,7 +53,7 @@ if (guide.recipe) {
     name: guide.title,
     description: guide.description,
     inLanguage: 'es-AR',
-    totalTime: 'PT90M',
+    totalTime: guide.recipe.totalTime,
     supply: guide.recipe.ingredients.map((name) => ({ '@type': 'HowToSupply', name })),
     tool: [{ '@type': 'HowToTool', name: 'ChatGPT con Codex' }, { '@type': 'HowToTool', name: 'GitHub' }],
     step: guide.sections.map((section, index) => ({ '@type': 'HowToStep', position: index + 1, name: section.title, text: section.paragraphs.join(' '), url: `${canonical}#paso-${index + 1}` })),
@@ -55,36 +62,38 @@ if (guide.recipe) {
 ---
 
 <Base
-  title={`${guide.seoTitle ?? guide.title} | Folio Resto`}
+  title={`${guide.seoTitle ?? guide.title} | Folio`}
   theme="studio"
   description={guide.description}
-  image={isRecipe ? '/images/guides/chatgpt-recipe/07-final-preview.png' : null}
+  image={null}
   structuredData={structuredData}
   ogType="article"
   datePublished={guide.datePublished}
   dateModified={guide.dateModified}
 >
   <StudioNav />
-  <article class:list={['article', 'wrap', { 'article--recipe': isRecipe }]}>
+  <main class:list={['article', 'wrap', { 'article--recipe': isRecipe }]} id="main-content">
     <nav class="article__breadcrumb" aria-label="Migas de pan">
-      <a href="/">Folio Resto</a><span aria-hidden="true">/</span><a href="/guias/">Guías</a><span aria-hidden="true">/</span><span>{guide.kicker}</span>
+      <a href="/">Folio</a><span aria-hidden="true">/</span><a href="/guias/">Guías</a>
+      {guide.collection && <><span aria-hidden="true">/</span><a href={guide.collection.href}>{guide.collection.title}</a></>}
+      <span aria-hidden="true">/</span><span>{guide.kicker}</span>
     </nav>
 
     <header class="article__hero">
       <p class="eyebrow">{guide.kicker} · {guide.readTime} de lectura</p>
       <h1>{guide.title}</h1>
       <p class="article__deck">{guide.description}</p>
-      <div class="article__byline"><span>Por Folio Resto</span><span>{guide.dateModified === guide.datePublished ? `Publicado el ${published}` : `Actualizado el ${modified}`}</span><a href="https://github.com/ashtonmorrow/resto-templates" target="_blank" rel="noreferrer">Código y metodología ↗</a></div>
+      <div class="article__byline"><span>Por Folio</span><span>{guide.dateModified === guide.datePublished ? `Publicado el ${published}` : `Actualizado el ${modified}`}</span><a href="https://github.com/ashtonmorrow/resto-templates" target="_blank" rel="noreferrer">Código y metodología ↗</a></div>
     </header>
 
     {guide.recipe && (
       <section class="recipe-card" aria-labelledby="recipe-card-title">
-        <div><p class="eyebrow">Antes de empezar</p><h2 id="recipe-card-title">La receta de un vistazo</h2><dl><div><dt>Tiempo</dt><dd>{guide.recipe.time}</dd></div><div><dt>Dificultad</dt><dd>{guide.recipe.difficulty}</dd></div><div><dt>Resultado</dt><dd>{guide.recipe.result}</dd></div></dl></div>
-        <div class="recipe-card__ingredients"><h3>Ingredientes</h3><ul>{guide.recipe.ingredients.map((item) => <li>{item}</li>)}</ul></div>
+        <div><p class="eyebrow">Antes de abrir el proyecto</p><h2 id="recipe-card-title">Qué vas a hacer</h2><dl><div><dt>Tiempo</dt><dd>{guide.recipe.time}</dd></div><div><dt>Experiencia</dt><dd>{guide.recipe.difficulty}</dd></div><div><dt>Resultado</dt><dd>{guide.recipe.result}</dd></div></dl></div>
+        <div class="recipe-card__ingredients"><h3>Prepará esto</h3><ul>{guide.recipe.ingredients.map((item) => <li>{item}</li>)}</ul></div>
       </section>
     )}
 
-    <aside class="article__takeaway"><span>La idea central</span><p>{guide.takeaway}</p></aside>
+    <aside class="article__takeaway"><span>Antes de seguir</span><p>{guide.takeaway}</p></aside>
 
     <div class="article__layout">
       <aside class="article__toc" aria-label="Contenido de la guía">
@@ -107,9 +116,9 @@ if (guide.recipe) {
               </div>
             )}
             {section.bullets && <ul class="article__checklist">{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
-            {section.image && <figure class="article__figure"><img src={section.image.src} alt={section.image.alt} width="1512" height="900" loading="lazy" /><figcaption>{section.image.caption}</figcaption></figure>}
+            {section.image && <figure class="article__figure"><img src={section.image.src} srcset={responsiveImage(section.image.src, section.image.width).srcset} sizes="(max-width: 760px) 100vw, 760px" alt={section.image.alt} width={section.image.width} height={section.image.height} loading="lazy" decoding="async" /><figcaption>{section.image.caption}</figcaption></figure>}
             {section.code && <div class="article__code"><div><span>{section.code.label}</span><button type="button" data-copy-code aria-label={`Copiar ${section.code.label}`}>Copiar</button></div><pre><code>{section.code.value}</code></pre></div>}
-            {section.tip && <aside class="article__tip"><strong>Nota de cocina</strong><p>{section.tip}</p></aside>}
+            {section.tip && <aside class="article__tip"><strong>{guide.tipLabel ?? 'Nota'}</strong><p>{section.tip}</p></aside>}
             {section.link && <a class="article__source" href={section.link.url} target="_blank" rel="noreferrer">{section.link.label} ↗</a>}
             {section.links && <div class="article__sources">{section.links.map((link) => <div><a href={link.url} target="_blank" rel="noreferrer">{link.label} ↗</a>{link.note && <small>{link.note}</small>}</div>)}</div>}
           </section>
@@ -117,18 +126,23 @@ if (guide.recipe) {
       </div>
     </div>
 
-    <footer class="article__end"><div><p class="eyebrow">Siguiente paso</p><h2>Pasá de la receta a tu propia copia.</h2></div><a class="docs-btn" href="https://github.com/ashtonmorrow/resto-templates/generate" target="_blank" rel="noreferrer">Usar la plantilla en GitHub ↗</a></footer>
-    <aside class="article__related" aria-labelledby="related-title"><p class="eyebrow" id="related-title">Seguir leyendo</p><div>{relatedGuides.map((item) => <a href={`/guias/${item.slug}/`}><span>{item.kicker}</span><strong>{item.title}</strong></a>)}</div></aside>
-  </article>
+    <footer class="article__end"><div><p class="eyebrow">Siguiente paso</p><h2>{endTitle}</h2></div><a class="docs-btn" href={endHref} target={guide.collection ? undefined : '_blank'} rel={guide.collection ? undefined : 'noreferrer'}>{endLabel}</a></footer>
+    <aside class="article__related" aria-labelledby="related-title"><p class="eyebrow" id="related-title">Más guías</p><div>{relatedGuides.map((item) => <a href={`/guias/${item.slug}/`}><span>{item.kicker}</span><strong>{item.title}</strong></a>)}</div></aside>
+  </main>
   <StudioFooter />
 
   <script is:inline>
     document.querySelectorAll('[data-copy-code]').forEach((button) => {
       button.addEventListener('click', async () => {
         const code = button.closest('.article__code')?.querySelector('code')?.textContent || '';
-        await navigator.clipboard.writeText(code);
-        button.textContent = 'Copiado';
-        setTimeout(() => { button.textContent = 'Copiar'; }, 1800);
+        try {
+          if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable');
+          await navigator.clipboard.writeText(code);
+          button.textContent = 'Copiado';
+          setTimeout(() => { button.textContent = 'Copiar'; }, 1800);
+        } catch {
+          button.textContent = 'Copiá manualmente';
+        }
       });
     });
   </script>

@@ -3,16 +3,26 @@ const repositoryUrl = 'https://github.com/ashtonmorrow/resto-templates';
 ---
 
 <header class="studio-nav wrap">
-  <a class="studio-brand" href="/" aria-label="Folio Resto, inicio">
+  <a class="studio-brand" href="/" aria-label="Folio, inicio">
     <span class="studio-brand__mark" aria-hidden="true"></span>
-    <span>Folio Resto</span>
+    <span>Folio</span>
   </a>
   <nav class="studio-nav__links" aria-label="Navegación principal">
-    <a href="/#plantillas">Plantillas</a>
-    <a href="/guias/crear-web-restaurante-con-chatgpt/">Guía ChatGPT</a>
+    <a href="/aprender/">Aprender</a>
+    <a href="/guias/">Guías</a>
+    <a href="/ejemplos/">Ejemplos</a>
     <a href={repositoryUrl} target="_blank" rel="noreferrer">Código</a>
-    <a class="studio-nav__cta" href="mailto:hola@unwoke.ninja?subject=Quiero%20una%20web%20para%20mi%20restaurante">Te la armamos</a>
+    <a class="studio-nav__cta" href="/aprender/">Empezar</a>
   </nav>
+  <details class="studio-nav__menu">
+    <summary>Menú</summary>
+    <nav aria-label="Navegación principal para pantallas chicas">
+      <a href="/aprender/">Aprender</a>
+      <a href="/guias/">Guías</a>
+      <a href="/ejemplos/">Ejemplos</a>
+      <a href={repositoryUrl} target="_blank" rel="noreferrer">Código ↗</a>
+    </nav>
+  </details>
 </header>
 
 <style>
@@ -22,5 +32,11 @@ const repositoryUrl = 'https://github.com/ashtonmorrow/resto-templates';
   .studio-nav__links { display: flex; align-items: center; gap: clamp(16px, 3vw, 30px); font-size: 0.84rem; font-weight: 700; }
   .studio-nav__links > a:not(.studio-nav__cta):hover { text-decoration: underline; text-underline-offset: 5px; }
   .studio-nav__cta { border: 1px solid var(--text); border-radius: 999px; padding: 0.72em 1.25em; background: var(--acid); font-weight: 800; }
-  @media (max-width: 760px) { .studio-nav { min-height: 70px; } .studio-nav__links > a:not(.studio-nav__cta) { display: none; } .studio-nav__cta { padding: 0.62em 1em; } }
+  .studio-nav__menu { display: none; position: relative; }
+  .studio-nav__menu summary { min-width: 74px; min-height: 44px; border: 1px solid var(--text); border-radius: 999px; display: grid; place-items: center; cursor: pointer; font-size: .82rem; font-weight: 800; list-style: none; }
+  .studio-nav__menu summary::-webkit-details-marker { display: none; }
+  .studio-nav__menu nav { position: absolute; top: calc(100% + 10px); right: 0; z-index: 100; width: min(260px, calc(100vw - 40px)); border: 1px solid var(--text); background: var(--bg); box-shadow: 5px 5px 0 var(--accent); }
+  .studio-nav__menu nav a { display: block; min-height: 48px; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: .9rem; font-weight: 800; }
+  .studio-nav__menu nav a:last-child { border-bottom: 0; }
+  @media (max-width: 880px) { .studio-nav { min-height: 70px; } .studio-nav__links { display: none; } .studio-nav__menu { display: block; } }
 </style>

@@ -34,5 +34,9 @@ const wa = `https://wa.me/${restaurant.whatsapp}?text=${encodeURIComponent(resta
   .nav__links { display: flex; gap: 1.6rem; font-size: 0.92rem; font-weight: 500; }
   .nav__links a:hover { color: var(--accent); }
   .nav__book { padding: 0.6em 1.1em; font-size: 0.88rem; }
-  @media (max-width: 720px) { .nav__links { display: none; } }
+  @media (max-width: 720px) {
+    .nav__inner { flex-wrap: wrap; gap: .6rem 1rem; }
+    .nav__links { order: 3; width: 100%; gap: 1.1rem; overflow-x: auto; padding-block: .25rem; white-space: nowrap; scrollbar-width: thin; }
+    .nav__book { margin-left: auto; }
+  }
 </style>

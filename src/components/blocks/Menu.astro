@@ -4,11 +4,12 @@ interface Props {
   variant?: 'list' | 'columns' | 'cards' | 'compact';
   heading?: string | null;
   limit?: number;
+  id?: string;
 }
-const { variant = 'list', heading = 'La Carta', limit } = Astro.props;
+const { variant = 'list', heading = 'La Carta', limit, id } = Astro.props;
 const cats = limit ? restaurant.menu.slice(0, limit) : restaurant.menu;
 ---
-<section class={`menu menu--${variant}`} id="menu">
+<section class={`menu menu--${variant}`} id={id}>
   {heading && <h2 class="menu__title">{heading}</h2>}
   <div class="menu__grid">
     {

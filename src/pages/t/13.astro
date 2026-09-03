@@ -7,7 +7,8 @@ import Social from '../../components/blocks/Social.astro';
 import SiteFooter from '../../components/blocks/SiteFooter.astro';
 import { restaurant } from '../../data/restaurant';
 ---
-<Base title={`${restaurant.name} — ${restaurant.neighborhood}`} theme="gallery" description={restaurant.about}>
+<Base title={`${restaurant.name} — Galería`} theme="gallery" description={restaurant.about} image="/images/food/asado-platter.jpg">
+  <main id="main-content">
   <header class="ig-top wrap">
     <div>
       <p class="eyebrow">{restaurant.kicker}</p>
@@ -23,6 +24,7 @@ import { restaurant } from '../../data/restaurant';
   <section class="wrap"><Gallery variant="masonry" heading={null} /></section>
 
   <section class="band" id="menu"><div class="section wrap"><Menu variant="compact" heading="La carta" /></div></section>
+  </main>
 
   <SiteFooter />
 </Base>

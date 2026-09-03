@@ -1,0 +1,190 @@
+---
+import Base from '../layouts/Base.astro';
+import StudioNav from '../components/StudioNav.astro';
+import StudioFooter from '../components/StudioFooter.astro';
+import { responsiveImage } from '../lib/images';
+
+const formats = ['Figma', 'Illustrator', 'Photoshop', 'PDF', 'Captura', 'Wireframe', 'Boceto'];
+const restaurantPreview = responsiveImage('/images/templates/01.jpg', 1512);
+
+const steps = [
+  {
+    number: '01',
+    title: 'Describí una página',
+    description: 'Definí qué tiene que lograr, cuál es la acción principal y cómo se ordena en un teléfono.',
+    href: '/aprender/preparar-un-diseno/',
+    action: 'Hacer el ejercicio',
+  },
+  {
+    number: '02',
+    title: 'Abrí el proyecto',
+    description: 'Hacé una copia de Folio Resto y ubicá los datos, los componentes y los estilos antes de editar.',
+    href: '/guias/crear-web-restaurante-con-chatgpt/',
+    action: 'Abrir la guía con capturas',
+  },
+  {
+    number: '03',
+    title: 'Cambiá una sección',
+    description: 'Abrí la vista previa, compará los archivos modificados y ejecutá la comprobación del proyecto.',
+    href: '/guias/del-diseno-a-una-web-con-ia/#paso-5',
+    action: 'Ver la primera iteración',
+  },
+];
+---
+
+<Base
+  title="Empezar a crear una web con IA | Folio"
+  theme="studio"
+  description="Prepará una página, abrí una copia de Folio y revisá el primer cambio en el navegador y en los archivos."
+  structuredData={{
+    '@type': 'LearningResource',
+    name: 'Aprender a crear una web con IA',
+    url: 'https://folio.unwoke.ninja/aprender/',
+    description: 'Una introducción para pasar de una referencia visual a una web usando un agente de código y un proyecto abierto.',
+    inLanguage: 'es-AR',
+    educationalLevel: 'Principiante',
+    teaches: ['entorno de trabajo para agentes de código', 'componentes', 'tokens de diseño', 'vista previa', 'diff', 'build'],
+  }}
+>
+  <StudioNav />
+
+  <main id="main-content">
+    <header class="learn-hero wrap">
+      <p class="eyebrow">Primera práctica</p>
+      <h1>Empezá con una página, no con todo el sitio.</h1>
+      <div class="learn-hero__intro">
+        <p>Elegí una pantalla que ya conozcas. Vas a preparar el pedido, abrir una copia del proyecto y revisar un cambio en el navegador y en los archivos.</p>
+        <div class="learn-actions">
+          <a class="learn-button learn-button--primary" href="/guias/del-diseno-a-una-web-con-ia/">Leer la guía <span>10 min</span></a>
+          <a class="learn-button" href="/aprender/preparar-un-diseno/">Preparar una página <span>Ejercicio</span></a>
+        </div>
+      </div>
+    </header>
+
+    <section class="learn-start">
+      <div class="wrap learn-start__grid">
+        <div>
+          <p class="eyebrow">Tu punto de partida</p>
+          <h2>Tu archivo de diseño ya sirve de punto de partida.</h2>
+        </div>
+        <div>
+          <p>Puede ser una pantalla de Figma o Adobe, un PDF, una captura o un boceto. Sumale lo que la imagen no muestra: qué acción importa, en qué orden va el contenido y qué pasa cuando el ancho se achica.</p>
+          <ul aria-label="Formatos que podés usar">
+            {formats.map((format) => <li>{format}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="learn-path wrap">
+      <div class="learn-heading">
+        <p class="eyebrow">El recorrido</p>
+        <h2>La primera vuelta tiene tres trabajos.</h2>
+        <p>Al terminar cada uno queda algo para revisar: una ficha, una copia del proyecto o una sección funcionando.</p>
+      </div>
+      <ol class="learn-steps">
+        {steps.map((step) => (
+          <li>
+            <span>{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+            <a href={step.href}>{step.action} <span aria-hidden="true">→</span></a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="learn-demo">
+      <div class="wrap learn-demo__grid">
+        <div class="learn-demo__copy">
+          <p class="eyebrow">Proyecto para practicar</p>
+          <h2>Abrí Folio Resto y seguí los datos.</h2>
+          <p>Las quince versiones leen la misma carta, los mismos horarios y los mismos componentes. Compararlas ayuda a encontrar qué archivo controla el contenido y cuál cambia la composición.</p>
+          <div class="learn-actions">
+            <a class="learn-button learn-button--primary" href="/ejemplos/">Abrir el ejemplo <span>15 versiones</span></a>
+            <a class="learn-button learn-button--dark" href="https://github.com/ashtonmorrow/resto-templates" target="_blank" rel="noreferrer">Abrir el código <span>GitHub ↗</span></a>
+          </div>
+        </div>
+        <a class="demo-image" href="/t/01/" aria-label="Abrir la demostración La Brasa">
+          <img src="/images/templates/01.jpg" srcset={restaurantPreview.srcset} sizes="(max-width: 840px) 100vw, 55vw" alt="Vista de la plantilla La Brasa del ejemplo Folio Resto" width="1512" height="767" loading="lazy" decoding="async" />
+          <span><b>Demo 01</b> La Brasa <i aria-hidden="true">↗</i></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="learn-end wrap">
+      <div>
+        <p class="eyebrow">Antes de abrir el código</p>
+        <h2>Qué página querés probar?</h2>
+      </div>
+      <a class="learn-button learn-button--primary" href="/aprender/preparar-un-diseno/">Abrir el ejercicio <span>10 min →</span></a>
+    </section>
+  </main>
+
+  <StudioFooter />
+</Base>
+
+<style>
+  .learn-hero { padding-block: clamp(64px, 9vw, 112px) clamp(72px, 9vw, 112px); border-bottom: 1px solid var(--border); }
+  .learn-hero h1 { max-width: 930px; margin-top: 20px; font-size: clamp(3.1rem, 7vw, 6.5rem); line-height: .94; letter-spacing: -.062em; font-weight: 850; }
+  .learn-hero__intro { width: min(700px, 100%); margin: 40px 0 0 auto; }
+  .learn-hero__intro > p { font-family: Georgia, serif; font-size: clamp(1.12rem, 2vw, 1.35rem); line-height: 1.6; }
+  .learn-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .learn-button { min-height: 54px; padding: .8em 1.05em; border: 1px solid currentColor; border-radius: 4px; display: inline-flex; align-items: center; justify-content: space-between; gap: 26px; font-weight: 800; }
+  .learn-button:hover { box-shadow: 3px 3px 0 currentColor; transform: translate(-1px, -1px); }
+  .learn-button--primary { background: var(--acid); color: var(--text); }
+  .learn-button--dark { color: #f7f3e9; }
+  .learn-button span { font-size: .67rem; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+
+  .learn-start { padding-block: clamp(64px, 8vw, 94px); background: #fffaf0; border-bottom: 1px solid var(--border); }
+  .learn-start__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(38px, 8vw, 100px); }
+  .learn-start h2, .learn-heading h2, .learn-demo h2, .learn-end h2 { margin-top: 14px; font-size: clamp(2.3rem, 4.5vw, 4.3rem); line-height: .98; letter-spacing: -.05em; font-weight: 850; }
+  .learn-start__grid > div:last-child > p { max-width: 620px; color: var(--muted); font-size: 1.02rem; line-height: 1.7; }
+  .learn-start ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; padding: 0; list-style: none; }
+  .learn-start li { padding: .5em .8em; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); font-size: .78rem; font-weight: 700; }
+
+  .learn-path { padding-block: clamp(72px, 10vw, 118px); }
+  .learn-heading { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .6fr); column-gap: 60px; }
+  .learn-heading .eyebrow { grid-column: 1 / -1; }
+  .learn-heading > p:last-child { align-self: end; color: var(--muted); line-height: 1.65; }
+  .learn-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 50px; padding: 0; list-style: none; }
+  .learn-steps li { min-height: 300px; padding: 24px; border: 1px solid var(--text); display: flex; flex-direction: column; background: var(--bg); }
+  .learn-steps li > span { color: var(--accent); font-size: .72rem; font-weight: 800; letter-spacing: .1em; }
+  .learn-steps h3 { margin-top: 44px; font-size: clamp(1.55rem, 2.6vw, 2.35rem); letter-spacing: -.04em; font-weight: 850; }
+  .learn-steps p { margin-top: 15px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+  .learn-steps a { margin-top: auto; padding-top: 28px; font-size: .82rem; font-weight: 800; }
+  .learn-steps a span { color: var(--accent); margin-left: 8px; }
+
+  .learn-demo { padding-block: clamp(72px, 9vw, 108px); background: #253b8e; color: #f7f3e9; }
+  .learn-demo__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(44px, 7vw, 86px); align-items: center; }
+  .learn-demo .eyebrow { color: var(--acid); }
+  .learn-demo h2 { max-width: 590px; }
+  .learn-demo__copy > p:not(.eyebrow) { max-width: 590px; margin-top: 22px; color: #d9e0ff; line-height: 1.7; }
+  .demo-image { border: 1px solid #111; background: var(--paper); color: var(--text); box-shadow: 8px 8px 0 #14235c; }
+  .demo-image img { width: 100%; height: auto; aspect-ratio: 1512 / 767; object-fit: cover; object-position: top; }
+  .demo-image > span { padding: 13px 15px; border-top: 1px solid #111; display: flex; gap: 12px; }
+  .demo-image b { color: var(--accent); }
+  .demo-image i { margin-left: auto; font-style: normal; }
+
+  .learn-end { padding-block: clamp(68px, 9vw, 102px); display: grid; grid-template-columns: 1fr auto; gap: 44px; align-items: end; }
+  .learn-end h2 { max-width: 720px; }
+  .learn-end .learn-button { min-width: 260px; }
+
+  @media (max-width: 840px) {
+    .learn-start__grid, .learn-heading, .learn-demo__grid, .learn-end { grid-template-columns: 1fr; }
+    .learn-heading > p:last-child { margin-top: 20px; max-width: 620px; }
+    .learn-steps { grid-template-columns: 1fr; }
+    .learn-steps li { min-height: 0; }
+    .learn-steps h3 { margin-top: 26px; }
+    .learn-steps a { margin-top: 24px; }
+    .demo-image { width: min(680px, 100%); }
+    .learn-end { align-items: start; }
+    .learn-end .learn-button { width: min(360px, 100%); }
+  }
+  @media (max-width: 540px) {
+    .learn-hero h1 { font-size: clamp(2.9rem, 14vw, 4.3rem); }
+    .learn-hero__intro { margin-top: 30px; }
+    .learn-button { flex-basis: 100%; }
+    .learn-start h2, .learn-heading h2, .learn-demo h2, .learn-end h2 { font-size: clamp(2.15rem, 10vw, 3rem); }
+  }
+</style>

@@ -4,48 +4,68 @@ import StudioNav from '../../components/StudioNav.astro';
 import StudioFooter from '../../components/StudioFooter.astro';
 import { guides } from '../../data/guides';
 import '../../styles/studio-pages.css';
+
+const learningGuides = guides.filter((guide) => !guide.collection);
+const restoGuides = guides.filter((guide) => guide.collection?.title === 'Folio Resto');
 ---
 
 <Base
-  title="Guías para la web de tu restaurante | Folio Resto"
+  title="Guías para aprender a construir con IA | Folio"
   theme="studio"
-  description="Guías prácticas sobre páginas web, menú digital, reservas por WhatsApp, pedidos directos y software gastronómico en Argentina."
+  description="Instrucciones para preparar una página, trabajar sobre una copia del proyecto y revisar cambios hechos con IA."
   structuredData={[
     {
       '@type': 'CollectionPage',
-      name: 'Guías para la web de tu restaurante',
+      name: 'Guías para aprender a construir con IA',
       url: 'https://folio.unwoke.ninja/guias/',
-      description: 'Guías prácticas sobre web, carta digital, reservas, pedidos y software gastronómico para restaurantes de Argentina.',
+      description: 'Guías prácticas sobre diseño, código, revisión y publicación con IA.',
       inLanguage: 'es-AR',
       hasPart: guides.map((guide) => ({ '@type': 'Article', headline: guide.title, url: `https://folio.unwoke.ninja/guias/${guide.slug}/` })),
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Folio Resto', item: 'https://folio.unwoke.ninja/' },
+        { '@type': 'ListItem', position: 1, name: 'Folio', item: 'https://folio.unwoke.ninja/' },
         { '@type': 'ListItem', position: 2, name: 'Guías', item: 'https://folio.unwoke.ninja/guias/' },
       ],
     },
   ]}
 >
   <StudioNav />
+  <main id="main-content">
   <header class="docs-hero wrap">
-    <p class="eyebrow">Biblioteca abierta</p>
-    <h1>Internet para restaurantes, sin humo.</h1>
-    <p>Decisiones prácticas para negocios chicos: qué hacer vos, qué contratar y qué conviene mantener bajo tu control.</p>
+    <nav class="article__breadcrumb" aria-label="Migas de pan"><a href="/">Folio</a><span aria-hidden="true">/</span><span>Guías</span></nav>
+    <p class="eyebrow">Guías de Folio</p>
+    <h1>Guías para hacer el primer cambio.</h1>
+    <p>Elegí la tarea que tenés adelante. Cada guía señala los archivos, los datos y la comprobación que corresponden.</p>
   </header>
-  <main class="docs-index wrap">
-    {guides.map((guide, index) => (
-      <a class="docs-index__item" href={`/guias/${guide.slug}/`}>
-        <span class="docs-index__num">{String(index + 1).padStart(2, '0')}</span>
-        <div>
-          <p class="docs-index__meta">{guide.kicker} · {guide.readTime}</p>
-          <h2>{guide.title}</h2>
-          <p>{guide.description}</p>
-        </div>
-        <span class="docs-index__arrow" aria-hidden="true">→</span>
-      </a>
-    ))}
+  <div class="docs-index wrap">
+    <section class="docs-group" aria-labelledby="learning-guides">
+      <div class="docs-group__head"><p class="eyebrow">Primera página</p><h2 id="learning-guides">Diseño, código y revisión con IA</h2></div>
+      <div>
+        {learningGuides.map((guide, index) => (
+          <a class="docs-index__item" href={`/guias/${guide.slug}/`}>
+            <span class="docs-index__num">{String(index + 1).padStart(2, '0')}</span>
+            <div><p class="docs-index__meta">{guide.kicker} · {guide.readTime}</p><h3>{guide.title}</h3><p>{guide.description}</p></div>
+            <span class="docs-index__arrow" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="docs-group" aria-labelledby="resto-guides">
+      <div class="docs-group__head"><p class="eyebrow">Ejemplo: Folio Resto</p><h2 id="resto-guides">Guías para adaptar el ejemplo</h2><p>Acá están la carga de datos, la carta, WhatsApp, los componentes y la publicación de la web gastronómica.</p><a href="/ejemplos/#folio-resto">Ver el ejemplo →</a></div>
+      <div>
+        {restoGuides.map((guide, index) => (
+          <a class="docs-index__item" href={`/guias/${guide.slug}/`}>
+            <span class="docs-index__num">{String(index + 1).padStart(2, '0')}</span>
+            <div><p class="docs-index__meta">{guide.kicker} · {guide.readTime}</p><h3>{guide.title}</h3><p>{guide.description}</p></div>
+            <span class="docs-index__arrow" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
   </main>
   <StudioFooter />
 </Base>

@@ -6,14 +6,10 @@ import Gallery from '../../components/blocks/Gallery.astro';
 import SiteFooter from '../../components/blocks/SiteFooter.astro';
 import Img from '../../components/Img.astro';
 import { restaurant } from '../../data/restaurant';
-const events = [
-  { day: 'Jue', title: 'Cata de Malbec', detail: 'Valle de Uco · 20:30' },
-  { day: 'Vie', title: 'Vinos naturales', detail: 'Copas desde $4.500 · 21:00' },
-  { day: 'Sáb', title: 'Música en vivo', detail: 'Jazz + tabla · 22:00' },
-];
 ---
-<Base title={`${restaurant.name} — Bar de vinos`} theme="wine" description={restaurant.about}>
+<Base title={`${restaurant.name} — Bar de vinos`} theme="wine" description={restaurant.about} image="/images/food/malbec.jpg">
   <a id="top"></a>
+  <main id="main-content">
   <header class="cava-hero">
     <Img src="/images/food/malbec.jpg" alt="Copa de Malbec argentino de la casa" class="cava-hero__bg" priority />
     <div class="cava-hero__scrim"></div>
@@ -28,7 +24,7 @@ const events = [
   <section class="wrap section events">
     <p class="eyebrow">Esta semana</p>
     <div class="events__grid">
-      {events.map((e) => (
+      {restaurant.events.map((e) => (
         <div class="event">
           <span class="event__day">{e.day}</span>
           <div>
@@ -42,6 +38,7 @@ const events = [
 
   <div class="band" id="menu"><div class="section wrap"><Menu variant="columns" heading="Para acompañar" /></div></div>
   <div class="section wrap"><Gallery variant="grid" heading="El ambiente" limit={4} /></div>
+  </main>
   <SiteFooter />
 </Base>
 <style>

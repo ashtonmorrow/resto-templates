@@ -5,8 +5,9 @@ import Menu from '../../components/blocks/Menu.astro';
 import SiteFooter from '../../components/blocks/SiteFooter.astro';
 import { restaurant } from '../../data/restaurant';
 ---
-<Base title={`${restaurant.name} — Reservá tu mesa`} theme="convert" description={restaurant.about}>
+<Base title={`${restaurant.name} — Reservá tu mesa`} theme="convert" description={restaurant.about} image="/images/food/asado-platter.jpg">
   <a id="top"></a>
+  <main id="main-content">
   <header class="resv">
     <div class="wrap resv__grid">
       <div class="resv__pitch">
@@ -20,20 +21,20 @@ import { restaurant } from '../../data/restaurant';
         </ul>
       </div>
 
-      <form class="rform" id="rform">
+      <form class="rform" id="rform" data-phone={restaurant.whatsapp} data-restaurant-name={restaurant.name}>
         <h2 class="rform__title">Solicitá una reserva</h2>
-        <label>Nombre<input name="nombre" type="text" placeholder="Tu nombre" required /></label>
+        <label>Nombre<input name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" required /></label>
         <div class="rform__row">
           <label>Personas
             <select name="personas">
-              {[2,3,4,5,6,8,10].map((n) => <option>{n}</option>)}
+              {restaurant.reservationPartySizes.map((n) => <option value={n}>{n}</option>)}
             </select>
           </label>
-          <label>Día<input name="dia" type="date" required /></label>
+          <label>Día<input name="dia" type="date" required data-reservation-date /></label>
         </div>
         <label>Horario
           <select name="hora">
-            {['20:00','20:30','21:00','21:30','22:00','22:30'].map((h) => <option>{h}</option>)}
+            {restaurant.reservationTimes.map((h) => <option value={h}>{h}</option>)}
           </select>
         </label>
         <button type="submit" class="btn rform__btn">Solicitar por WhatsApp</button>
@@ -44,16 +45,26 @@ import { restaurant } from '../../data/restaurant';
 
   <div class="section wrap" id="about"><About image="/images/food/asado-platter.jpg" imageAlt="Tabla de asado a la parrilla con chorizo, morcilla y chimichurri" /></div>
   <div class="band" id="menu"><div class="section wrap"><Menu variant="columns" heading="La Carta" /></div></div>
+  </main>
   <SiteFooter />
 </Base>
 
-<script is:inline define:vars={{ phone: restaurant.whatsapp, name: restaurant.name }}>
+<script>
+  import { buildReservationMessage, buildWhatsappUrl } from '../../lib/reservation.mjs';
+
   const f = document.getElementById('rform');
+  const dateInput = document.querySelector('[data-reservation-date]');
+  if (dateInput instanceof HTMLInputElement) {
+    const today = new Date();
+    const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60_000).toISOString().slice(0, 10);
+    dateInput.min = localDate;
+  }
   f?.addEventListener('submit', (e) => {
+    if (!(f instanceof HTMLFormElement)) return;
     e.preventDefault();
-    const d = new FormData(f);
-    const msg = `Hola! Quiero solicitar una reserva en ${name}.\nNombre: ${d.get('nombre')}\nPersonas: ${d.get('personas')}\nDía: ${d.get('dia')}\nHorario: ${d.get('hora')}`;
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+    const values = Object.fromEntries(new FormData(f).entries());
+    const message = buildReservationMessage(values, f.dataset.restaurantName);
+    window.open(buildWhatsappUrl(f.dataset.phone, message), '_blank', 'noopener,noreferrer');
   });
 </script>
 

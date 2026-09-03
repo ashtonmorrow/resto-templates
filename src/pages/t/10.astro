@@ -6,31 +6,33 @@ import { restaurant } from '../../data/restaurant';
 const postres = restaurant.menu.find((m) => m.name === 'Postres')!;
 const pics = ['/images/food/flan.jpg'];
 ---
-<Base title={`${restaurant.name} — Dulces y postres`} theme="sweet" description={restaurant.about}>
-  <header class="sweet-hero wrap">
-    <div class="sweet-hero__text">
-      <p class="eyebrow">{restaurant.neighborhood} · Postres</p>
-      <h1>{restaurant.name}</h1>
-      <p class="sweet-hero__tag">{restaurant.tagline}</p>
-      <Book label="Encargar por WhatsApp" />
-    </div>
-    <figure class="sweet-hero__img"><Img src="/images/food/flan.jpg" alt="Flan mixto con dulce de leche y crema" /></figure>
-  </header>
+<Base title={`${restaurant.name} — Dulces y postres`} theme="sweet" description={restaurant.about} image="/images/food/flan.jpg">
+  <main id="main-content">
+    <header class="sweet-hero wrap">
+      <div class="sweet-hero__text">
+        <p class="eyebrow">{restaurant.neighborhood} · Postres</p>
+        <h1>{restaurant.name}</h1>
+        <p class="sweet-hero__tag">{restaurant.tagline}</p>
+        <Book label="Encargar por WhatsApp" />
+      </div>
+      <figure class="sweet-hero__img"><Img src="/images/food/flan.jpg" alt="Flan mixto con dulce de leche y crema" /></figure>
+    </header>
 
-  <main class="wrap section">
-    <h2 class="prod__title">Nuestros clásicos</h2>
-    <div class="prod">
-      {postres.items.map((it, i) => (
-        <article class="pcard">
-          <div class="pcard__img"><Img src={pics[i % pics.length]} alt={it.name} /></div>
-          <div class="pcard__body">
-            <h3>{it.name}</h3>
-            <p class="muted">{it.desc}</p>
-            <b class="pcard__price">{it.price}</b>
-          </div>
-        </article>
-      ))}
-    </div>
+    <section class="wrap section">
+      <h2 class="prod__title">Nuestros clásicos</h2>
+      <div class="prod">
+        {postres.items.map((it, i) => (
+          <article class="pcard">
+            <div class="pcard__img"><Img src={pics[i % pics.length]} alt={it.name} /></div>
+            <div class="pcard__body">
+              <h3>{it.name}</h3>
+              <p class="muted">{it.desc}</p>
+              <b class="pcard__price">{it.price}</b>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   </main>
 
   <footer class="wrap sweet-foot">

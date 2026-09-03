@@ -5,8 +5,8 @@ import Img from '../../components/Img.astro';
 import { restaurant } from '../../data/restaurant';
 const featured = restaurant.menu[1]; // De la parrilla
 ---
-<Base title={`${restaurant.name} — ${restaurant.neighborhood}`} theme="playful" description={restaurant.about}>
-  <main class="wrap bento">
+<Base title={`${restaurant.name} — Bento`} theme="playful" description={restaurant.about} image="/images/food/asado-platter.jpg">
+  <main class="wrap bento" id="main-content">
     <section class="tile tile--hero">
       <p class="eyebrow">{restaurant.kicker}</p>
       <h1 class="hero__name">{restaurant.name}</h1>
@@ -23,7 +23,6 @@ const featured = restaurant.menu[1]; // De la parrilla
           <li><span>{it.name}</span><b>{it.price}</b></li>
         ))}
       </ul>
-      <a href="#" onclick="return false" class="tile__link">Ver carta completa →</a>
     </section>
 
     <section class="tile tile--hours">
@@ -64,7 +63,6 @@ const featured = restaurant.menu[1]; // De la parrilla
   .tile--menu h2 { font-size: 1.5rem; margin-bottom: 0.8rem; }
   .tile--menu ul { list-style: none; padding: 0; display: grid; gap: 0.5rem; }
   .tile--menu li { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px dotted var(--border); padding-bottom: 0.4rem; }
-  .tile__link { display: inline-block; margin-top: 1rem; color: var(--accent); font-weight: 700; }
   .tile--hours h3, .tile--visit h3 { font-size: 1.2rem; margin-bottom: 0.8rem; }
   .tile--hours p { margin-bottom: 0.5rem; font-size: 0.9rem; }
   .tile--ig { grid-column: span 2; background: var(--accent-2); color: #fff; display: flex; flex-direction: column; justify-content: center; }
